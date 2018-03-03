@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.access.access.mapper.JsmsAccessMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.access.access.entity.JsmsAccess">
+        <result property="id" jdbcType="VARCHAR" column="id"/>
+        <result property="content" jdbcType="VARCHAR" column="content"/>
+        <result property="srcphone" jdbcType="VARCHAR" column="srcphone"/>
+        <result property="phone" jdbcType="VARCHAR" column="phone"/>
+        <result property="smscnt" jdbcType="INTEGER" column="smscnt"/>
+        <result property="smsindex" jdbcType="INTEGER" column="smsindex"/>
+        <result property="sign" jdbcType="VARCHAR" column="sign"/>
+        <result property="showsigntype" jdbcType="INTEGER" column="showsigntype"/>
+        <result property="submitid" jdbcType="VARCHAR" column="submitid"/>
+        <result property="smsid" jdbcType="VARCHAR" column="smsid"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="username" jdbcType="VARCHAR" column="username"/>
+        <result property="sid" jdbcType="VARCHAR" column="sid"/>
+        <result property="operatorstype" jdbcType="INTEGER" column="operatorstype"/>
+        <result property="smsfrom" jdbcType="INTEGER" column="smsfrom"/>
+        <result property="channelid" jdbcType="INTEGER" column="channelid"/>
+        <result property="state" jdbcType="INTEGER" column="state"/>
+        <result property="errorcode" jdbcType="VARCHAR" column="errorcode"/>
+        <result property="date" jdbcType="TIMESTAMP" column="date"/>
+        <result property="submit" jdbcType="VARCHAR" column="submit"/>
+        <result property="submitdate" jdbcType="TIMESTAMP" column="submitdate"/>
+        <result property="subret" jdbcType="VARCHAR" column="subret"/>
+        <result property="subretdate" jdbcType="TIMESTAMP" column="subretdate"/>
+        <result property="report" jdbcType="VARCHAR" column="report"/>
+        <result property="reportdate" jdbcType="TIMESTAMP" column="reportdate"/>
+        <result property="uid" jdbcType="VARCHAR" column="uid"/>
+        <result property="smstype" jdbcType="INTEGER" column="smstype"/>
+        <result property="costfee" jdbcType="DECIMAL" column="costfee"/>
+        <result property="salefee" jdbcType="DECIMAL" column="salefee"/>
+        <result property="productfee" jdbcType="DECIMAL" column="productfee"/>
+        <result property="subId" jdbcType="VARCHAR" column="sub_id"/>
+        <result property="productType" jdbcType="INTEGER" column="product_type"/>
+        <result property="chargeNum" jdbcType="INTEGER" column="charge_num"/>
+        <result property="paytype" jdbcType="INTEGER" column="paytype"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="isoverratecharge" jdbcType="INTEGER" column="isoverratecharge"/>
+        <result property="channeloperatorstype" jdbcType="INTEGER" column="channeloperatorstype"/>
+        <result property="channelremark" jdbcType="VARCHAR" column="channelremark"/>
+        <result property="isReback" jdbcType="INTEGER" column="is_reback"/>
+        <result property="templateId" jdbcType="INTEGER" column="template_id"/>
+        <result property="channelTempid" jdbcType="VARCHAR" column="channel_tempid"/>
+        <result property="tempParams" jdbcType="VARCHAR" column="temp_params"/>
+        <result property="c2sId" jdbcType="INTEGER" column="c2s_id"/>
+        <result property="processTimes" jdbcType="INTEGER" column="process_times"/>
+        <result property="longsms" jdbcType="INTEGER" column="longsms"/>
+        <result property="channelcnt" jdbcType="INTEGER" column="channelcnt"/>
+        <result property="belongSale" jdbcType="BIGINT" column="belong_sale"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        content,
+        srcphone,
+        phone,
+        smscnt,
+        smsindex,
+        sign,
+        showsigntype,
+        submitid,
+        smsid,
+        clientid,
+        username,
+        sid,
+        operatorstype,
+        smsfrom,
+        channelid,
+        state,
+        errorcode,
+        date,
+        submit,
+        submitdate,
+        subret,
+        subretdate,
+        report,
+        reportdate,
+        uid,
+        smstype,
+        costfee,
+        salefee,
+        productfee,
+        sub_id,
+        product_type,
+        charge_num,
+        paytype,
+        agent_id,
+        isoverratecharge,
+        channeloperatorstype,
+        channelremark,
+        is_reback,
+        template_id,
+        channel_tempid,
+        temp_params,
+        c2s_id,
+        process_times,
+        longsms,
+        channelcnt,
+        belong_sale
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.access.access.entity.JsmsAccess" >
+        INSERT INTO t_sms_access_0 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="srcphone != null" >
+                srcphone,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="smscnt != null" >
+                smscnt,
+            </if>
+            <if test="smsindex != null" >
+                smsindex,
+            </if>
+            <if test="sign != null" >
+                sign,
+            </if>
+            <if test="showsigntype != null" >
+                showsigntype,
+            </if>
+            <if test="submitid != null" >
+                submitid,
+            </if>
+            <if test="smsid != null" >
+                smsid,
+            </if>
+            <if test="clientid != null" >
+                clientid,
+            </if>
+            <if test="username != null" >
+                username,
+            </if>
+            <if test="sid != null" >
+                sid,
+            </if>
+            <if test="operatorstype != null" >
+                operatorstype,
+            </if>
+            <if test="smsfrom != null" >
+                smsfrom,
+            </if>
+            <if test="channelid != null" >
+                channelid,
+            </if>
+            <if test="state != null" >
+                state,
+            </if>
+            <if test="errorcode != null" >
+                errorcode,
+            </if>
+            <if test="date != null" >
+                date,
+            </if>
+            <if test="submit != null" >
+                submit,
+            </if>
+            <if test="submitdate != null" >
+                submitdate,
+            </if>
+            <if test="subret != null" >
+                subret,
+            </if>
+            <if test="subretdate != null" >
+                subretdate,
+            </if>
+            <if test="report != null" >
+                report,
+            </if>
+            <if test="reportdate != null" >
+                reportdate,
+            </if>
+            <if test="uid != null" >
+                uid,
+            </if>
+            <if test="smstype != null" >
+                smstype,
+            </if>
+            <if test="costfee != null" >
+                costfee,
+            </if>
+            <if test="salefee != null" >
+                salefee,
+            </if>
+            <if test="productfee != null" >
+                productfee,
+            </if>
+            <if test="subId != null" >
+                sub_id,
+            </if>
+            <if test="productType != null" >
+                product_type,
+            </if>
+            <if test="chargeNum != null" >
+                charge_num,
+            </if>
+            <if test="paytype != null" >
+                paytype,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="isoverratecharge != null" >
+                isoverratecharge,
+            </if>
+            <if test="channeloperatorstype != null" >
+                channeloperatorstype,
+            </if>
+            <if test="channelremark != null" >
+                channelremark,
+            </if>
+            <if test="isReback != null" >
+                is_reback,
+            </if>
+            <if test="templateId != null" >
+                template_id,
+            </if>
+            <if test="channelTempid != null" >
+                channel_tempid,
+            </if>
+            <if test="tempParams != null" >
+                temp_params,
+            </if>
+            <if test="c2sId != null" >
+                c2s_id,
+            </if>
+            <if test="processTimes != null" >
+                process_times,
+            </if>
+            <if test="longsms != null" >
+                longsms,
+            </if>
+            <if test="channelcnt != null" >
+                channelcnt,
+            </if>
+            <if test="belongSale != null" >
+                belong_sale
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="content != null" >
+                #{content},
+            </if>
+            <if test="srcphone != null" >
+                #{srcphone},
+            </if>
+            <if test="phone != null" >
+                #{phone},
+            </if>
+            <if test="smscnt != null" >
+                #{smscnt},
+            </if>
+            <if test="smsindex != null" >
+                #{smsindex},
+            </if>
+            <if test="sign != null" >
+                #{sign},
+            </if>
+            <if test="showsigntype != null" >
+                #{showsigntype},
+            </if>
+            <if test="submitid != null" >
+                #{submitid},
+            </if>
+            <if test="smsid != null" >
+                #{smsid},
+            </if>
+            <if test="clientid != null" >
+                #{clientid},
+            </if>
+            <if test="username != null" >
+                #{username},
+            </if>
+            <if test="sid != null" >
+                #{sid},
+            </if>
+            <if test="operatorstype != null" >
+                #{operatorstype},
+            </if>
+            <if test="smsfrom != null" >
+                #{smsfrom},
+            </if>
+            <if test="channelid != null" >
+                #{channelid},
+            </if>
+            <if test="state != null" >
+                #{state},
+            </if>
+            <if test="errorcode != null" >
+                #{errorcode},
+            </if>
+            <if test="date != null" >
+                #{date},
+            </if>
+            <if test="submit != null" >
+                #{submit},
+            </if>
+            <if test="submitdate != null" >
+                #{submitdate},
+            </if>
+            <if test="subret != null" >
+                #{subret},
+            </if>
+            <if test="subretdate != null" >
+                #{subretdate},
+            </if>
+            <if test="report != null" >
+                #{report},
+            </if>
+            <if test="reportdate != null" >
+                #{reportdate},
+            </if>
+            <if test="uid != null" >
+                #{uid},
+            </if>
+            <if test="smstype != null" >
+                #{smstype},
+            </if>
+            <if test="costfee != null" >
+                #{costfee},
+            </if>
+            <if test="salefee != null" >
+                #{salefee},
+            </if>
+            <if test="productfee != null" >
+                #{productfee},
+            </if>
+            <if test="subId != null" >
+                #{subId},
+            </if>
+            <if test="productType != null" >
+                #{productType},
+            </if>
+            <if test="chargeNum != null" >
+                #{chargeNum},
+            </if>
+            <if test="paytype != null" >
+                #{paytype},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="isoverratecharge != null" >
+                #{isoverratecharge},
+            </if>
+            <if test="channeloperatorstype != null" >
+                #{channeloperatorstype},
+            </if>
+            <if test="channelremark != null" >
+                #{channelremark},
+            </if>
+            <if test="isReback != null" >
+                #{isReback},
+            </if>
+            <if test="templateId != null" >
+                #{templateId},
+            </if>
+            <if test="channelTempid != null" >
+                #{channelTempid},
+            </if>
+            <if test="tempParams != null" >
+                #{tempParams},
+            </if>
+            <if test="c2sId != null" >
+                #{c2sId},
+            </if>
+            <if test="processTimes != null" >
+                #{processTimes},
+            </if>
+            <if test="longsms != null" >
+                #{longsms},
+            </if>
+            <if test="channelcnt != null" >
+                #{channelcnt},
+            </if>
+            <if test="belongSale != null" >
+                #{belongSale}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_access_0 (
+            id,
+            content,
+            srcphone,
+            phone,
+            smscnt,
+            smsindex,
+            sign,
+            showsigntype,
+            submitid,
+            smsid,
+            clientid,
+            username,
+            sid,
+            operatorstype,
+            smsfrom,
+            channelid,
+            state,
+            errorcode,
+            date,
+            submit,
+            submitdate,
+            subret,
+            subretdate,
+            report,
+            reportdate,
+            uid,
+            smstype,
+            costfee,
+            salefee,
+            productfee,
+            sub_id,
+            product_type,
+            charge_num,
+            paytype,
+            agent_id,
+            isoverratecharge,
+            channeloperatorstype,
+            channelremark,
+            is_reback,
+            template_id,
+            channel_tempid,
+            temp_params,
+            c2s_id,
+            process_times,
+            longsms,
+            channelcnt,
+            belong_sale
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.content},
+                #{item.srcphone},
+                #{item.phone},
+                #{item.smscnt},
+                #{item.smsindex},
+                #{item.sign},
+                #{item.showsigntype},
+                #{item.submitid},
+                #{item.smsid},
+                #{item.clientid},
+                #{item.username},
+                #{item.sid},
+                #{item.operatorstype},
+                #{item.smsfrom},
+                #{item.channelid},
+                #{item.state},
+                #{item.errorcode},
+                #{item.date},
+                #{item.submit},
+                #{item.submitdate},
+                #{item.subret},
+                #{item.subretdate},
+                #{item.report},
+                #{item.reportdate},
+                #{item.uid},
+                #{item.smstype},
+                #{item.costfee},
+                #{item.salefee},
+                #{item.productfee},
+                #{item.subId},
+                #{item.productType},
+                #{item.chargeNum},
+                #{item.paytype},
+                #{item.agentId},
+                #{item.isoverratecharge},
+                #{item.channeloperatorstype},
+                #{item.channelremark},
+                #{item.isReback},
+                #{item.templateId},
+                #{item.channelTempid},
+                #{item.tempParams},
+                #{item.c2sId},
+                #{item.processTimes},
+                #{item.longsms},
+                #{item.channelcnt},
+                #{item.belongSale}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_access_0 WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.access.access.entity.JsmsAccess" >
+        UPDATE t_sms_access_0 SET 
+            content=#{content},
+            srcphone=#{srcphone},
+            phone=#{phone},
+            smscnt=#{smscnt},
+            smsindex=#{smsindex},
+            sign=#{sign},
+            showsigntype=#{showsigntype},
+            submitid=#{submitid},
+            smsid=#{smsid},
+            clientid=#{clientid},
+            username=#{username},
+            sid=#{sid},
+            operatorstype=#{operatorstype},
+            smsfrom=#{smsfrom},
+            channelid=#{channelid},
+            state=#{state},
+            errorcode=#{errorcode},
+            date=#{date},
+            submit=#{submit},
+            submitdate=#{submitdate},
+            subret=#{subret},
+            subretdate=#{subretdate},
+            report=#{report},
+            reportdate=#{reportdate},
+            uid=#{uid},
+            smstype=#{smstype},
+            costfee=#{costfee},
+            salefee=#{salefee},
+            productfee=#{productfee},
+            sub_id=#{subId},
+            product_type=#{productType},
+            charge_num=#{chargeNum},
+            paytype=#{paytype},
+            agent_id=#{agentId},
+            isoverratecharge=#{isoverratecharge},
+            channeloperatorstype=#{channeloperatorstype},
+            channelremark=#{channelremark},
+            is_reback=#{isReback},
+            template_id=#{templateId},
+            channel_tempid=#{channelTempid},
+            temp_params=#{tempParams},
+            c2s_id=#{c2sId},
+            process_times=#{processTimes},
+            longsms=#{longsms},
+            channelcnt=#{channelcnt},
+            belong_sale=#{belongSale}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.access.access.entity.JsmsAccess" >
+        UPDATE t_sms_access_0 
+            <set>
+                <if test="content != null and content != ''">
+                    content = #{content},
+                </if>
+                <if test="srcphone != null and srcphone != ''">
+                    srcphone = #{srcphone},
+                </if>
+                <if test="phone != null and phone != ''">
+                    phone = #{phone},
+                </if>
+                <if test="smscnt != null and smscnt != ''">
+                    smscnt = #{smscnt},
+                </if>
+                <if test="smsindex != null and smsindex != ''">
+                    smsindex = #{smsindex},
+                </if>
+                <if test="sign != null and sign != ''">
+                    sign = #{sign},
+                </if>
+                <if test="showsigntype != null and showsigntype != ''">
+                    showsigntype = #{showsigntype},
+                </if>
+                <if test="submitid != null and submitid != ''">
+                    submitid = #{submitid},
+                </if>
+                <if test="smsid != null and smsid != ''">
+                    smsid = #{smsid},
+                </if>
+                <if test="clientid != null and clientid != ''">
+                    clientid = #{clientid},
+                </if>
+                <if test="username != null and username != ''">
+                    username = #{username},
+                </if>
+                <if test="sid != null and sid != ''">
+                    sid = #{sid},
+                </if>
+                <if test="operatorstype != null and operatorstype != ''">
+                    operatorstype = #{operatorstype},
+                </if>
+                <if test="smsfrom != null and smsfrom != ''">
+                    smsfrom = #{smsfrom},
+                </if>
+                <if test="channelid != null and channelid != ''">
+                    channelid = #{channelid},
+                </if>
+                <if test="state != null and state != ''">
+                    state = #{state},
+                </if>
+                <if test="errorcode != null and errorcode != ''">
+                    errorcode = #{errorcode},
+                </if>
+                <if test="date != null and date != ''">
+                    date = #{date},
+                </if>
+                <if test="submit != null and submit != ''">
+                    submit = #{submit},
+                </if>
+                <if test="submitdate != null and submitdate != ''">
+                    submitdate = #{submitdate},
+                </if>
+                <if test="subret != null and subret != ''">
+                    subret = #{subret},
+                </if>
+                <if test="subretdate != null and subretdate != ''">
+                    subretdate = #{subretdate},
+                </if>
+                <if test="report != null and report != ''">
+                    report = #{report},
+                </if>
+                <if test="reportdate != null and reportdate != ''">
+                    reportdate = #{reportdate},
+                </if>
+                <if test="uid != null and uid != ''">
+                    uid = #{uid},
+                </if>
+                <if test="smstype != null and smstype != ''">
+                    smstype = #{smstype},
+                </if>
+                <if test="costfee != null and costfee != ''">
+                    costfee = #{costfee},
+                </if>
+                <if test="salefee != null and salefee != ''">
+                    salefee = #{salefee},
+                </if>
+                <if test="productfee != null and productfee != ''">
+                    productfee = #{productfee},
+                </if>
+                <if test="subId != null and subId != ''">
+                    sub_id = #{subId},
+                </if>
+                <if test="productType != null and productType != ''">
+                    product_type = #{productType},
+                </if>
+                <if test="chargeNum != null and chargeNum != ''">
+                    charge_num = #{chargeNum},
+                </if>
+                <if test="paytype != null and paytype != ''">
+                    paytype = #{paytype},
+                </if>
+                <if test="agentId != null and agentId != ''">
+                    agent_id = #{agentId},
+                </if>
+                <if test="isoverratecharge != null and isoverratecharge != ''">
+                    isoverratecharge = #{isoverratecharge},
+                </if>
+                <if test="channeloperatorstype != null and channeloperatorstype != ''">
+                    channeloperatorstype = #{channeloperatorstype},
+                </if>
+                <if test="channelremark != null and channelremark != ''">
+                    channelremark = #{channelremark},
+                </if>
+                <if test="isReback != null and isReback != ''">
+                    is_reback = #{isReback},
+                </if>
+                <if test="templateId != null and templateId != ''">
+                    template_id = #{templateId},
+                </if>
+                <if test="channelTempid != null and channelTempid != ''">
+                    channel_tempid = #{channelTempid},
+                </if>
+                <if test="tempParams != null and tempParams != ''">
+                    temp_params = #{tempParams},
+                </if>
+                <if test="c2sId != null and c2sId != ''">
+                    c2s_id = #{c2sId},
+                </if>
+                <if test="processTimes != null and processTimes != ''">
+                    process_times = #{processTimes},
+                </if>
+                <if test="longsms != null and longsms != ''">
+                    longsms = #{longsms},
+                </if>
+                <if test="channelcnt != null and channelcnt != ''">
+                    channelcnt = #{channelcnt},
+                </if>
+                <if test="belongSale != null and belongSale != ''">
+                    belong_sale = #{belongSale}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_access_0
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryOneDayList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_access_${params.identify}_${params.suffixDate}
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.content != null and params.content != ''">
+                and content = #{params.content}
+            </if>
+            <if test="params.srcphone != null and params.srcphone != ''">
+                and srcphone = #{params.srcphone}
+            </if>
+            <if test="params.phone != null and params.phone != ''">
+                and phone = #{params.phone}
+            </if>
+            <if test="params.smscnt != null and params.smscnt != ''">
+                and smscnt = #{params.smscnt}
+            </if>
+            <if test="params.smsindex != null and params.smsindex != ''">
+                and smsindex = #{params.smsindex}
+            </if>
+            <if test="params.sign != null and params.sign != ''">
+                and sign = #{params.sign}
+            </if>
+            <if test="params.showsigntype != null and params.showsigntype != ''">
+                and showsigntype = #{params.showsigntype}
+            </if>
+            <if test="params.submitid != null and params.submitid != ''">
+                and submitid = #{params.submitid}
+            </if>
+            <if test="params.smsid != null and params.smsid != ''">
+                and smsid = #{params.smsid}
+            </if>
+            <if test="params.clientid != null and params.clientid != ''">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.username != null and params.username != ''">
+                and username = #{params.username}
+            </if>
+            <if test="params.sid != null and params.sid != ''">
+                and sid = #{params.sid}
+            </if>
+            <if test="params.operatorstype != null and params.operatorstype != ''">
+                and operatorstype = #{params.operatorstype}
+            </if>
+            <if test="params.smsfrom != null and params.smsfrom != ''">
+                and smsfrom = #{params.smsfrom}
+            </if>
+            <if test="params.channelid != null and params.channelid != ''">
+                and channelid = #{params.channelid}
+            </if>
+            <if test="params.state != null and params.state != ''">
+                and state = #{params.state}
+            </if>
+            <if test="params.stateList != null and params.stateList.size > 0">
+                and state IN 
+                <foreach collection="params.stateList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.errorcode != null and params.errorcode != ''">
+                and errorcode = #{params.errorcode}
+            </if>
+            <if test="params.date != null and params.date != ''">
+                and date = #{params.date}
+            </if>
+            <if test="params.submit != null and params.submit != ''">
+                and submit = #{params.submit}
+            </if>
+            <if test="params.submitdate != null and params.submitdate != ''">
+                and submitdate = #{params.submitdate}
+            </if>
+            <if test="params.subret != null and params.subret != ''">
+                and subret = #{params.subret}
+            </if>
+            <if test="params.subretdate != null and params.subretdate != ''">
+                and subretdate = #{params.subretdate}
+            </if>
+            <if test="params.report != null and params.report != ''">
+                and report = #{params.report}
+            </if>
+            <if test="params.reportdate != null and params.reportdate != ''">
+                and reportdate = #{params.reportdate}
+            </if>
+            <if test="params.uid != null and params.uid != ''">
+                and uid = #{params.uid}
+            </if>
+            <if test="params.smstype != null and params.smstype != ''">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.costfee != null and params.costfee != ''">
+                and costfee = #{params.costfee}
+            </if>
+            <if test="params.salefee != null and params.salefee != ''">
+                and salefee = #{params.salefee}
+            </if>
+            <if test="params.productfee != null and params.productfee != ''">
+                and productfee = #{params.productfee}
+            </if>
+            <if test="params.subId != null and params.subId != ''">
+                and sub_id = #{params.subId}
+            </if>
+            <if test="params.productType != null and params.productType != ''">
+                and product_type = #{params.productType}
+            </if>
+            <if test="params.chargeNum != null and params.chargeNum != ''">
+                and charge_num = #{params.chargeNum}
+            </if>
+            <if test="params.paytype != null and params.paytype != ''">
+                and paytype = #{params.paytype}
+            </if>
+            <if test="params.agentId != null and params.agentId != ''">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.isoverratecharge != null and params.isoverratecharge != ''">
+                and isoverratecharge = #{params.isoverratecharge}
+            </if>
+            <if test="params.channeloperatorstype != null and params.channeloperatorstype != ''">
+                and channeloperatorstype = #{params.channeloperatorstype}
+            </if>
+            <if test="params.channelremark != null and params.channelremark != ''">
+                and channelremark = #{params.channelremark}
+            </if>
+            <if test="params.isReback != null and params.isReback != ''">
+                and is_reback = #{params.isReback}
+            </if>
+            <if test="params.templateId != null and params.templateId != ''">
+                and template_id = #{params.templateId}
+            </if>
+            <if test="params.channelTempid != null and params.channelTempid != ''">
+                and channel_tempid = #{params.channelTempid}
+            </if>
+            <if test="params.tempParams != null and params.tempParams != ''">
+                and temp_params = #{params.tempParams}
+            </if>
+            <if test="params.c2sId != null and params.c2sId != ''">
+                and c2s_id = #{params.c2sId}
+            </if>
+            <if test="params.processTimes != null and params.processTimes != ''">
+                and process_times = #{params.processTimes}
+            </if>
+            <if test="params.longsms != null and params.longsms != ''">
+                and longsms = #{params.longsms}
+            </if>
+            <if test="params.channelcnt != null and params.channelcnt != ''">
+                and channelcnt = #{params.channelcnt}
+            </if>
+            <if test="params.belongSale != null and params.belongSale != ''">
+                and belong_sale = #{params.belongSale}
+            </if>
+            <if test="params.beginDate != null and params.beginDate != ''">
+                and date &gt;= #{params.beginDate}
+            </if>
+            <if test="params.endDate != null and params.endDate != ''">
+                and date &lt;= #{params.endDate}
+            </if>
+            <if test="params.searchContent != null and params.searchContent != ''">
+                and content LIKE  CONCAT('%',#{params.searchContent},'%')
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_access_0 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="srcphone != null and srcphone != ''">
+                and srcphone = #{srcphone}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="smscnt != null and smscnt != ''">
+                and smscnt = #{smscnt}
+            </if>
+            <if test="smsindex != null and smsindex != ''">
+                and smsindex = #{smsindex}
+            </if>
+            <if test="sign != null and sign != ''">
+                and sign = #{sign}
+            </if>
+            <if test="showsigntype != null and showsigntype != ''">
+                and showsigntype = #{showsigntype}
+            </if>
+            <if test="submitid != null and submitid != ''">
+                and submitid = #{submitid}
+            </if>
+            <if test="smsid != null and smsid != ''">
+                and smsid = #{smsid}
+            </if>
+            <if test="clientid != null and clientid != ''">
+                and clientid = #{clientid}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="sid != null and sid != ''">
+                and sid = #{sid}
+            </if>
+            <if test="operatorstype != null and operatorstype != ''">
+                and operatorstype = #{operatorstype}
+            </if>
+            <if test="smsfrom != null and smsfrom != ''">
+                and smsfrom = #{smsfrom}
+            </if>
+            <if test="channelid != null and channelid != ''">
+                and channelid = #{channelid}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="errorcode != null and errorcode != ''">
+                and errorcode = #{errorcode}
+            </if>
+            <if test="date != null and date != ''">
+                and date = #{date}
+            </if>
+            <if test="submit != null and submit != ''">
+                and submit = #{submit}
+            </if>
+            <if test="submitdate != null and submitdate != ''">
+                and submitdate = #{submitdate}
+            </if>
+            <if test="subret != null and subret != ''">
+                and subret = #{subret}
+            </if>
+            <if test="subretdate != null and subretdate != ''">
+                and subretdate = #{subretdate}
+            </if>
+            <if test="report != null and report != ''">
+                and report = #{report}
+            </if>
+            <if test="reportdate != null and reportdate != ''">
+                and reportdate = #{reportdate}
+            </if>
+            <if test="uid != null and uid != ''">
+                and uid = #{uid}
+            </if>
+            <if test="smstype != null and smstype != ''">
+                and smstype = #{smstype}
+            </if>
+            <if test="costfee != null and costfee != ''">
+                and costfee = #{costfee}
+            </if>
+            <if test="salefee != null and salefee != ''">
+                and salefee = #{salefee}
+            </if>
+            <if test="productfee != null and productfee != ''">
+                and productfee = #{productfee}
+            </if>
+            <if test="subId != null and subId != ''">
+                and sub_id = #{subId}
+            </if>
+            <if test="productType != null and productType != ''">
+                and product_type = #{productType}
+            </if>
+            <if test="chargeNum != null and chargeNum != ''">
+                and charge_num = #{chargeNum}
+            </if>
+            <if test="paytype != null and paytype != ''">
+                and paytype = #{paytype}
+            </if>
+            <if test="agentId != null and agentId != ''">
+                and agent_id = #{agentId}
+            </if>
+            <if test="isoverratecharge != null and isoverratecharge != ''">
+                and isoverratecharge = #{isoverratecharge}
+            </if>
+            <if test="channeloperatorstype != null and channeloperatorstype != ''">
+                and channeloperatorstype = #{channeloperatorstype}
+            </if>
+            <if test="channelremark != null and channelremark != ''">
+                and channelremark = #{channelremark}
+            </if>
+            <if test="isReback != null and isReback != ''">
+                and is_reback = #{isReback}
+            </if>
+            <if test="templateId != null and templateId != ''">
+                and template_id = #{templateId}
+            </if>
+            <if test="channelTempid != null and channelTempid != ''">
+                and channel_tempid = #{channelTempid}
+            </if>
+            <if test="tempParams != null and tempParams != ''">
+                and temp_params = #{tempParams}
+            </if>
+            <if test="c2sId != null and c2sId != ''">
+                and c2s_id = #{c2sId}
+            </if>
+            <if test="processTimes != null and processTimes != ''">
+                and process_times = #{processTimes}
+            </if>
+            <if test="longsms != null and longsms != ''">
+                and longsms = #{longsms}
+            </if>
+            <if test="channelcnt != null and channelcnt != ''">
+                and channelcnt = #{channelcnt}
+            </if>
+            <if test="belongSale != null and belongSale != ''">
+                and belong_sale = #{belongSale}
+            </if>
+    </select>
+	 
+</mapper>
+

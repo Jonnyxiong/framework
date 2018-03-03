@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsAgentBalanceBillMapper">
+
+
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsAgentBalanceBill">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="paymentType" jdbcType="INTEGER" column="payment_type"/>
+        <result property="financialType" jdbcType="VARCHAR" column="financial_type"/>
+        <result property="amount" jdbcType="DECIMAL" column="amount"/>
+        <result property="balance" jdbcType="DECIMAL" column="balance"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="orderId" jdbcType="BIGINT" column="order_id"/>
+        <result property="adminId" jdbcType="BIGINT" column="admin_id"/>
+        <result property="clientId" jdbcType="VARCHAR" column="client_id"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="creditBalance" jdbcType="DECIMAL" column="credit_balance"/>
+        <result property="historyPayment" jdbcType="DECIMAL" column="history_payment"/>
+        <result property="currentCredit" jdbcType="DECIMAL" column="current_credit"/>
+        <result property="noBackPayment" jdbcType="DECIMAL" column="no_back_payment"/>
+        <result property="paymentId" jdbcType="VARCHAR" column="payment_id"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        agent_id,
+        payment_type,
+        financial_type,
+        credit_balance,
+        history_payment,
+        current_credit,
+        no_back_payment,
+        amount,
+        balance,
+        create_time,
+        order_id,
+        admin_id,
+        client_id,
+        remark,
+        payment_id
+    </sql>
+
+    <sql id="MAX_COLUMN_LIST">
+        a.id as id,
+        a.agent_id as agent_id,
+        a.payment_type as payment_type,
+        a.financial_type as financial_type,
+        a.credit_balance as credit_balance,
+        a.history_payment as history_payment,
+        a.current_credit as current_credit,
+        a.no_back_payment as no_back_payment,
+        a.amount as amount,
+        a.balance as balance,
+        a.create_time as create_time,
+        a.order_id as order_id,
+        a.admin_id as admin_id,
+        a.client_id as client_id,
+        a.remark as remark,
+        a.payment_id as payment_id
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsAgentBalanceBill" >
+        INSERT INTO t_sms_agent_balance_bill
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="paymentType != null" >
+                payment_type,
+            </if>
+            <if test="financialType != null" >
+                financial_type,
+            </if>
+            <if test="amount != null" >
+                amount,
+            </if>
+            <if test="balance != null" >
+                balance,
+            </if>
+            <if test="creditBalance != null" >
+                credit_balance,
+            </if>
+            <if test="historyPayment != null" >
+                history_payment,
+            </if>
+            <if test="currentCredit != null" >
+                current_credit,
+            </if>
+            <if test="noBackPayment != null" >
+                no_back_payment,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="adminId != null" >
+                admin_id,
+            </if>
+            <if test="clientId != null" >
+                client_id,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="paymentId != null" >
+                payment_id
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="paymentType != null" >
+                #{paymentType},
+            </if>
+            <if test="financialType != null" >
+                #{financialType},
+            </if>
+            <if test="amount != null" >
+                #{amount},
+            </if>
+            <if test="balance != null" >
+                #{balance},
+            </if>
+            <if test="creditBalance != null" >
+                #{creditBalance},
+            </if>
+            <if test="historyPayment != null" >
+                #{historyPayment},
+            </if>
+            <if test="currentCredit != null" >
+                #{currentCredit},
+            </if>
+            <if test="noBackPayment != null" >
+                #{noBackPayment},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="orderId != null" >
+                #{orderId},
+            </if>
+            <if test="adminId != null" >
+                #{adminId},
+            </if>
+            <if test="clientId != null" >
+                #{clientId},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="paymentId != null" >
+                #{paymentId}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_agent_balance_bill (
+        id,
+        agent_id,
+        payment_type,
+        financial_type,
+        amount,
+        balance,
+        credit_balance,
+        history_payment,
+        current_credit,
+        no_back_payment,
+        create_time,
+        order_id,
+        admin_id,
+        client_id,
+        remark,
+        payment_id
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.id},
+            #{item.agentId},
+            #{item.paymentType},
+            #{item.financialType},
+            #{item.amount},
+            #{item.balance},
+            #{item.creditBalance},
+            #{item.historyPayment},
+            #{item.currentCredit},
+            #{item.noBackPayment},
+            now(),
+            #{item.orderId},
+            #{item.adminId},
+            #{item.clientId},
+            #{item.remark},
+            #{item.paymentId}
+            )
+        </foreach>
+    </insert>
+
+
+
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_agent_balance_bill WHERE id = #{id}
+    </delete>
+    -->
+
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsAgentBalanceBill" >
+        UPDATE t_sms_agent_balance_bill SET 
+            agent_id=#{agentId},
+            payment_type=#{paymentType},
+            financial_type=#{financialType},
+            amount=#{amount},
+            balance=#{balance},
+            credit_balance=#{creditBalance},
+            history_payment=#{historyPayment},
+            current_credit=#{currentCredit},
+            no_back_payment=#{noBackPayment},
+            create_time=#{createTime},
+            order_id=#{orderId},
+            admin_id=#{adminId},
+            client_id=#{clientId},
+            remark=#{remark},
+            payment_id=#{paymentId}
+        WHERE 
+            id = #{id} 
+    </update>
+
+
+
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsAgentBalanceBill" >
+        UPDATE t_sms_agent_balance_bill
+        <set>
+            <if test="agentId != null and agentId != ''">
+                agent_id = #{agentId},
+            </if>
+            <if test="paymentType != null ">
+                payment_type = #{paymentType},
+            </if>
+            <if test="financialType != null">
+                financial_type = #{financialType},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="balance != null">
+                balance = #{balance},
+            </if>
+            <if test="creditBalance != null">
+                credit_balance=#{creditBalance},
+            </if>
+            <if test="historyPayment != null">
+                history_payment=#{historyPayment},
+            </if>
+            <if test="currentCredit != null">
+                current_credit=#{currentCredit},
+            </if>
+            <if test="noBackPayment != null">
+                no_back_payment=#{noBackPayment},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                create_time = #{createTime},
+            </if>
+            <if test="orderId != null">
+                order_id = #{orderId},
+            </if>
+            <if test="adminId != null">
+                admin_id = #{adminId},
+            </if>
+            <if test="clientId != null">
+                client_id = #{clientId},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="paymentId != null and paymentId != ''">
+                payment_id = #{paymentId}
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_balance_bill
+        WHERE
+        id = #{id}
+    </select>
+
+    <select id="getBill4Max" resultMap="rowMapper">
+        SELECT  <include refid="MAX_COLUMN_LIST" />
+        FROM t_sms_agent_balance_bill a
+        WHERE a.id in (
+        SELECT max(id)
+        FROM t_sms_agent_balance_bill
+        WHERE
+        1=1
+        <if test="agentId != null">
+            and agent_id = #{agentId}
+        </if>
+        and
+        <![CDATA[ create_time <= now() ]]>
+        ORDER BY create_time,id desc
+        )
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_balance_bill
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.condition != null and params.condition!='' ">
+                and (
+                id like CONCAT('%',#{params.condition},'%' )
+                or order_id like CONCAT('%',#{params.condition},'%' )
+                )
+            </if>
+            <if test="params.id != null">
+                and id = #{params.id}
+            </if>
+            <if test="params.agentId != null">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.paymentType != null">
+                and payment_type = #{params.paymentType}
+            </if>
+            <if test="params.financialType != null and params.financialType != ''">
+                and financial_type = #{params.financialType}
+            </if>
+            <if test="params.amount != null and params.amount != ''">
+                and amount = #{params.amount}
+            </if>
+            <if test="params.balance != null and params.balance != ''">
+                and balance = #{params.balance}
+            </if>
+            <if test="params.createTime != null and params.createTime != ''">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.startCreateTime != null and params.startCreateTime != ''">
+                and create_time &gt;= #{params.startCreateTime}
+            </if>
+            <if test="params.endCreateTime != null and params.endCreateTime != ''">
+                and create_time &lt;= #{params.endCreateTime}
+            </if>
+            <if test="params.orderId != null and params.orderId != ''">
+                and order_id = #{params.orderId}
+            </if>
+            <if test="params.adminId != null and params.adminId != ''">
+                and admin_id = #{params.adminId}
+            </if>
+            <if test="params.clientId != null and params.clientId != ''">
+                and client_id = #{params.clientId}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.checkTime != null and params.checkTime != ''">
+                and create_time &lt;= #{params.checkTime}
+            </if>
+
+            <if test="params.paymentTypes!=null">
+                and payment_type in
+                <foreach item="item" index="index" collection="params.paymentTypes"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.paymentId != null and params.paymentId != ''">
+                and payment_id = #{params.paymentId}
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryListByMap" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_balance_bill
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="agentId != null">
+                and agent_id = #{agentId}
+            </if>
+            <if test="paymentType != null">
+                and payment_type = #{paymentType}
+            </if>
+            <if test="financialType != null and financialType != ''">
+                and financial_type = #{financialType}
+            </if>
+            <if test="amount != null and amount != ''">
+                and amount = #{amount}
+            </if>
+            <if test="balance != null and balance != ''">
+                and balance = #{balance}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="orderId != null and orderId != ''">
+                and order_id = #{orderId}
+            </if>
+            <if test="adminId != null and adminId != ''">
+                and admin_id = #{adminId}
+            </if>
+            <if test="clientId != null and clientId != ''">
+                and client_id = #{clientId}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="checkTime != null and checkTime != ''">
+                and create_time &lt;= #{checkTime}
+            </if>
+
+            <if test="paymentTypes!=null">
+                and payment_type in
+                <foreach item="item" index="index" collection="paymentTypes"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_agent_balance_bill
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="agentId != null and agentId != ''">
+            and agent_id = #{agentId}
+        </if>
+        <if test="paymentType != null and paymentType != ''">
+            and payment_type = #{paymentType}
+        </if>
+        <if test="financialType != null and financialType != ''">
+            and financial_type = #{financialType}
+        </if>
+        <if test="amount != null and amount != ''">
+            and amount = #{amount}
+        </if>
+        <if test="balance != null and balance != ''">
+            and balance = #{balance}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and create_time = #{createTime}
+        </if>
+        <if test="orderId != null and orderId != ''">
+            and order_id = #{orderId}
+        </if>
+        <if test="adminId != null and adminId != ''">
+            and admin_id = #{adminId}
+        </if>
+        <if test="clientId != null and clientId != ''">
+            and client_id = #{clientId}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+        <if test="paymentId != null and paymentId != ''">
+            and payment_id = #{paymentId}
+        </if>
+    </select>
+
+    <!--获取客户历史授信数据-->
+    <select id="queryHisCreditList" resultMap="rowMapper">
+        SELECT
+        tsabb.id,
+        tsabb.agent_id,
+        tsabb.payment_type,
+        tsabb.financial_type,
+        tsabb.amount,
+        IFNULL(TRUNCATE(tsabb.credit_balance, 4),0.0000) AS credit_balance,
+        IFNULL(TRUNCATE(tsabb.history_payment, 4),0.0000) AS history_payment,
+        IFNULL(TRUNCATE(tsabb.no_back_payment, 4),0.0000) AS no_back_payment,
+        IFNULL(TRUNCATE(tsabb.balance, 4),0.0000) AS balance,
+        IFNULL(TRUNCATE(tsabb.current_credit, 4),0.0000) AS current_credit,
+        tsabb.create_time,
+        tsabb.order_id,
+        tsabb.admin_id,
+        tsabb.client_id,
+        tsabb.remark
+        FROM
+        t_sms_agent_balance_bill tsabb
+        <if test="params.create_time != null and params.create_time != ''">
+            RIGHT  JOIN (select
+            t3.id,t3.agentId
+            from
+            (select
+            (UNIX_TIMESTAMP(tsabb2.create_time) - UNIX_TIMESTAMP(#{params.create_time})) as time,tsabb2.id as id,tsabb2.agent_id as agentId
+            from
+            t_sms_agent_balance_bill tsabb2
+            where (UNIX_TIMESTAMP(tsabb2.create_time) - UNIX_TIMESTAMP(#{params.create_time}))&lt;= 0
+            ORDER BY (UNIX_TIMESTAMP(tsabb2.create_time) - UNIX_TIMESTAMP(#{params.create_time})) desc,tsabb2.id desc
+            )t3,(select max(UNIX_TIMESTAMP(tsabb1.create_time) - UNIX_TIMESTAMP(#{params.create_time})) as time2 from t_sms_agent_balance_bill tsabb1
+            where (UNIX_TIMESTAMP(tsabb1.create_time) - UNIX_TIMESTAMP(#{params.create_time}))&lt;= 0
+            group by  tsabb1.agent_id)t4
+            where t3.time =t4.time2 GROUP BY t3.agentId)t2 on tsabb.id= t2.id
+        </if>
+        LEFT JOIN (
+        SELECT
+        tsai.agent_id,
+        tsai.agent_name,
+        tsai.agent_type,
+        tsai. STATUS,
+        tsu.id
+        FROM
+        t_sms_agent_info tsai,
+        t_sms_user tsu
+        WHERE
+        tsai.belong_sale = tsu.id
+        GROUP BY
+        tsai.agent_id
+        ) t1 ON tsabb.agent_id = t1.agent_id
+        LEFT JOIN (
+        SELECT
+        tsai.agent_id,
+        tsu.mobile,
+        tsu.email,
+        tsu.id
+        FROM
+        t_sms_agent_info tsai,
+        t_sms_user tsu
+        WHERE
+        tsai.admin_id = tsu.id
+        GROUP BY
+        tsai.admin_id
+        ) t3 on t3.agent_id  = tsabb.agent_id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            t1.agent_id is not null
+            <if test="params.condition != null and params.condition!='' ">
+                and (
+                t1.agent_id like CONCAT('%',#{params.condition},'%' )
+                or t1.agent_name like CONCAT('%',#{params.condition},'%' )
+                or t3.mobile like CONCAT('%',#{params.condition},'%' )
+                or t3.email like CONCAT('%',#{params.condition},'%' )
+                )
+            </if>
+            <choose>
+                <when test="params.agentType != null and params.agentType != ''">
+                    and t1.agent_type = #{params.agentType}
+                </when>
+                <otherwise>
+                    AND t1.agent_type in('2','5')
+                </otherwise>
+            </choose>
+            <if test="params.status != null and params.status !=''">
+                and t1.status = #{params.status}
+            </if>
+            <if test="params.create_time != null and params.create_time != ''">
+                and UNIX_TIMESTAMP(tsabb.create_time) - UNIX_TIMESTAMP(#{params.create_time}) &lt;= 0
+            </if>
+            <if test="params.besales!=null and params.besales!=''">
+                and t1.id in(${params.besales})
+            </if>
+        </trim>
+    </select>
+
+    <!--获取客户历史授信数据合计-->
+    <select id="total"  resultMap="rowMapper">
+        SELECT
+        SUM(IFNULL(TRUNCATE(tsabb.credit_balance, 4),0.0000)) AS credit_balance,
+        SUM(IFNULL(TRUNCATE(tsabb.history_payment, 4),0.0000)) AS history_payment,
+        SUM(IFNULL(TRUNCATE(tsabb.no_back_payment, 4),0.0000)) AS no_back_payment,
+        SUM(IFNULL(TRUNCATE(tsabb.balance, 4),0.0000)) AS balance,
+        SUM(IFNULL(TRUNCATE(tsabb.current_credit, 4),0.0000)) AS current_credit
+        FROM
+        t_sms_agent_balance_bill tsabb
+        <if test="params.create_time != null and params.create_time != ''">
+            RIGHT  JOIN (select
+            t3.id,t3.agentId
+            from
+            (select
+            (UNIX_TIMESTAMP(tsabb2.create_time) - UNIX_TIMESTAMP(#{params.create_time})) as time,tsabb2.id as id,tsabb2.agent_id as agentId
+            from
+            t_sms_agent_balance_bill tsabb2
+            where (UNIX_TIMESTAMP(tsabb2.create_time) - UNIX_TIMESTAMP(#{params.create_time}))&lt;= 0
+            ORDER BY (UNIX_TIMESTAMP(tsabb2.create_time) - UNIX_TIMESTAMP(#{params.create_time})) desc,tsabb2.id desc
+            )t3,(select max(UNIX_TIMESTAMP(tsabb1.create_time) - UNIX_TIMESTAMP(#{params.create_time})) as time2 from t_sms_agent_balance_bill tsabb1
+            where (UNIX_TIMESTAMP(tsabb1.create_time) - UNIX_TIMESTAMP(#{params.create_time}))&lt;= 0
+            group by  tsabb1.agent_id)t4
+            where t3.time =t4.time2 GROUP BY t3.agentId)t2 on tsabb.id= t2.id
+        </if>
+        LEFT JOIN (
+        SELECT
+        tsai.agent_id,
+        tsai.agent_name,
+        tsai.agent_type,
+        tsai. STATUS,
+        tsu.id
+        FROM
+        t_sms_agent_info tsai,
+        t_sms_user tsu
+        WHERE
+        tsai.belong_sale = tsu.id
+        GROUP BY
+        tsai.agent_id
+        ) t1 ON tsabb.agent_id = t1.agent_id
+        LEFT JOIN (
+        SELECT
+        tsai.agent_id,
+        tsu.mobile,
+        tsu.email,
+        tsu.id
+        FROM
+        t_sms_agent_info tsai,
+        t_sms_user tsu
+        WHERE
+        tsai.admin_id = tsu.id
+        GROUP BY
+        tsai.admin_id
+        ) t3 on t3.agent_id  = tsabb.agent_id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            t1.agent_id is not null
+            <if test="params.condition != null and params.condition!='' ">
+                and (
+                t1.agent_id like CONCAT('%',#{params.condition},'%' )
+                or t1.agent_name like CONCAT('%',#{params.condition},'%' )
+                or t3.mobile like CONCAT('%',#{params.condition},'%' )
+                or t3.email like CONCAT('%',#{params.condition},'%' )
+                )
+            </if>
+            <choose>
+                <when test="params.agentType != null and params.agentType != ''">
+                    and t1.agent_type = #{params.agentType}
+                </when>
+                <otherwise>
+                    AND t1.agent_type in('2','5')
+                </otherwise>
+            </choose>
+            <if test="params.status != null and params.status !=''">
+                and t1.status = #{params.status}
+            </if>
+            <if test="params.create_time != null and params.create_time != ''">
+                and UNIX_TIMESTAMP(tsabb.create_time) - UNIX_TIMESTAMP(#{params.create_time}) &lt;= 0
+            </if>
+            <if test="params.besales!=null and params.besales!=''">
+                and t1.id in(${params.besales})
+            </if>
+        </trim>
+    </select>
+</mapper>
+

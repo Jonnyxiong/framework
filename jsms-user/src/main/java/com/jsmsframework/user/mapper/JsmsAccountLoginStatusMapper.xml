@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.user.mapper.JsmsAccountLoginStatusMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.user.entity.JsmsAccountLoginStatus">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="code" jdbcType="INTEGER" column="code"/>
+        <result property="remarks" jdbcType="VARCHAR" column="remarks"/>
+        <result property="locktime" jdbcType="TIMESTAMP" column="locktime"/>
+        <result property="unlocktime" jdbcType="TIMESTAMP" column="unlocktime"/>
+        <result property="unlockby" jdbcType="VARCHAR" column="unlockby"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="updatetime" jdbcType="TIMESTAMP" column="updatetime"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        clientid,
+        code,
+        remarks,
+        locktime,
+        unlocktime,
+        unlockby,
+        status,
+        updatetime
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.user.entity.JsmsAccountLoginStatus" >
+        INSERT INTO t_sms_account_login_status 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="clientid != null" >
+                clientid,
+            </if>
+            <if test="code != null" >
+                code,
+            </if>
+            <if test="remarks != null" >
+                remarks,
+            </if>
+            <if test="locktime != null" >
+                locktime,
+            </if>
+            <if test="unlocktime != null" >
+                unlocktime,
+            </if>
+            <if test="unlockby != null" >
+                unlockby,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="updatetime != null" >
+                updatetime
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="clientid != null" >
+                #{clientid},
+            </if>
+            <if test="code != null" >
+                #{code},
+            </if>
+            <if test="remarks != null" >
+                #{remarks},
+            </if>
+            <if test="locktime != null" >
+                #{locktime},
+            </if>
+            <if test="unlocktime != null" >
+                #{unlocktime},
+            </if>
+            <if test="unlockby != null" >
+                #{unlockby},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="updatetime != null" >
+                #{updatetime}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_account_login_status (
+            id,
+            clientid,
+            code,
+            remarks,
+            locktime,
+            unlocktime,
+            unlockby,
+            status,
+            updatetime
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.clientid},
+                #{item.code},
+                #{item.remarks},
+                #{item.locktime},
+                #{item.unlocktime},
+                #{item.unlockby},
+                #{item.status},
+                #{item.updatetime}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_account_login_status WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.user.entity.JsmsAccountLoginStatus" >
+        UPDATE t_sms_account_login_status SET 
+            clientid=#{clientid},
+            code=#{code},
+            remarks=#{remarks},
+            locktime=#{locktime},
+            unlocktime=#{unlocktime},
+            unlockby=#{unlockby},
+            status=#{status},
+            updatetime=#{updatetime}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.user.entity.JsmsAccountLoginStatus" >
+        UPDATE t_sms_account_login_status 
+            <set>
+                <if test="clientid != null and clientid != ''">
+                    clientid = #{clientid},
+                </if>
+                <if test="code != null and code != ''">
+                    code = #{code},
+                </if>
+                <if test="remarks != null and remarks != ''">
+                    remarks = #{remarks},
+                </if>
+                <if test="locktime != null and locktime != ''">
+                    locktime = #{locktime},
+                </if>
+                <if test="unlocktime != null and unlocktime != ''">
+                    unlocktime = #{unlocktime},
+                </if>
+                <if test="unlockby != null and unlockby != ''">
+                    unlockby = #{unlockby},
+                </if>
+                <if test="status != null and status != ''">
+                    status = #{status},
+                </if>
+                <if test="updatetime != null and updatetime != ''">
+                    updatetime = #{updatetime}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_account_login_status
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_account_login_status 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.clientid != null and params.clientid != ''">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.code != null and params.code != ''">
+                and code = #{params.code}
+            </if>
+            <if test="params.remarks != null and params.remarks != ''">
+                and remarks = #{params.remarks}
+            </if>
+            <if test="params.locktime != null and params.locktime != ''">
+                and locktime = #{params.locktime}
+            </if>
+            <if test="params.unlocktime != null and params.unlocktime != ''">
+                and unlocktime = #{params.unlocktime}
+            </if>
+            <if test="params.unlockby != null and params.unlockby != ''">
+                and unlockby = #{params.unlockby}
+            </if>
+            <if test="params.status != null and params.status != ''">
+                and status = #{params.status}
+            </if>
+            <if test="params.updatetime != null and params.updatetime != ''">
+                and updatetime = #{params.updatetime}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_account_login_status 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="clientid != null and clientid != ''">
+                and clientid = #{clientid}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+            <if test="locktime != null and locktime != ''">
+                and locktime = #{locktime}
+            </if>
+            <if test="unlocktime != null and unlocktime != ''">
+                and unlocktime = #{unlocktime}
+            </if>
+            <if test="unlockby != null and unlockby != ''">
+                and unlockby = #{unlockby}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="updatetime != null and updatetime != ''">
+                and updatetime = #{updatetime}
+            </if>
+    </select>
+	 
+</mapper>
+

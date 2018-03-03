@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.product.mapper.JsmsClientProductMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.product.entity.JsmsClientProduct">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="clientId" jdbcType="VARCHAR" column="client_id"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="productId" jdbcType="INTEGER" column="product_id"/>
+        <result property="priceDiscount" jdbcType="DECIMAL" column="price_discount"/>
+        <result property="gnDiscountPrice" jdbcType="DECIMAL" column="gn_discount_price"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updator" jdbcType="VARCHAR" column="updator"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        client_id,
+        agent_id,
+        product_id,
+        price_discount,
+        gn_discount_price,
+        create_time,
+        updator,
+        update_time,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.product.entity.JsmsClientProduct" >
+        INSERT INTO t_sms_client_product 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="clientId != null" >
+                client_id,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="productId != null" >
+                product_id,
+            </if>
+            <if test="priceDiscount != null" >
+                price_discount,
+            </if>
+            <if test="gnDiscountPrice != null" >
+                gn_discount_price,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updator != null" >
+                updator,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="clientId != null" >
+                #{clientId},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="productId != null" >
+                #{productId},
+            </if>
+            <if test="priceDiscount != null" >
+                #{priceDiscount},
+            </if>
+            <if test="gnDiscountPrice != null" >
+                #{gnDiscountPrice},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="updator != null" >
+                #{updator},
+            </if>
+            <if test="updateTime != null" >
+                now(),
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_client_product (
+            id,
+            client_id,
+            agent_id,
+            product_id,
+            price_discount,
+            gn_discount_price,
+            create_time,
+            updator,
+            update_time,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.clientId},
+                #{item.agentId},
+                #{item.productId},
+                #{item.priceDiscount},
+                #{item.gnDiscountPrice},
+                now(),
+                #{item.updator},
+                now(),
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_client_product WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.product.entity.JsmsClientProduct" >
+        UPDATE t_sms_client_product SET 
+            client_id=#{clientId},
+            agent_id=#{agentId},
+            product_id=#{productId},
+            price_discount=#{priceDiscount},
+            gn_discount_price=#{gnDiscountPrice},
+            create_time=#{createTime},
+            updator=#{updator},
+            update_time=#{updateTime},
+            remark=#{remark}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.product.entity.JsmsClientProduct" >
+        UPDATE t_sms_client_product 
+            <set>
+                <if test="clientId != null and clientId != ''">
+                    client_id = #{clientId},
+                </if>
+                <if test="agentId != null and agentId != ''">
+                    agent_id = #{agentId},
+                </if>
+                <if test="productId != null and productId != ''">
+                    product_id = #{productId},
+                </if>
+                <if test="priceDiscount != null and priceDiscount != ''">
+                    price_discount = #{priceDiscount},
+                </if>
+                <if test="gnDiscountPrice != null and gnDiscountPrice != ''">
+                    gn_discount_price = #{gnDiscountPrice},
+                </if>
+                <if test="createTime != null and createTime != ''">
+                    create_time = #{createTime},
+                </if>
+                <if test="updator != null and updator != ''">
+                    updator = #{updator},
+                </if>
+                <if test="updateTime != null and updateTime != ''">
+                    update_time = #{updateTime},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_client_product
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_client_product 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.clientId != null and params.clientId != ''">
+                and client_id = #{params.clientId}
+            </if>
+            <if test="params.agentId != null">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.productId != null">
+                and product_id = #{params.productId}
+            </if>
+            <if test="params.priceDiscount != null and params.priceDiscount != ''">
+                and price_discount = #{params.priceDiscount}
+            </if>
+            <if test="params.gnDiscountPrice != null and params.gnDiscountPrice != ''">
+                and gn_discount_price = #{params.gnDiscountPrice}
+            </if>
+            <if test="params.createTime != null and params.createTime != ''">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.updator != null and params.updator != ''">
+                and updator = #{params.updator}
+            </if>
+            <if test="params.updateTime != null and params.updateTime != ''">
+                and update_time = #{params.updateTime}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_client_product 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="clientId != null and clientId != ''">
+                and client_id = #{clientId}
+            </if>
+            <if test="agentId != null and agentId != ''">
+                and agent_id = #{agentId}
+            </if>
+            <if test="productId != null and productId != ''">
+                and product_id = #{productId}
+            </if>
+            <if test="priceDiscount != null and priceDiscount != ''">
+                and price_discount = #{priceDiscount}
+            </if>
+            <if test="gnDiscountPrice != null and gnDiscountPrice != ''">
+                and gn_discount_price = #{gnDiscountPrice}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updator != null and updator != ''">
+                and updator = #{updator}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+	 
+</mapper>
+

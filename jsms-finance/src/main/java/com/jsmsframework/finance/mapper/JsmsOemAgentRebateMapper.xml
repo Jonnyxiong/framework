@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsOemAgentRebateMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsOemAgentRebate">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="startLine" jdbcType="INTEGER" column="start_line"/>
+        <result property="endLine" jdbcType="INTEGER" column="end_line"/>
+        <result property="rebateProportion" jdbcType="DECIMAL" column="rebate_proportion"/>
+        <result property="updator" jdbcType="VARCHAR" column="updator"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        start_line,
+        end_line,
+        rebate_proportion,
+        updator,
+        update_time,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsOemAgentRebate" >
+        INSERT INTO t_sms_oem_agent_rebate 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="startLine != null" >
+                start_line,
+            </if>
+            <if test="endLine != null" >
+                end_line,
+            </if>
+            <if test="rebateProportion != null" >
+                rebate_proportion,
+            </if>
+            <if test="updator != null" >
+                updator,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="startLine != null" >
+                #{startLine},
+            </if>
+            <if test="endLine != null" >
+                #{endLine},
+            </if>
+            <if test="rebateProportion != null" >
+                #{rebateProportion},
+            </if>
+            <if test="updator != null" >
+                #{updator},
+            </if>
+            <if test="updateTime != null" >
+                now(),
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_oem_agent_rebate (
+            id,
+            start_line,
+            end_line,
+            rebate_proportion,
+            updator,
+            update_time,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.startLine},
+                #{item.endLine},
+                #{item.rebateProportion},
+                #{item.updator},
+                now(),
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_oem_agent_rebate WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsOemAgentRebate" >
+        UPDATE t_sms_oem_agent_rebate SET 
+            start_line=#{startLine},
+            end_line=#{endLine},
+            rebate_proportion=#{rebateProportion},
+            updator=#{updator},
+            update_time=#{updateTime},
+            remark=#{remark}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsOemAgentRebate" >
+        UPDATE t_sms_oem_agent_rebate 
+            <set>
+                <if test="startLine != null and startLine != ''">
+                    start_line = #{startLine},
+                </if>
+                <if test="endLine != null and endLine != ''">
+                    end_line = #{endLine},
+                </if>
+                <if test="rebateProportion != null and rebateProportion != ''">
+                    rebate_proportion = #{rebateProportion},
+                </if>
+                <if test="updator != null and updator != ''">
+                    updator = #{updator},
+                </if>
+                <if test="updateTime != null and updateTime != ''">
+                    update_time = #{updateTime},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_oem_agent_rebate
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_oem_agent_rebate 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.startLine != null and params.startLine != ''">
+                and start_line = #{params.startLine}
+            </if>
+            <if test="params.endLine != null and params.endLine != ''">
+                and end_line = #{params.endLine}
+            </if>
+            <if test="params.rebateProportion != null and params.rebateProportion != ''">
+                and rebate_proportion = #{params.rebateProportion}
+            </if>
+            <if test="params.updator != null and params.updator != ''">
+                and updator = #{params.updator}
+            </if>
+            <if test="params.updateTime != null and params.updateTime != ''">
+                and update_time = #{params.updateTime}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_oem_agent_rebate 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="startLine != null and startLine != ''">
+                and start_line = #{startLine}
+            </if>
+            <if test="endLine != null and endLine != ''">
+                and end_line = #{endLine}
+            </if>
+            <if test="rebateProportion != null and rebateProportion != ''">
+                and rebate_proportion = #{rebateProportion}
+            </if>
+            <if test="updator != null and updator != ''">
+                and updator = #{updator}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+	 
+</mapper>
+

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.middleware.mapper.JsmsMqConfigureMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.middleware.entity.JsmsMqConfigure">
+        <result property="mqId" jdbcType="INTEGER" column="mq_id"/>
+        <result property="middlewareId" jdbcType="INTEGER" column="middleware_id"/>
+        <result property="mqQueue" jdbcType="VARCHAR" column="mq_queue"/>
+        <result property="mqExchange" jdbcType="VARCHAR" column="mq_exchange"/>
+        <result property="mqRoutingkey" jdbcType="VARCHAR" column="mq_routingkey"/>
+        <result property="queueName" jdbcType="VARCHAR" column="queue_name"/>
+        <result property="messageType" jdbcType="VARCHAR" column="message_type"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        mq_id,
+        middleware_id,
+        mq_queue,
+        mq_exchange,
+        mq_routingkey,
+        queue_name,
+        message_type,
+        remark,
+        update_date
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.middleware.entity.JsmsMqConfigure" >
+        INSERT INTO t_sms_mq_configure 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="mqId != null" >
+                mq_id,
+            </if>
+            <if test="middlewareId != null" >
+                middleware_id,
+            </if>
+            <if test="mqQueue != null" >
+                mq_queue,
+            </if>
+            <if test="mqExchange != null" >
+                mq_exchange,
+            </if>
+            <if test="mqRoutingkey != null" >
+                mq_routingkey,
+            </if>
+            <if test="queueName != null" >
+                queue_name,
+            </if>
+            <if test="messageType != null" >
+                message_type,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="updateDate != null" >
+                update_date
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="mqId != null" >
+                #{mqId},
+            </if>
+            <if test="middlewareId != null" >
+                #{middlewareId},
+            </if>
+            <if test="mqQueue != null" >
+                #{mqQueue},
+            </if>
+            <if test="mqExchange != null" >
+                #{mqExchange},
+            </if>
+            <if test="mqRoutingkey != null" >
+                #{mqRoutingkey},
+            </if>
+            <if test="queueName != null" >
+                #{queueName},
+            </if>
+            <if test="messageType != null" >
+                #{messageType},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_mq_configure (
+            mq_id,
+            middleware_id,
+            mq_queue,
+            mq_exchange,
+            mq_routingkey,
+            queue_name,
+            message_type,
+            remark,
+            update_date
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.mqId},
+                #{item.middlewareId},
+                #{item.mqQueue},
+                #{item.mqExchange},
+                #{item.mqRoutingkey},
+                #{item.queueName},
+                #{item.messageType},
+                #{item.remark},
+                #{item.updateDate}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_mq_configure WHERE mq_id = #{mqId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.middleware.entity.JsmsMqConfigure" >
+        UPDATE t_sms_mq_configure SET 
+            middleware_id=#{middlewareId},
+            mq_queue=#{mqQueue},
+            mq_exchange=#{mqExchange},
+            mq_routingkey=#{mqRoutingkey},
+            queue_name=#{queueName},
+            message_type=#{messageType},
+            remark=#{remark},
+            update_date=#{updateDate}
+        WHERE 
+            mq_id = #{mqId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.middleware.entity.JsmsMqConfigure" >
+        UPDATE t_sms_mq_configure 
+            <set>
+                <if test="middlewareId != null and middlewareId != ''">
+                    middleware_id = #{middlewareId},
+                </if>
+                <if test="mqQueue != null and mqQueue != ''">
+                    mq_queue = #{mqQueue},
+                </if>
+                <if test="mqExchange != null and mqExchange != ''">
+                    mq_exchange = #{mqExchange},
+                </if>
+                <if test="mqRoutingkey != null and mqRoutingkey != ''">
+                    mq_routingkey = #{mqRoutingkey},
+                </if>
+                <if test="queueName != null and queueName != ''">
+                    queue_name = #{queueName},
+                </if>
+                <if test="messageType != null and messageType != ''">
+                    message_type = #{messageType},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark},
+                </if>
+                <if test="updateDate != null and updateDate != ''">
+                    update_date = #{updateDate}
+                </if>
+            </set>
+        WHERE 
+            mq_id = #{mqId} 
+    </update>
+
+    <select id="getByMqId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_mq_configure
+        WHERE 
+            mq_id = #{mqId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_mq_configure 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.mqId != null and params.mqId != ''">
+                and mq_id = #{params.mqId}
+            </if>
+            <if test="params.middlewareId != null">
+                and middleware_id = #{params.middlewareId}
+            </if>
+            <if test="params.mqQueue != null">
+                and mq_queue = #{params.mqQueue}
+            </if>
+            <if test="params.mqExchange != null and params.mqExchange != ''">
+                and mq_exchange = #{params.mqExchange}
+            </if>
+            <if test="params.mqRoutingkey != null and params.mqRoutingkey != ''">
+                and mq_routingkey = #{params.mqRoutingkey}
+            </if>
+            <if test="params.queueName != null and params.queueName != ''">
+                and queue_name = #{params.queueName}
+            </if>
+            <if test="params.messageType != null">
+                and message_type = #{params.messageType}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and update_date = #{params.updateDate}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_mq_configure 
+        WHERE 
+            1 = 1
+            <if test="mqId != null and mqId != ''">
+                and mq_id = #{mqId}
+            </if>
+            <if test="middlewareId != null and middlewareId != ''">
+                and middleware_id = #{middlewareId}
+            </if>
+            <if test="mqQueue != null and mqQueue != ''">
+                and mq_queue = #{mqQueue}
+            </if>
+            <if test="mqExchange != null and mqExchange != ''">
+                and mq_exchange = #{mqExchange}
+            </if>
+            <if test="mqRoutingkey != null and mqRoutingkey != ''">
+                and mq_routingkey = #{mqRoutingkey}
+            </if>
+            <if test="queueName != null and queueName != ''">
+                and queue_name = #{queueName}
+            </if>
+            <if test="messageType != null and messageType != ''">
+                and message_type = #{messageType}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                and update_date = #{updateDate}
+            </if>
+    </select>
+	 
+</mapper>
+

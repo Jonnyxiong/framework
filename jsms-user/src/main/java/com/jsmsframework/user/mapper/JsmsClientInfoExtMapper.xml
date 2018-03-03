@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.user.mapper.JsmsClientInfoExtMapper">
+
+
+    <resultMap id="rowMapper" type="com.jsmsframework.user.entity.JsmsClientInfoExt">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="webPassword" jdbcType="VARCHAR" column="web_password"/>
+        <result property="extValue" jdbcType="INTEGER" column="ext_value"/>
+        <result property="parentId" jdbcType="VARCHAR" column="parent_id"/>
+        <result property="starLevel" jdbcType="INTEGER" column="star_level"/>
+        <result property="clientLabel" jdbcType="INTEGER" column="client_label"/>
+        <result property="updator" jdbcType="BIGINT" column="updator"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        clientid,
+        web_password,
+        ext_value,
+        parent_id,
+        star_level,
+        client_label,
+        updator,
+        update_date,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.user.entity.JsmsClientInfoExt">
+        INSERT INTO t_sms_client_info_ext
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="clientid != null">
+                clientid,
+            </if>
+            <if test="webPassword != null">
+                web_password,
+            </if>
+            <if test="extValue != null">
+                ext_value,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="starLevel != null">
+                star_level,
+            </if>
+            <if test="clientLabel != null">
+                client_label,
+            </if>
+            <if test="updator != null">
+                updator,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="remark != null">
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="clientid != null">
+                #{clientid},
+            </if>
+            <if test="webPassword != null">
+                #{webPassword},
+            </if>
+            <if test="extValue != null">
+                #{extValue},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="starLevel != null">
+                #{starLevel},
+            </if>
+            <if test="clientLabel != null">
+                #{clientLabel},
+            </if>
+            <if test="updator != null">
+                #{updator},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate},
+            </if>
+            <if test="remark != null">
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO t_sms_client_info_ext (
+        id,
+        clientid,
+        web_password,
+        ext_value,
+        parent_id,
+        star_level,
+        client_label,
+        updator,
+        update_date,
+        remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.clientid},
+            #{item.webPassword},
+            #{item.extValue},
+            #{item.parentId},
+            #{item.starLevel},
+            #{item.clientLabel},
+            #{item.updator},
+            #{item.updateDate},
+            #{item.remark}
+            )
+        </foreach>
+    </insert>
+
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_client_info_ext WHERE id = #{id}
+    </delete>
+    -->
+
+    <update id="update" parameterType="com.jsmsframework.user.entity.JsmsClientInfoExt">
+        UPDATE t_sms_client_info_ext
+        SET
+            clientid=#{clientid},
+            web_password=#{webPassword},
+            ext_value=#{extValue},
+            parent_id=#{parentId},
+            star_level=#{starLevel},
+            client_label=#{clientLabel},
+            updator=#{updator},
+            update_date=#{updateDate},
+            remark=#{remark}
+        WHERE 
+            clientid  = #{clientid}
+    </update>
+
+
+    <update id="updateSelective" parameterType="com.jsmsframework.user.entity.JsmsClientInfoExt">
+        UPDATE t_sms_client_info_ext
+        <set>
+            <if test="clientid != null and clientid != ''">
+                clientid = #{clientid},
+            </if>
+            <if test="webPassword != null and webPassword != ''">
+                web_password = #{webPassword},
+            </if>
+            <if test="extValue != null">
+                ext_value = #{extValue},
+            </if>
+            <if test="parentId != null and parentId != ''">
+                parent_id = #{parentId},
+            </if>
+            <if test="starLevel != null">
+                star_level = #{starLevel},
+            </if>
+            <if test="clientLabel != null">
+                client_label = #{clientLabel },
+            </if>
+            <if test="updator != null">
+                updator = #{updator},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark}
+            </if>
+        </set>
+        WHERE
+        clientid = #{clientid}
+    </update>
+
+    <select id="getByClientId" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_client_info_ext
+        WHERE
+        clientid = #{clientid}
+    </select>
+
+    <select id="getByClientIds" resultMap="rowMapper" parameterType="java.util.Set">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_client_info_ext
+        WHERE
+        clientid IN
+        <foreach collection="clientIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_client_info_ext
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.clientid != null and params.clientid != ''">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.webPassword != null and params.webPassword != ''">
+                and web_password = #{params.webPassword}
+            </if>
+            <if test="params.extValue != null and params.extValue != ''">
+                and ext_value = #{params.extValue}
+            </if>
+            <if test="params.parentId != null and params.parentId != ''">
+                and parent_id = #{params.parentId}
+            </if>
+            <if test="params.starLevel != null and params.starLevel != ''">
+                and star_level = #{params.starLevel}
+            </if>
+            <if test="params.clientLabel != null">
+                and client_label = #{params.clientLabel}
+            </if>
+            <if test="params.updator != null and params.updator != ''">
+                and updator = #{params.updator}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+        </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_client_info_ext
+        WHERE
+        1 = 1
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="clientid != null and clientid != ''">
+            and clientid = #{clientid}
+        </if>
+        <if test="webPassword != null and webPassword != ''">
+            and web_password = #{webPassword}
+        </if>
+        <if test="extValue != null">
+            and ext_value = #{extValue}
+        </if>
+        <if test="parentId != null and parentId != ''">
+            and parent_id = #{parentId}
+        </if>
+        <if test="starLevel != null and starLevel != ''">
+            and star_level = #{starLevel}
+        </if>
+        <if test="clientLabel != null">
+            and client_label = #{clientLabel}
+        </if>
+        <if test="updator != null">
+            and updator = #{updator}
+        </if>
+        <if test="updateDate != null">
+            and update_date = #{updateDate}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+    </select>
+
+    <select id="getByStarLevels" resultMap="rowMapper" parameterType="java.util.Set">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_client_info_ext
+        WHERE
+        star_level IN
+        <foreach collection="starLevels" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_client_info_ext
+        WHERE
+        1 = 1
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="clientid != null and clientid != ''">
+            and clientid = #{clientid}
+        </if>
+        <if test="webPassword != null and webPassword != ''">
+            and web_password = #{webPassword}
+        </if>
+        <if test="starLevel != null">
+            and star_level = #{starLevel}
+        </if>
+        <if test="clientLabel != null">
+            and client_label = #{clientLabel}
+        </if>
+        <if test="extValue != null">
+            and ext_value = #{extValue}
+        </if>
+        <if test="parentId != null and parentId != ''">
+            and parent_id = #{parentId}
+        </if>
+        <if test="updator != null">
+            and updator = #{updator}
+        </if>
+        <if test="updateDate != null">
+            and update_date = #{updateDate}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+    </select>
+
+    <update id="updateSelectiveOfInfoExt" parameterType="java.lang.String">
+        UPDATE t_sms_client_info_ext
+        <set>
+            web_password = #{webPassword}
+        </set>
+        WHERE
+        clientid = #{clientid}
+    </update>
+</mapper>
+

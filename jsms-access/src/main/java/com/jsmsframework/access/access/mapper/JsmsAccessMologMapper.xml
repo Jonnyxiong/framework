@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.access.access.mapper.JsmsAccessMologMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.access.access.entity.JsmsAccessMolog">
+        <result property="moid" jdbcType="VARCHAR" column="moid"/>
+        <result property="channelid" jdbcType="INTEGER" column="channelid"/>
+        <result property="receivedate" jdbcType="TIMESTAMP" column="receivedate"/>
+        <result property="phone" jdbcType="VARCHAR" column="phone"/>
+        <result property="tophone" jdbcType="VARCHAR" column="tophone"/>
+        <result property="content" jdbcType="VARCHAR" column="content"/>
+        <result property="sendmoid" jdbcType="VARCHAR" column="sendmoid"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="userid" jdbcType="VARCHAR" column="userid"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        moid,
+        channelid,
+        receivedate,
+        phone,
+        tophone,
+        content,
+        sendmoid,
+        clientid,
+        userid
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.access.access.entity.JsmsAccessMolog" >
+        INSERT INTO t_sms_access_molog 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="moid != null" >
+                moid,
+            </if>
+            <if test="channelid != null" >
+                channelid,
+            </if>
+            <if test="receivedate != null" >
+                receivedate,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="tophone != null" >
+                tophone,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="sendmoid != null" >
+                sendmoid,
+            </if>
+            <if test="clientid != null" >
+                clientid,
+            </if>
+            <if test="userid != null" >
+                userid
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="moid != null" >
+                #{moid},
+            </if>
+            <if test="channelid != null" >
+                #{channelid},
+            </if>
+            <if test="receivedate != null" >
+                #{receivedate},
+            </if>
+            <if test="phone != null" >
+                #{phone},
+            </if>
+            <if test="tophone != null" >
+                #{tophone},
+            </if>
+            <if test="content != null" >
+                #{content},
+            </if>
+            <if test="sendmoid != null" >
+                #{sendmoid},
+            </if>
+            <if test="clientid != null" >
+                #{clientid},
+            </if>
+            <if test="userid != null" >
+                #{userid}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_access_molog (
+            moid,
+            channelid,
+            receivedate,
+            phone,
+            tophone,
+            content,
+            sendmoid,
+            clientid,
+            userid
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.moid},
+                #{item.channelid},
+                #{item.receivedate},
+                #{item.phone},
+                #{item.tophone},
+                #{item.content},
+                #{item.sendmoid},
+                #{item.clientid},
+                #{item.userid}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_access_molog WHERE moid = #{moid}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.access.access.entity.JsmsAccessMolog" >
+        UPDATE t_sms_access_molog SET 
+            channelid=#{channelid},
+            receivedate=#{receivedate},
+            phone=#{phone},
+            tophone=#{tophone},
+            content=#{content},
+            sendmoid=#{sendmoid},
+            clientid=#{clientid},
+            userid=#{userid}
+        WHERE 
+            moid = #{moid} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.access.access.entity.JsmsAccessMolog" >
+        UPDATE t_sms_access_molog 
+            <set>
+                <if test="channelid != null and channelid != ''">
+                    channelid = #{channelid},
+                </if>
+                <if test="receivedate != null and receivedate != ''">
+                    receivedate = #{receivedate},
+                </if>
+                <if test="phone != null and phone != ''">
+                    phone = #{phone},
+                </if>
+                <if test="tophone != null and tophone != ''">
+                    tophone = #{tophone},
+                </if>
+                <if test="content != null and content != ''">
+                    content = #{content},
+                </if>
+                <if test="sendmoid != null and sendmoid != ''">
+                    sendmoid = #{sendmoid},
+                </if>
+                <if test="clientid != null and clientid != ''">
+                    clientid = #{clientid},
+                </if>
+                <if test="userid != null and userid != ''">
+                    userid = #{userid}
+                </if>
+            </set>
+        WHERE 
+            moid = #{moid} 
+    </update>
+
+    <select id="getByMoid" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_access_molog
+        WHERE 
+            moid = #{moid}
+    </select>
+
+    <select id="getByMoidWithSuffix" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_access_molog_${dateSuffix}
+        WHERE
+            moid = #{moid}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_access_molog_${params.dateSuffix}
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.moid != null and params.moid != ''">
+                and moid = #{params.moid}
+            </if>
+            <if test="params.channelid != null and params.channelid != ''">
+                and channelid = #{params.channelid}
+            </if>
+            <if test="params.receivedate != null">
+                and receivedate = #{params.receivedate}
+            </if>
+            <if test="params.phone != null and params.phone != ''">
+                and phone = #{params.phone}
+            </if>
+            <if test="params.tophone != null and params.tophone != ''">
+                and tophone = #{params.tophone}
+            </if>
+            <if test="params.content != null and params.content != ''">
+                and content = #{params.content}
+            </if>
+            <if test="params.sendmoid != null and params.sendmoid != ''">
+                and sendmoid = #{params.sendmoid}
+            </if>
+            <if test="params.clientid != null and params.clientid != ''">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.userid != null and params.userid != ''">
+                and userid = #{params.userid}
+            </if>
+            <if test="params.startReceivedate != null and params.startReceivedate != ''">
+                and receivedate &gt;= #{params.startReceivedate}
+            </if>
+            <if test="params.endReceivedate != null and params.endReceivedate != ''">
+                and receivedate &lt;= #{params.endReceivedate}
+            </if>
+            <if test="params.searchContent != null and params.searchContent != ''">
+                and content LIKE CONCAT('%',#{params.searchContent},'%')
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_access_molog 
+        WHERE 
+            1 = 1
+            <if test="moid != null and moid != ''">
+                and moid = #{moid}
+            </if>
+            <if test="channelid != null and channelid != ''">
+                and channelid = #{channelid}
+            </if>
+            <if test="receivedate != null and receivedate != ''">
+                and receivedate = #{receivedate}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="tophone != null and tophone != ''">
+                and tophone = #{tophone}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="sendmoid != null and sendmoid != ''">
+                and sendmoid = #{sendmoid}
+            </if>
+            <if test="clientid != null and clientid != ''">
+                and clientid = #{clientid}
+            </if>
+            <if test="userid != null and userid != ''">
+                and userid = #{userid}
+            </if>
+    </select>
+	 
+</mapper>
+

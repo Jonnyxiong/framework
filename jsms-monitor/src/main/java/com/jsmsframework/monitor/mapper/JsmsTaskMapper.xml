@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.monitor.mapper.JsmsTaskMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.monitor.entity.JsmsTask">
+        <result property="taskId" jdbcType="INTEGER" column="task_id"/>
+        <result property="taskName" jdbcType="VARCHAR" column="task_name"/>
+        <result property="taskType" jdbcType="CHAR" column="task_type"/>
+        <result property="dbType" jdbcType="CHAR" column="db_type"/>
+        <result property="procedureName" jdbcType="VARCHAR" column="procedure_name"/>
+        <result property="executeType" jdbcType="CHAR" column="execute_type"/>
+        <result property="executeNext" jdbcType="BIGINT" column="execute_next"/>
+        <result property="executePeriod" jdbcType="INTEGER" column="execute_period"/>
+        <result property="scanType" jdbcType="CHAR" column="scan_type"/>
+        <result property="scanNext" jdbcType="TIMESTAMP" column="scan_next"/>
+        <result property="scanPeriod" jdbcType="INTEGER" column="scan_period"/>
+        <result property="scanExecute" jdbcType="CHAR" column="scan_execute"/>
+        <result property="dependency" jdbcType="VARCHAR" column="dependency"/>
+        <result property="group" jdbcType="INTEGER" column="group"/>
+        <result property="order" jdbcType="INTEGER" column="order"/>
+        <result property="status" jdbcType="CHAR" column="status"/>
+        <result property="createDate" jdbcType="TIMESTAMP" column="create_date"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="sysType" jdbcType="INTEGER" column="sys_type"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        task_id,
+        task_name,
+        task_type,
+        db_type,
+        procedure_name,
+        execute_type,
+        execute_next,
+        execute_period,
+        scan_type,
+        scan_next,
+        scan_period,
+        scan_execute,
+        dependency,
+        `group`,
+        `order`,
+        status,
+        create_date,
+        update_date,
+        sys_type
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.monitor.entity.JsmsTask" >
+        INSERT INTO t_sms_task 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="taskId != null" >
+                task_id,
+            </if>
+            <if test="taskName != null" >
+                task_name,
+            </if>
+            <if test="taskType != null" >
+                task_type,
+            </if>
+            <if test="dbType != null" >
+                db_type,
+            </if>
+            <if test="procedureName != null" >
+                procedure_name,
+            </if>
+            <if test="executeType != null" >
+                execute_type,
+            </if>
+            <if test="executeNext != null" >
+                execute_next,
+            </if>
+            <if test="executePeriod != null" >
+                execute_period,
+            </if>
+            <if test="scanType != null" >
+                scan_type,
+            </if>
+            <if test="scanNext != null" >
+                scan_next,
+            </if>
+            <if test="scanPeriod != null" >
+                scan_period,
+            </if>
+            <if test="scanExecute != null" >
+                scan_execute,
+            </if>
+            <if test="dependency != null" >
+                dependency,
+            </if>
+            <if test="group != null" >
+                `group`,
+            </if>
+            <if test="order != null" >
+                `order`,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="sysType != null" >
+                sys_type
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="taskId != null" >
+                #{taskId},
+            </if>
+            <if test="taskName != null" >
+                #{taskName},
+            </if>
+            <if test="taskType != null" >
+                #{taskType},
+            </if>
+            <if test="dbType != null" >
+                #{dbType},
+            </if>
+            <if test="procedureName != null" >
+                #{procedureName},
+            </if>
+            <if test="executeType != null" >
+                #{executeType},
+            </if>
+            <if test="executeNext != null" >
+                #{executeNext},
+            </if>
+            <if test="executePeriod != null" >
+                #{executePeriod},
+            </if>
+            <if test="scanType != null" >
+                #{scanType},
+            </if>
+            <if test="scanNext != null" >
+                #{scanNext},
+            </if>
+            <if test="scanPeriod != null" >
+                #{scanPeriod},
+            </if>
+            <if test="scanExecute != null" >
+                #{scanExecute},
+            </if>
+            <if test="dependency != null" >
+                #{dependency},
+            </if>
+            <if test="group != null" >
+                #{group},
+            </if>
+            <if test="order != null" >
+                #{order},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="createDate != null" >
+                #{createDate},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="sysType != null" >
+                #{sysType}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_task (
+            task_id,
+            task_name,
+            task_type,
+            db_type,
+            procedure_name,
+            execute_type,
+            execute_next,
+            execute_period,
+            scan_type,
+            scan_next,
+            scan_period,
+            scan_execute,
+            dependency,
+            `group`,
+            `order`,
+            status,
+            create_date,
+            update_date,
+            sys_type
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.taskId},
+                #{item.taskName},
+                #{item.taskType},
+                #{item.dbType},
+                #{item.procedureName},
+                #{item.executeType},
+                #{item.executeNext},
+                #{item.executePeriod},
+                #{item.scanType},
+                #{item.scanNext},
+                #{item.scanPeriod},
+                #{item.scanExecute},
+                #{item.dependency},
+                #{item.group},
+                #{item.order},
+                #{item.status},
+                #{item.createDate},
+                #{item.updateDate},
+                #{item.sysType}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_task WHERE task_id = #{taskId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.monitor.entity.JsmsTask" >
+        UPDATE t_sms_task SET 
+            task_name=#{taskName},
+            task_type=#{taskType},
+            db_type=#{dbType},
+            procedure_name=#{procedureName},
+            execute_type=#{executeType},
+            execute_next=#{executeNext},
+            execute_period=#{executePeriod},
+            scan_type=#{scanType},
+            scan_next=#{scanNext},
+            scan_period=#{scanPeriod},
+            scan_execute=#{scanExecute},
+            dependency=#{dependency},
+            `group`=#{group},
+            `order`=#{order},
+            status=#{status},
+            create_date=#{createDate},
+            update_date=#{updateDate},
+            sys_type=#{sysType}
+        WHERE 
+            task_id = #{taskId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.monitor.entity.JsmsTask" >
+        UPDATE t_sms_task 
+            <set>
+                <if test="taskName != null">
+                    task_name = #{taskName},
+                </if>
+                <if test="taskType != null">
+                    task_type = #{taskType},
+                </if>
+                <if test="dbType != null">
+                    db_type = #{dbType},
+                </if>
+                <if test="procedureName != null">
+                    procedure_name = #{procedureName},
+                </if>
+                <if test="executeType != null">
+                    execute_type = #{executeType},
+                </if>
+                <if test="executeNext != null">
+                    execute_next = #{executeNext},
+                </if>
+                <if test="executePeriod != null">
+                    execute_period = #{executePeriod},
+                </if>
+                <if test="scanType != null">
+                    scan_type = #{scanType},
+                </if>
+                <if test="scanNext != null">
+                    scan_next = #{scanNext},
+                </if>
+                <if test="scanPeriod != null">
+                    scan_period = #{scanPeriod},
+                </if>
+                <if test="scanExecute != null">
+                    scan_execute = #{scanExecute},
+                </if>
+                <if test="dependency != null">
+                    dependency = #{dependency},
+                </if>
+                <if test="group != null">
+                    `group` = #{group},
+                </if>
+                <if test="order != null">
+                    `order` = #{order},
+                </if>
+                <if test="status != null">
+                    status = #{status},
+                </if>
+                <if test="createDate != null">
+                    create_date = #{createDate},
+                </if>
+                <if test="updateDate != null">
+                    update_date = #{updateDate},
+                </if>
+                <if test="sysType != null">
+                    sys_type = #{sysType}
+                </if>
+            </set>
+        WHERE 
+            task_id = #{taskId} 
+    </update>
+
+    <select id="getByTaskId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_task
+        WHERE 
+            task_id = #{taskId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_task 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.taskId != null">
+                and task_id = #{params.taskId}
+            </if>
+            <if test="params.taskName != null">
+                and task_name = #{params.taskName}
+            </if>
+            <if test="params.taskType != null">
+                and task_type = #{params.taskType}
+            </if>
+            <if test="params.dbType != null">
+                and db_type = #{params.dbType}
+            </if>
+            <if test="params.procedureName != null">
+                and procedure_name = #{params.procedureName}
+            </if>
+            <if test="params.executeType != null">
+                and execute_type = #{params.executeType}
+            </if>
+            <if test="params.executeNext != null">
+                and execute_next = #{params.executeNext}
+            </if>
+            <if test="params.executePeriod != null">
+                and execute_period = #{params.executePeriod}
+            </if>
+            <if test="params.scanType != null">
+                and scan_type = #{params.scanType}
+            </if>
+            <if test="params.scanNext != null">
+                and scan_next = #{params.scanNext}
+            </if>
+            <if test="params.scanPeriod != null">
+                and scan_period = #{params.scanPeriod}
+            </if>
+            <if test="params.scanExecute != null">
+                and scan_execute = #{params.scanExecute}
+            </if>
+            <if test="params.dependency != null">
+                and dependency = #{params.dependency}
+            </if>
+            <if test="params.group != null">
+                and `group` = #{params.group}
+            </if>
+            <if test="params.order != null">
+                and `order` = #{params.order}
+            </if>
+            <if test="params.status != null">
+                and status = #{params.status}
+            </if>
+            <if test="params.createDate != null">
+                and create_date = #{params.createDate}
+            </if>
+            <if test="params.updateDate != null">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.sysType != null">
+                and sys_type = #{params.sysType}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_task
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="taskId != null">
+                and task_id = #{taskId}
+            </if>
+            <if test="taskIds != null and taskIds.size > 0">
+                and task_id IN
+                <foreach collection="taskIds" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="taskName != null">
+                and task_name = #{taskName}
+            </if>
+            <if test="taskType != null">
+                and task_type = #{taskType}
+            </if>
+            <if test="dbType != null">
+                and db_type = #{dbType}
+            </if>
+            <if test="procedureName != null">
+                and procedure_name = #{procedureName}
+            </if>
+            <if test="executeType != null">
+                and execute_type = #{executeType}
+            </if>
+            <if test="executeNext != null">
+                and execute_next = #{executeNext}
+            </if>
+            <if test="executePeriod != null">
+                and execute_period = #{executePeriod}
+            </if>
+            <if test="scanType != null">
+                and scan_type = #{scanType}
+            </if>
+            <if test="scanNext != null">
+                and scan_next = #{scanNext}
+            </if>
+            <if test="scanPeriod != null">
+                and scan_period = #{scanPeriod}
+            </if>
+            <if test="scanExecute != null">
+                and scan_execute = #{scanExecute}
+            </if>
+            <if test="dependency != null">
+                and dependency = #{dependency}
+            </if>
+            <if test="group != null">
+                and `group` = #{group}
+            </if>
+            <if test="order != null">
+                and `order` = #{order}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="sysType != null">
+                and sys_type = #{sysType}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_task 
+        WHERE 
+            1 = 1
+            <if test="taskId != null">
+                and task_id = #{taskId}
+            </if>
+            <if test="taskName != null">
+                and task_name = #{taskName}
+            </if>
+            <if test="taskType != null">
+                and task_type = #{taskType}
+            </if>
+            <if test="dbType != null">
+                and db_type = #{dbType}
+            </if>
+            <if test="procedureName != null">
+                and procedure_name = #{procedureName}
+            </if>
+            <if test="executeType != null">
+                and execute_type = #{executeType}
+            </if>
+            <if test="executeNext != null">
+                and execute_next = #{executeNext}
+            </if>
+            <if test="executePeriod != null">
+                and execute_period = #{executePeriod}
+            </if>
+            <if test="scanType != null">
+                and scan_type = #{scanType}
+            </if>
+            <if test="scanNext != null">
+                and scan_next = #{scanNext}
+            </if>
+            <if test="scanPeriod != null">
+                and scan_period = #{scanPeriod}
+            </if>
+            <if test="scanExecute != null">
+                and scan_execute = #{scanExecute}
+            </if>
+            <if test="dependency != null">
+                and dependency = #{dependency}
+            </if>
+            <if test="group != null">
+                and `group` = #{group}
+            </if>
+            <if test="order != null">
+                and `order` = #{order}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="sysType != null">
+                and sys_type = #{sysType}
+            </if>
+    </select>
+	 
+</mapper>
+

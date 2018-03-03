@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsSaleCreditAccountMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsSaleCreditAccount">
+        <result property="saleId" jdbcType="BIGINT" column="sale_id"/>
+        <result property="financialHistoryCredit" jdbcType="DECIMAL" column="financial_history_credit"/>
+        <result property="currentCredit" jdbcType="DECIMAL" column="current_credit"/>
+        <result property="saleHistoryCredit" jdbcType="DECIMAL" column="sale_history_credit"/>
+        <result property="agentHistoryPayment" jdbcType="DECIMAL" column="agent_history_payment"/>
+        <result property="noBackPayment" jdbcType="DECIMAL" column="no_back_payment"/>
+        <result property="mobile" jdbcType="VARCHAR" column="mobile"/>
+        <result property="realName" jdbcType="VARCHAR" column="realname"/>
+        <result property="email" jdbcType="VARCHAR" column="email"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        sale_id,
+        truncate(financial_history_credit,4) AS financial_history_credit,
+        truncate(current_credit,4) AS current_credit,
+        truncate(sale_history_credit,4) AS sale_history_credit,
+        truncate(agent_history_payment,4) AS agent_history_payment,
+        truncate(no_back_payment,4) AS no_back_payment
+    </sql>
+    <sql id="SALE_COLUMN_LIST">
+        sa.sale_id AS sale_id,
+        u.realname AS realname,
+        u.email AS email,
+        u.mobile AS mobile,
+        truncate(sa.financial_history_credit,4) AS financial_history_credit,
+        truncate(sa.current_credit,4) AS current_credit,
+        truncate(sa.sale_history_credit,4) AS sale_history_credit,
+        truncate(sa.agent_history_payment,4) AS agent_history_payment,
+        truncate(sa.no_back_payment,4) AS no_back_payment
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsSaleCreditAccount" >
+        INSERT INTO t_sms_sale_credit_account 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="saleId != null" >
+                sale_id,
+            </if>
+            <if test="financialHistoryCredit != null" >
+                financial_history_credit,
+            </if>
+            <if test="currentCredit != null" >
+                current_credit,
+            </if>
+            <if test="saleHistoryCredit != null" >
+                sale_history_credit,
+            </if>
+            <if test="agentHistoryPayment != null" >
+                agent_history_payment,
+            </if>
+            <if test="noBackPayment != null" >
+                no_back_payment
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="saleId != null" >
+                #{saleId},
+            </if>
+            <if test="financialHistoryCredit != null" >
+                #{financialHistoryCredit},
+            </if>
+            <if test="currentCredit != null" >
+                #{currentCredit},
+            </if>
+            <if test="saleHistoryCredit != null" >
+                #{saleHistoryCredit},
+            </if>
+            <if test="agentHistoryPayment != null" >
+                #{agentHistoryPayment},
+            </if>
+            <if test="noBackPayment != null" >
+                #{noBackPayment}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_sale_credit_account (
+            sale_id,
+            financial_history_credit,
+            current_credit,
+            sale_history_credit,
+            agent_history_payment,
+            no_back_payment
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.saleId},
+                #{item.financialHistoryCredit},
+                #{item.currentCredit},
+                #{item.saleHistoryCredit},
+                #{item.agentHistoryPayment},
+                #{item.noBackPayment}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_sale_credit_account WHERE sale_id = #{saleId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsSaleCreditAccount" >
+        UPDATE t_sms_sale_credit_account SET 
+            financial_history_credit=#{financialHistoryCredit},
+            current_credit=#{currentCredit},
+            sale_history_credit=#{saleHistoryCredit},
+            agent_history_payment=#{agentHistoryPayment},
+            no_back_payment=#{noBackPayment}
+        WHERE 
+            sale_id = #{saleId} 
+    </update>
+
+
+    <update id="updateAccountForRealTime" parameterType="com.jsmsframework.finance.entity.JsmsSaleCreditAccount" >
+        UPDATE t_sms_sale_credit_account
+        <set>
+            <if test="financialHistoryCredit != null ">
+                financial_history_credit =financial_history_credit + #{financialHistoryCredit},
+            </if>
+            <if test="currentCredit != null ">
+                current_credit =current_credit + #{currentCredit},
+            </if>
+            <if test="saleHistoryCredit != null ">
+                sale_history_credit =sale_history_credit + #{saleHistoryCredit},
+            </if>
+            <if test="agentHistoryPayment != null ">
+                agent_history_payment =agent_history_payment+ #{agentHistoryPayment},
+            </if>
+            <if test="noBackPayment != null">
+                no_back_payment =no_back_payment + #{noBackPayment}
+            </if>
+        </set>
+        WHERE
+        sale_id = #{saleId}
+    </update>
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsSaleCreditAccount" >
+        UPDATE t_sms_sale_credit_account 
+            <set>
+                <if test="financialHistoryCredit != null ">
+                    financial_history_credit = #{financialHistoryCredit},
+                </if>
+                <if test="currentCredit != null ">
+                    current_credit = #{currentCredit},
+                </if>
+                <if test="saleHistoryCredit != null ">
+                    sale_history_credit = #{saleHistoryCredit},
+                </if>
+                <if test="agentHistoryPayment != null ">
+                    agent_history_payment = #{agentHistoryPayment},
+                </if>
+                <if test="noBackPayment != null">
+                    no_back_payment = #{noBackPayment}
+                </if>
+            </set>
+        WHERE 
+            sale_id = #{saleId} 
+    </update>
+
+    <select id="getBySaleId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sale_credit_account
+        WHERE 
+            sale_id = #{saleId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_sale_credit_account 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.saleId != null and params.saleId != ''">
+                and sale_id = #{params.saleId}
+            </if>
+            <if test="params.financialHistoryCredit != null ">
+                and financial_history_credit = #{params.financialHistoryCredit}
+            </if>
+            <if test="params.currentCredit != null">
+                and current_credit = #{params.currentCredit}
+            </if>
+            <if test="params.saleHistoryCredit != null ">
+                and sale_history_credit = #{params.saleHistoryCredit}
+            </if>
+            <if test="params.agentHistoryPayment != null ">
+                and agent_history_payment = #{params.agentHistoryPayment}
+            </if>
+            <if test="params.noBackPayment != null'">
+                and no_back_payment = #{params.noBackPayment}
+            </if>
+	     </trim>
+    </select>
+
+    <!-- 销售财务专用 -->
+    <select id="SaleFinQueryList" resultMap="rowMapper">
+        SELECT
+        <include refid="SALE_COLUMN_LIST" />
+        FROM t_sms_sale_credit_account sa
+        LEFT  JOIN t_sms_user u on u.id =sa.sale_id
+        WHERE  1=1
+            <if test="params.saleId != null and params.saleId != ''">
+                and sa.sale_id = #{params.saleId}
+            </if>
+            <if test="params.condition != null">
+                and
+                (sa.sale_id  LIKE CONCAT('%', #{params.condition}, '%')
+                  OR  u.realname LIKE CONCAT('%', #{params.condition}, '%')
+                  OR  u.email LIKE CONCAT('%', #{params.condition}, '%')
+                  OR  u.mobile LIKE CONCAT('%', #{params.condition}, '%')
+                )
+            </if>
+
+    </select>
+
+    <select id="querySumBlance" resultType="map" >
+        SELECT
+        ROUND(SUM(financial_history_credit),4) AS sumFi,
+        ROUND(SUM(current_credit),4) AS sumCu,
+        ROUND(SUM(sale_history_credit),4) AS sumHi,
+        ROUND(SUM(agent_history_payment),4) AS sumAg,
+        ROUND(SUM(no_back_payment),4) AS sumNo
+        FROM t_sms_sale_credit_account sa
+        LEFT  JOIN t_sms_user u on u.id =sa.sale_id
+       WHERE  1=1
+            <if test="saleId != null and saleId != ''">
+                and sa.sale_id = #{saleId}
+            </if>
+            <if test="condition != null and condition != ''">
+                and
+                (sa.sale_id  LIKE CONCAT('%', #{condition}, '%')
+                OR  u.realname LIKE CONCAT('%', #{condition}, '%')
+                OR  u.email LIKE CONCAT('%', #{condition}, '%')
+                OR  u.mobile LIKE CONCAT('%', #{condition}, '%')
+                )
+            </if>
+
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_sale_credit_account 
+        WHERE 
+            1 = 1
+            <if test="saleId != null and saleId != ''">
+                and sale_id = #{saleId}
+            </if>
+            <if test="financialHistoryCredit != null">
+                and financial_history_credit = #{financialHistoryCredit}
+            </if>
+            <if test="currentCredit != null ">
+                and current_credit = #{currentCredit}
+            </if>
+            <if test="saleHistoryCredit != null ">
+                and sale_history_credit = #{saleHistoryCredit}
+            </if>
+            <if test="agentHistoryPayment != null ">
+                and agent_history_payment = #{agentHistoryPayment}
+            </if>
+            <if test="noBackPayment != null ">
+                and no_back_payment = #{noBackPayment}
+            </if>
+    </select>
+	 
+</mapper>
+

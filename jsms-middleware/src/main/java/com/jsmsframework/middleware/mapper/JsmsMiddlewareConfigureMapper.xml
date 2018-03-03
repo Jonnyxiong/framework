@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.middleware.mapper.JsmsMiddlewareConfigureMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.middleware.entity.JsmsMiddlewareConfigure">
+        <result property="middlewareId" jdbcType="INTEGER" column="middleware_id"/>
+        <result property="middlewareType" jdbcType="INTEGER" column="middleware_type"/>
+        <result property="middlewareName" jdbcType="VARCHAR" column="middleware_name"/>
+        <result property="hostIp" jdbcType="VARCHAR" column="host_ip"/>
+        <result property="port" jdbcType="VARCHAR" column="port"/>
+        <result property="consolePort" jdbcType="VARCHAR" column="console_port"/>
+        <result property="userName" jdbcType="VARCHAR" column="user_name"/>
+        <result property="passWord" jdbcType="VARCHAR" column="pass_word"/>
+        <result property="nodeId" jdbcType="INTEGER" column="node_id"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="updater" jdbcType="VARCHAR" column="updater"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        middleware_id,
+        middleware_type,
+        middleware_name,
+        host_ip,
+        port,
+        console_port,
+        user_name,
+        pass_word,
+        node_id,
+        update_date,
+        updater
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.middleware.entity.JsmsMiddlewareConfigure" >
+        INSERT INTO t_sms_middleware_configure 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="middlewareId != null" >
+                middleware_id,
+            </if>
+            <if test="middlewareType != null" >
+                middleware_type,
+            </if>
+            <if test="middlewareName != null" >
+                middleware_name,
+            </if>
+            <if test="hostIp != null" >
+                host_ip,
+            </if>
+            <if test="port != null" >
+                port,
+            </if>
+            <if test="consolePort != null" >
+                console_port,
+            </if>
+            <if test="userName != null" >
+                user_name,
+            </if>
+            <if test="passWord != null" >
+                pass_word,
+            </if>
+            <if test="nodeId != null" >
+                node_id,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="updater != null" >
+                updater
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="middlewareId != null" >
+                #{middlewareId},
+            </if>
+            <if test="middlewareType != null" >
+                #{middlewareType},
+            </if>
+            <if test="middlewareName != null" >
+                #{middlewareName},
+            </if>
+            <if test="hostIp != null" >
+                #{hostIp},
+            </if>
+            <if test="port != null" >
+                #{port},
+            </if>
+            <if test="consolePort != null" >
+                #{consolePort},
+            </if>
+            <if test="userName != null" >
+                #{userName},
+            </if>
+            <if test="passWord != null" >
+                #{passWord},
+            </if>
+            <if test="nodeId != null" >
+                #{nodeId},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="updater != null" >
+                #{updater}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_middleware_configure (
+            middleware_id,
+            middleware_type,
+            middleware_name,
+            host_ip,
+            port,
+            console_port,
+            user_name,
+            pass_word,
+            node_id,
+            update_date,
+            updater
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.middlewareId},
+                #{item.middlewareType},
+                #{item.middlewareName},
+                #{item.hostIp},
+                #{item.port},
+                #{item.consolePort},
+                #{item.userName},
+                #{item.passWord},
+                #{item.nodeId},
+                #{item.updateDate},
+                #{item.updater}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_middleware_configure WHERE middleware_id = #{middlewareId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.middleware.entity.JsmsMiddlewareConfigure" >
+        UPDATE t_sms_middleware_configure SET 
+            middleware_type=#{middlewareType},
+            middleware_name=#{middlewareName},
+            host_ip=#{hostIp},
+            port=#{port},
+            console_port=#{consolePort},
+            user_name=#{userName},
+            pass_word=#{passWord},
+            node_id=#{nodeId},
+            update_date=#{updateDate},
+            updater=#{updater}
+        WHERE 
+            middleware_id = #{middlewareId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.middleware.entity.JsmsMiddlewareConfigure" >
+        UPDATE t_sms_middleware_configure 
+            <set>
+                <if test="middlewareType != null and middlewareType != ''">
+                    middleware_type = #{middlewareType},
+                </if>
+                <if test="middlewareName != null and middlewareName != ''">
+                    middleware_name = #{middlewareName},
+                </if>
+                <if test="hostIp != null and hostIp != ''">
+                    host_ip = #{hostIp},
+                </if>
+                <if test="port != null and port != ''">
+                    port = #{port},
+                </if>
+                <if test="consolePort != null and consolePort != ''">
+                    console_port = #{consolePort},
+                </if>
+                <if test="userName != null and userName != ''">
+                    user_name = #{userName},
+                </if>
+                <if test="passWord != null and passWord != ''">
+                    pass_word = #{passWord},
+                </if>
+                <if test="nodeId != null and nodeId != ''">
+                    node_id = #{nodeId},
+                </if>
+                <if test="updateDate != null and updateDate != ''">
+                    update_date = #{updateDate},
+                </if>
+                <if test="updater != null and updater != ''">
+                    updater = #{updater}
+                </if>
+            </set>
+        WHERE 
+            middleware_id = #{middlewareId} 
+    </update>
+
+    <select id="getByMiddlewareId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_middleware_configure
+        WHERE 
+            middleware_id = #{middlewareId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_middleware_configure 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.middlewareId != null and params.middlewareId != ''">
+                and middleware_id = #{params.middlewareId}
+            </if>
+            <if test="params.middlewareType != null">
+                and middleware_type = #{params.middlewareType}
+            </if>
+            <if test="params.middlewareName != null and params.middlewareName != ''">
+                and middleware_name = #{params.middlewareName}
+            </if>
+            <if test="params.hostIp != null and params.hostIp != ''">
+                and host_ip = #{params.hostIp}
+            </if>
+            <if test="params.port != null and params.port != ''">
+                and port = #{params.port}
+            </if>
+            <if test="params.consolePort != null and params.consolePort != ''">
+                and console_port = #{params.consolePort}
+            </if>
+            <if test="params.userName != null and params.userName != ''">
+                and user_name = #{params.userName}
+            </if>
+            <if test="params.passWord != null and params.passWord != ''">
+                and pass_word = #{params.passWord}
+            </if>
+            <if test="params.nodeId != null and params.nodeId != ''">
+                and node_id = #{params.nodeId}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.updater != null and params.updater != ''">
+                and updater = #{params.updater}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_middleware_configure 
+        WHERE 
+            1 = 1
+            <if test="middlewareId != null and middlewareId != ''">
+                and middleware_id = #{middlewareId}
+            </if>
+            <if test="middlewareType != null and middlewareType != ''">
+                and middleware_type = #{middlewareType}
+            </if>
+            <if test="middlewareName != null and middlewareName != ''">
+                and middleware_name = #{middlewareName}
+            </if>
+            <if test="hostIp != null and hostIp != ''">
+                and host_ip = #{hostIp}
+            </if>
+            <if test="port != null and port != ''">
+                and port = #{port}
+            </if>
+            <if test="consolePort != null and consolePort != ''">
+                and console_port = #{consolePort}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="passWord != null and passWord != ''">
+                and pass_word = #{passWord}
+            </if>
+            <if test="nodeId != null and nodeId != ''">
+                and node_id = #{nodeId}
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                and update_date = #{updateDate}
+            </if>
+            <if test="updater != null and updater != ''">
+                and updater = #{updater}
+            </if>
+    </select>
+	 
+</mapper>
+

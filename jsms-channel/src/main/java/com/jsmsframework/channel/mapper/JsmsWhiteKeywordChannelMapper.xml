@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.channel.mapper.JsmsWhiteKeywordChannelMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.channel.entity.JsmsWhiteKeywordChannel">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="sign" jdbcType="VARCHAR" column="sign"/>
+        <result property="whiteKeyword" jdbcType="VARCHAR" column="white_keyword"/>
+        <result property="operatorstype" jdbcType="INTEGER" column="operatorstype"/>
+        <result property="sendType" jdbcType="INTEGER" column="send_type"/>
+        <result property="channelId" jdbcType="INTEGER" column="channel_id"/>
+        <result property="clientCode" jdbcType="VARCHAR" column="client_code"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="remarks" jdbcType="VARCHAR" column="remarks"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        sign,
+        white_keyword,
+        operatorstype,
+        send_type,
+        channel_id,
+        client_code,
+        status,
+        remarks,
+        update_time
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.channel.entity.JsmsWhiteKeywordChannel" >
+        INSERT INTO t_sms_white_keyword_channel 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="sign != null" >
+                sign,
+            </if>
+            <if test="whiteKeyword != null" >
+                white_keyword,
+            </if>
+            <if test="operatorstype != null" >
+                operatorstype,
+            </if>
+            <if test="sendType != null" >
+                send_type,
+            </if>
+            <if test="channelId != null" >
+                channel_id,
+            </if>
+            <if test="clientCode != null" >
+                client_code,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="remarks != null" >
+                remarks,
+            </if>
+            <if test="updateTime != null" >
+                update_time
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="sign != null" >
+                #{sign},
+            </if>
+            <if test="whiteKeyword != null" >
+                #{whiteKeyword},
+            </if>
+            <if test="operatorstype != null" >
+                #{operatorstype},
+            </if>
+            <if test="sendType != null" >
+                #{sendType},
+            </if>
+            <if test="channelId != null" >
+                #{channelId},
+            </if>
+            <if test="clientCode != null" >
+                #{clientCode},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="remarks != null" >
+                #{remarks},
+            </if>
+            <if test="updateTime != null" >
+                now()
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_white_keyword_channel (
+            id,
+            sign,
+            white_keyword,
+            operatorstype,
+            send_type,
+            channel_id,
+            client_code,
+            status,
+            remarks,
+            update_time
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.sign},
+                #{item.whiteKeyword},
+                #{item.operatorstype},
+                #{item.sendType},
+                #{item.channelId},
+                #{item.clientCode},
+                #{item.status},
+                #{item.remarks},
+                now()
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_white_keyword_channel WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.channel.entity.JsmsWhiteKeywordChannel" >
+        UPDATE t_sms_white_keyword_channel SET 
+            sign=#{sign},
+            white_keyword=#{whiteKeyword},
+            operatorstype=#{operatorstype},
+            send_type=#{sendType},
+            channel_id=#{channelId},
+            client_code=#{clientCode},
+            status=#{status},
+            remarks=#{remarks},
+            update_time=now()
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.channel.entity.JsmsWhiteKeywordChannel" >
+        UPDATE t_sms_white_keyword_channel 
+            <set>
+                <if test="sign != null and sign != ''">
+                    sign = #{sign},
+                </if>
+                <if test="whiteKeyword != null and whiteKeyword != ''">
+                    white_keyword = #{whiteKeyword},
+                </if>
+                <if test="operatorstype != null and operatorstype != ''">
+                    operatorstype = #{operatorstype},
+                </if>
+                <if test="sendType != null and sendType != ''">
+                    send_type = #{sendType},
+                </if>
+                <if test="channelId != null and channelId != ''">
+                    channel_id = #{channelId},
+                </if>
+                <if test="clientCode != null and clientCode != ''">
+                    client_code = #{clientCode},
+                </if>
+                <if test="status != null">
+                    status = #{status},
+                </if>
+                <if test="remarks != null and remarks != ''">
+                    remarks = #{remarks},
+                </if>
+                <if test="updateTime != null">
+                    update_time = now()
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_white_keyword_channel
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_white_keyword_channel
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.sign != null and params.sign != ''">
+                and sign  like CONCAT('%',#{params.sign},'%')
+            </if>
+            <if test="params.whiteKeyword != null and params.whiteKeyword != ''">
+                and white_keyword like CONCAT('%',#{params.whiteKeyword},'%')
+            </if>
+            <if test="params.operatorstype != null and params.operatorstype != ''">
+                and operatorstype = #{params.operatorstype}
+            </if>
+            <if test="params.sendType != null and params.sendType != ''">
+                and send_type = #{params.sendType}
+            </if>
+            <if test="params.channelId != null and params.channelId != ''">
+                and channel_id = #{params.channelId}
+            </if>
+            <if test="params.clientCode != null and params.clientCode != '' and params.clientCode != '-2'">
+                and client_code = #{params.clientCode}
+            </if>
+            <if test="params.status != null and params.status != ''">
+                and status = #{params.status}
+            </if>
+            <if test="params.remarks != null and params.remarks != ''">
+                and remarks = #{params.remarks}
+            </if>
+            <if test="params.updateTime != null and params.updateTime != ''">
+                and update_time = #{params.updateTime}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_white_keyword_channel 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="sign != null and sign != ''">
+                and sign = #{sign}
+            </if>
+            <if test="whiteKeyword != null and whiteKeyword != ''">
+                and white_keyword = #{whiteKeyword}
+            </if>
+            <if test="operatorstype != null and operatorstype != ''">
+                and operatorstype = #{operatorstype}
+            </if>
+            <if test="sendType != null and sendType != ''">
+                and send_type = #{sendType}
+            </if>
+            <if test="channelId != null and channelId != ''">
+                and channel_id = #{channelId}
+            </if>
+            <if test="clientCode != null and clientCode != '' and clientCode != '-2'">
+                and client_code = #{clientCode}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+    </select>
+
+    <delete id="delete" parameterType="int">
+       delete from
+      t_sms_white_keyword_channel
+      where id=#{id}
+
+    </delete>
+
+
+    <select id="isExist" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_white_keyword_channel
+        WHERE   1=1
+
+        <if test="id != null and id != ''">
+            and id != #{id}
+        </if>
+        <if test="sign != null and sign != ''">
+            and sign = #{sign}
+        </if>
+        <if test="whiteKeyword != null and whiteKeyword != ''">
+            and white_keyword = #{whiteKeyword}
+        </if>
+        <if test="sendType != null and sendType != ''">
+            and send_type = #{sendType}
+        </if>
+        <if test="channelId != null and channelId != ''">
+            and channel_id = #{channelId}
+        </if>
+        <if test="clientCode != null and clientCode != ''">
+            and client_code = #{clientCode}
+        </if>
+
+    </select>
+    <select id="getAllWhiteKeywordList" resultType="string">
+    SELECT
+    white_keyword
+    FROM t_sms_white_keyword_channel
+    where status =1
+    </select>
+</mapper>
+

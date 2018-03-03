@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.audit.mapper.JsmsAuditKeywordCategoryMapper">
+
+
+	<resultMap id="rowMapper"
+		type="com.jsmsframework.audit.entity.JsmsAuditKeywordCategory">
+		<result property="categoryId" jdbcType="INTEGER" column="category_id" />
+		<result property="categoryName" jdbcType="VARCHAR" column="category_name" />
+		<result property="categoryDesc" jdbcType="VARCHAR" column="category_desc" />
+		<result property="operator" jdbcType="BIGINT" column="operator" />
+		<result property="updateDate" jdbcType="TIMESTAMP" column="update_date" />
+		<result property="remark" jdbcType="VARCHAR" column="remark" />
+		<result property="categoryColor" jdbcType="VARCHAR" column="category_color" />
+	</resultMap>
+
+	<sql id="BASE_COLUMN_LIST">
+		category_id,
+		category_name,
+		category_desc,
+		operator,
+		update_date,
+		remark,
+		category_color
+	</sql>
+
+	<insert id="insert"
+		parameterType="com.jsmsframework.audit.entity.JsmsAuditKeywordCategory">
+		INSERT INTO t_sms_audit_keyword_category
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="categoryId != null">
+				category_id,
+			</if>
+			<if test="categoryName != null">
+				category_name,
+			</if>
+			<if test="categoryDesc != null">
+				category_desc,
+			</if>
+			<if test="operator != null">
+				operator,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="categoryColor != null and categoryColor!=''">
+				category_color
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+			<if test="categoryId != null">
+				#{categoryId},
+			</if>
+			<if test="categoryName != null">
+				#{categoryName},
+			</if>
+			<if test="categoryDesc != null">
+				#{categoryDesc},
+			</if>
+			<if test="operator != null">
+				#{operator},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="categoryColor != null and categoryColor!=''">
+				#{categoryColor}
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		INSERT INTO t_sms_audit_keyword_category (
+		category_id,
+		category_name,
+		category_desc,
+		operator,
+		update_date,
+		remark,
+		category_color
+		)VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.categoryId},
+			#{item.categoryName},
+			#{item.categoryDesc},
+			#{item.operator},
+			#{item.updateDate},
+			#{item.remark},
+			#{item.categoryColor}
+			)
+		</foreach>
+	</insert>
+
+
+
+
+	<delete id="delete">
+		DELETE FROM t_sms_audit_keyword_category WHERE category_id = #{categoryId}
+	</delete>
+
+	<update id="updateIdempotent" parameterType="map">
+		UPDATE t_sms_audit_keyword_category
+		<set>
+			<if test="newModel.categoryName != null and newModel.categoryName != ''">
+				category_name = #{newModel.categoryName},
+			</if>
+			<if test="newModel.categoryDesc != null and newModel.categoryDesc != ''">
+				category_desc = #{newModel.categoryDesc},
+			</if>
+			<if test="newModel.operator != null and newModel.operator != ''">
+				operator = #{newModel.operator},
+			</if>
+			<if test="newModel.updateDate != null">
+				update_date = #{newModel.updateDate},
+			</if>
+			<if test="newModel.remark != null and newModel.remark != ''">
+				remark = #{newModel.remark},
+			</if>
+			<if test="newModel.categoryColor != null and newModel.categoryColor != ''">
+				category_color = #{newModel.categoryColor}
+			</if>
+		</set>
+		<where>
+			category_id = #{oldModel.categoryId}
+			<if test="oldModel.categoryName != null and oldModel.categoryName != ''">
+				AND category_name = #{oldModel.categoryName}
+			</if>
+			<if test="oldModel.categoryDesc != null and oldModel.categoryDesc != ''">
+				AND category_desc = #{oldModel.categoryDesc}
+			</if>
+			<if test="oldModel.operator != null and oldModel.operator != ''">
+				AND operator = #{oldModel.operator}
+			</if>
+			<if test="oldModel.updateDate != null">
+				AND update_date = #{oldModel.updateDate}
+			</if>
+			<if test="oldModel.remark != null and oldModel.remark != ''">
+				AND remark = #{oldModel.remark}
+			</if>
+			<if test="oldModel.categoryColor != null and oldModel.categoryColor != ''">
+				AND category_color = #{oldModel.categoryColor}
+			</if>
+		</where>
+	</update>
+
+	<update id="update"
+		parameterType="com.jsmsframework.audit.entity.JsmsAuditKeywordCategory">
+		UPDATE t_sms_audit_keyword_category SET
+		category_name=#{categoryName},
+		category_desc=#{categoryDesc},
+		operator=#{operator},
+		update_date=#{updateDate},
+		remark=#{remark},
+		category_color=#{categoryColor}
+		WHERE
+		category_id = #{categoryId}
+	</update>
+
+
+
+	<update id="updateSelective"
+		parameterType="com.jsmsframework.audit.entity.JsmsAuditKeywordCategory">
+		UPDATE t_sms_audit_keyword_category
+		<set>
+			<if test="categoryName != null and categoryName != ''">
+				category_name = #{categoryName},
+			</if>
+			<if test="categoryDesc != null and categoryDesc != ''">
+				category_desc = #{categoryDesc},
+			</if>
+			<if test="operator != null and operator != ''">
+				operator = #{operator},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				update_date = #{updateDate},
+			</if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark},
+			</if>
+			<if test="categoryColor != null and categoryColor != ''">
+				category_color = #{categoryColor}
+			</if>
+		</set>
+		WHERE
+		category_id = #{categoryId}
+	</update>
+
+	<select id="getByCategoryId" resultMap="rowMapper">
+		SELECT
+		<include refid="BASE_COLUMN_LIST" />
+		FROM t_sms_audit_keyword_category
+		WHERE
+		category_id = #{categoryId}
+	</select>
+
+	<select id="getByCategoryName" resultMap="rowMapper">
+		SELECT
+		<include refid="BASE_COLUMN_LIST" />
+		FROM t_sms_audit_keyword_category
+		WHERE
+		category_name = #{categoryName}
+	</select>
+
+	<select id="getByCategoryNames" resultMap="rowMapper" parameterType="java.util.Set">
+		SELECT
+		<include refid="BASE_COLUMN_LIST" />
+		FROM t_sms_audit_keyword_category
+		WHERE
+		category_name IN
+		<foreach collection="categoryNames" separator="," item="item" index="item" open="(" close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="queryList" resultMap="rowMapper">
+		SELECT
+		<include refid="BASE_COLUMN_LIST" />
+		FROM t_sms_audit_keyword_category
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="params.categoryId != null and params.categoryId != ''">
+				and category_id = #{params.categoryId}
+			</if>
+			<if test="params.categoryName != null and params.categoryName != ''">
+				and category_name = #{params.categoryName}
+			</if>
+			<if test="params.categoryDesc != null and params.categoryDesc != ''">
+				and category_desc = #{params.categoryDesc}
+			</if>
+			<if test="params.operator != null and params.operator != ''">
+				and operator = #{params.operator}
+			</if>
+			<if test="params.updateDate != null and params.updateDate != ''">
+				and update_date = #{params.updateDate}
+			</if>
+			<if test="params.remark != null and params.remark != ''">
+				and remark = #{params.remark}
+			</if>
+			<if test="params.condition != null and params.condition != ''">
+				and category_name LIKE CONCAT('%',#{params.condition},'%')
+			</if>
+			<if test="params.categoryColor != null and params.categoryColor != ''">
+				and category_color = #{params.categoryColor}
+			</if>
+		</trim>
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(0)
+		FROM t_sms_audit_keyword_category
+		WHERE
+		1 = 1
+		<if test="categoryId != null and categoryId != ''">
+			and category_id = #{categoryId}
+		</if>
+		<if test="categoryName != null and categoryName != ''">
+			and category_name = #{categoryName}
+		</if>
+		<if test="categoryDesc != null and categoryDesc != ''">
+			and category_desc = #{categoryDesc}
+		</if>
+		<if test="operator != null and operator != ''">
+			and operator = #{operator}
+		</if>
+		<if test="updateDate != null and updateDate != ''">
+			and update_date = #{updateDate}
+		</if>
+		<if test="remark != null and remark != ''">
+			and remark = #{remark}
+		</if>
+		<if test="categoryColor != null and categoryColor != ''">
+			and category_color = #{categoryColor}
+		</if>
+	</select>
+
+
+	<select id="queryEditKeyWord" resultMap="rowMapper">
+		SELECT
+		<include refid="BASE_COLUMN_LIST" />
+		FROM t_sms_audit_keyword_category
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="params.categoryId != null and params.categoryId != ''">
+				and category_id = #{params.categoryId}
+			</if>
+			<if test="params.categoryName != null and params.categoryName != ''">
+				and category_name = #{params.categoryName}
+			</if>
+			<if test="params.categoryDesc != null and params.categoryDesc != ''">
+				and category_desc = #{params.categoryDesc}
+			</if>
+			<if test="params.operator != null and params.operator != ''">
+				and operator = #{params.operator}
+			</if>
+			<if test="params.updateDate != null and params.updateDate != ''">
+				and update_date = #{params.updateDate}
+			</if>
+			<if test="params.remark != null and params.remark != ''">
+				and remark = #{params.remark}
+			</if>
+			<if test="params.categoryColor != null and params.categoryColor != ''">
+				and category_color = #{params.categoryColor}
+			</if>
+		</trim>
+	</select>
+
+
+	<select id="queryExportExcelData" resultMap="rowMapper">
+		SELECT
+		<include refid="BASE_COLUMN_LIST" />
+		FROM t_sms_audit_keyword_category
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="params.categoryId != null and params.categoryId != ''">
+				and category_id = #{params.categoryId}
+			</if>
+			<if test="params.categoryName != null and params.categoryName != ''">
+				and category_name = #{params.categoryName}
+			</if>
+			<if test="params.categoryDesc != null and params.categoryDesc != ''">
+				and category_desc = #{params.categoryDesc}
+			</if>
+			<if test="params.operator != null and params.operator != ''">
+				and operator = #{params.operator}
+			</if>
+			<if test="params.updateDate != null and params.updateDate != ''">
+				and update_date = #{params.updateDate}
+			</if>
+			<if test="params.remark != null and params.remark != ''">
+				and remark = #{params.remark}
+			</if>
+			<if test="params.categoryColor != null and params.categoryColor != ''">
+				and category_color = #{params.categoryColor}
+			</if>
+		</trim>
+	</select>
+	<select id="getList" resultType="com.jsmsframework.audit.entity.JsmsAuditKeywordCategory">
+		SELECT
+		t.category_id as categoryId,concat(t.category_id,'-',t.category_name) as categoryName
+		FROM
+		t_sms_audit_keyword_category t
+	</select>
+	<select id="getExitList" resultType="com.jsmsframework.audit.entity.JsmsAuditKeywordCategory">
+		select tkc.category_name as categoryName ,tkc.category_id as categoryId from t_sms_audit_keyword_category tkc
+LEFT JOIN t_sms_audit_kgroup_ref_category trc on tkc.category_id = trc.category_id LEFT JOIN t_sms_audit_keyword_group tkg on trc.kgroup_id = tkg.kgroup_id
+   where  tkg.kgroup_id=#{kgroupId}
+	</select>
+
+
+	<select id="getByCategoryIds" resultMap="rowMapper">
+		SELECT
+		<include refid="BASE_COLUMN_LIST" />
+		FROM t_sms_audit_keyword_category
+
+		WHERE
+			<choose>
+				<when test="list != null ">
+					 category_id IN
+					<foreach collection="list" separator="," item="item" index="item" open="(" close=")">
+						#{item}
+					</foreach>
+				</when>
+				<otherwise>
+					1 = 2
+				</otherwise>
+			</choose>
+
+	</select>
+</mapper>
+

@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.order.mapper.JsmsOemAgentPoolMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.order.entity.JsmsOemAgentPool">
+        <result property="agentPoolId" jdbcType="BIGINT" column="agent_pool_id"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="productType" jdbcType="INTEGER" column="product_type"/>
+        <result property="operatorCode" jdbcType="INTEGER" column="operator_code"/>
+        <result property="areaCode" jdbcType="INTEGER" column="area_code"/>
+        <result property="dueTime" jdbcType="TIMESTAMP" column="due_time"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="remainNumber" jdbcType="INTEGER" column="remain_number"/>
+        <result property="unitPrice" jdbcType="DECIMAL" column="unit_price"/>
+        <result property="remainAmount" jdbcType="DECIMAL" column="remain_amount"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        agent_pool_id,
+        agent_id,
+        product_type,
+        operator_code,
+        area_code,
+        due_time,
+        status,
+        remain_number,
+        unit_price,
+        remain_amount,
+        update_time,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.order.entity.JsmsOemAgentPool" useGeneratedKeys="true" keyProperty="agentPoolId">
+        INSERT INTO t_sms_oem_agent_pool 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="agentPoolId != null" >
+                agent_pool_id,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="productType != null" >
+                product_type,
+            </if>
+            <if test="operatorCode != null" >
+                operator_code,
+            </if>
+            <if test="areaCode != null" >
+                area_code,
+            </if>
+            <if test="dueTime != null" >
+                due_time,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="remainNumber != null" >
+                remain_number,
+            </if>
+            <if test="unitPrice != null" >
+                unit_price,
+            </if>
+            <if test="remainAmount != null" >
+                remain_amount,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="agentPoolId != null" >
+                #{agentPoolId},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="productType != null" >
+                #{productType},
+            </if>
+            <if test="operatorCode != null" >
+                #{operatorCode},
+            </if>
+            <if test="areaCode != null" >
+                #{areaCode},
+            </if>
+            <if test="dueTime != null" >
+                #{dueTime},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="remainNumber != null" >
+                #{remainNumber},
+            </if>
+            <if test="unitPrice != null" >
+                #{unitPrice},
+            </if>
+            <if test="remainAmount != null" >
+                #{remainAmount},
+            </if>
+            <if test="updateTime != null" >
+                now(),
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_oem_agent_pool (
+            agent_pool_id,
+            agent_id,
+            product_type,
+            operator_code,
+            area_code,
+            due_time,
+            status,
+            remain_number,
+            unit_price,
+            remain_amount,
+            update_time,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.agentPoolId},
+                #{item.agentId},
+                #{item.productType},
+                #{item.operatorCode},
+                #{item.areaCode},
+                #{item.dueTime},
+                #{item.status},
+                #{item.remainNumber},
+                #{item.unitPrice},
+                #{item.remainAmount},
+                now(),
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_oem_agent_pool WHERE agent_pool_id = #{agentPoolId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.order.entity.JsmsOemAgentPool" >
+        UPDATE t_sms_oem_agent_pool SET 
+            agent_id=#{agentId},
+            product_type=#{productType},
+            operator_code=#{operatorCode},
+            area_code=#{areaCode},
+            due_time=#{dueTime},
+            status=#{status},
+            remain_number=#{remainNumber},
+            unit_price=#{unitPrice},
+            remain_amount=#{remainAmount},
+            update_time=#{updateTime},
+            remark=#{remark}
+        WHERE 
+            agent_pool_id = #{agentPoolId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.order.entity.JsmsOemAgentPool" >
+        UPDATE t_sms_oem_agent_pool 
+            <set>
+                <if test="agentId != null and agentId != ''">
+                    agent_id = #{agentId},
+                </if>
+                <if test="productType != null and productType != ''">
+                    product_type = #{productType},
+                </if>
+                <if test="operatorCode != null and operatorCode != ''">
+                    operator_code = #{operatorCode},
+                </if>
+                <if test="areaCode != null and areaCode != ''">
+                    area_code = #{areaCode},
+                </if>
+                <if test="dueTime != null and dueTime != ''">
+                    due_time = #{dueTime},
+                </if>
+                <if test="status != null and status != ''">
+                    status = #{status},
+                </if>
+                <if test="remainNumber != null and remainNumber != ''">
+                    remain_number = #{remainNumber},
+                </if>
+                <if test="unitPrice != null and unitPrice != ''">
+                    unit_price = #{unitPrice},
+                </if>
+                <if test="remainAmount != null and remainAmount != ''">
+                    remain_amount = #{remainAmount},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            agent_pool_id = #{agentPoolId} 
+    </update>
+
+    <select id="getByAgentPoolId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_oem_agent_pool
+        WHERE 
+            agent_pool_id = #{agentPoolId}
+    </select>
+
+    <select id="getByAgentPoolInfo" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_oem_agent_pool
+        WHERE
+          1 = 1
+        <if test="agentId != null">
+            and agent_id = #{agentId}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="productType != null">
+            and product_type = #{productType}
+        </if>
+        <if test="operatorCode != null">
+            and operator_code = #{operatorCode}
+        </if>
+        <if test="areaCode != null">
+            and area_code = #{areaCode}
+        </if>
+        <if test="dueTime != null">
+            and due_time = #{dueTime}
+        </if>
+        <if test="unitPrice != null">
+            and unit_price = #{unitPrice}
+        </if>
+        ORDER BY agent_pool_id DESC LIMIT 1
+    </select>
+
+    <select id="getListByAgentPoolInfo" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_oem_agent_pool
+        WHERE
+        1 = 1
+        <if test="agentId != null">
+            and agent_id = #{agentId}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="productType != null">
+            and product_type = #{productType}
+        </if>
+        <if test="operatorCode != null">
+            and operator_code = #{operatorCode}
+        </if>
+        <if test="areaCode != null">
+            and area_code = #{areaCode}
+        </if>
+        <if test="dueTime != null">
+            and due_time = #{dueTime}
+        </if>
+        <if test="unitPrice != null">
+            and unit_price = #{unitPrice}
+        </if>
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_oem_agent_pool 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.agentPoolId != null and params.agentPoolId != ''">
+                and agent_pool_id = #{params.agentPoolId}
+            </if>
+            <if test="params.agentId != null and params.agentId != ''">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.productType != null and params.productType != ''">
+                and product_type = #{params.productType}
+            </if>
+            <if test="params.operatorCode != null and params.operatorCode != ''">
+                and operator_code = #{params.operatorCode}
+            </if>
+            <if test="params.areaCode != null and params.areaCode != ''">
+                and area_code = #{params.areaCode}
+            </if>
+            <if test="params.dueTime != null and params.dueTime != ''">
+                and due_time = #{params.dueTime}
+            </if>
+            <if test="params.status != null and params.status != ''">
+                and status = #{params.status}
+            </if>
+            <if test="params.remainNumber != null and params.remainNumber != ''">
+                and remain_number = #{params.remainNumber}
+            </if>
+            <if test="params.unitPrice != null and params.unitPrice != ''">
+                and unit_price = #{params.unitPrice}
+            </if>
+            <if test="params.remainAmount != null and params.remainAmount != ''">
+                and remain_amount = #{params.remainAmount}
+            </if>
+            <if test="params.updateTime != null and params.updateTime != ''">
+                and update_time = #{params.updateTime}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_oem_agent_pool 
+        WHERE 
+            1 = 1
+            <if test="agentPoolId != null and agentPoolId != ''">
+                and agent_pool_id = #{agentPoolId}
+            </if>
+            <if test="agentId != null and agentId != ''">
+                and agent_id = #{agentId}
+            </if>
+            <if test="productType != null and productType != ''">
+                and product_type = #{productType}
+            </if>
+            <if test="operatorCode != null and operatorCode != ''">
+                and operator_code = #{operatorCode}
+            </if>
+            <if test="areaCode != null and areaCode != ''">
+                and area_code = #{areaCode}
+            </if>
+            <if test="dueTime != null and dueTime != ''">
+                and due_time = #{dueTime}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="remainNumber != null and remainNumber != ''">
+                and remain_number = #{remainNumber}
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="remainAmount != null and remainAmount != ''">
+                and remain_amount = #{remainAmount}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+
+
+    <update id="reduceAgentPoolRemainNum">
+        UPDATE
+            t_sms_oem_agent_pool
+        <!-- 非国际产品 -->
+        <if test="productType != 2">
+            <set>
+                <if test="remainNumber != null">
+                    remain_number = remain_number - #{reduceNumActual},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime}
+                </if>
+            </set>
+            <where>
+                agent_pool_id = #{agentPoolId}
+                <if test="remainNumber != null">
+                    AND remain_number = #{remainNumber}
+                </if>
+            </where>
+        </if>
+        <!-- 国际产品 -->
+        <if test="productType == 2">
+            <set>
+                <if test="remainAmount != null">
+                    remain_amount = remain_amount - #{reduceNumActual},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime}
+                </if>
+            </set>
+            <where>
+                agent_pool_id = #{agentPoolId}
+                <if test="remainAmount != null">
+                    AND remain_amount = #{remainAmount}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <update id="updateForAddAgentPoolRemainNum" parameterType="com.jsmsframework.order.entity.JsmsOemAgentPool">
+        UPDATE
+            t_sms_oem_agent_pool
+        <set>
+            <if test="remainNumber != null">
+                remain_number = remain_number + #{remainNumber},
+            </if>
+            <if test="remainAmount != null">
+                remain_amount = remain_amount + #{remainAmount},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime}
+            </if>
+        </set>
+        WHERE
+        agent_pool_id = #{agentPoolId}
+    </update>
+	 
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_oem_agent_pool
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="agentPoolId != null">
+                and agent_pool_id = #{agentPoolId}
+            </if>
+            <if test="agentId != null">
+                and agent_id = #{agentId}
+            </if>
+            <if test="productType != null">
+                and product_type = #{productType}
+            </if>
+            <if test="operatorCode != null">
+                and operator_code = #{operatorCode}
+            </if>
+            <if test="areaCode != null">
+                and area_code = #{areaCode}
+            </if>
+            <if test="dueTime != null">
+                and DATE_FORMAT(due_time,'%Y%m%d') = DATE_FORMAT(#{dueTime},'%Y%m%d')
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remainNumber != null">
+                and remain_number = #{remainNumber}
+            </if>
+            <if test="unitPrice != null">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="remainAmount != null">
+                and remain_amount = #{remainAmount}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </trim>
+    </select>
+
+    <update id="returnQuantity">
+        UPDATE t_sms_oem_agent_pool set
+            remain_number = IFNULL(remain_number, 0) - #{quantity},
+            update_time = now()
+        where
+            agent_pool_id = #{oemAgentPool.agentPoolId}
+        and agent_id = #{oemAgentPool.agentId}
+        and remain_number = #{oemAgentPool.remainNumber}
+    </update>
+
+</mapper>
+

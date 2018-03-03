@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.channel.mapper.JsmsKeywordListMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.channel.entity.JsmsKeywordList">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="keyword" jdbcType="VARCHAR" column="keyword"/>
+        <result property="remarks" jdbcType="VARCHAR" column="remarks"/>
+        <result property="createtime" jdbcType="TIMESTAMP" column="createtime"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        keyword,
+        remarks,
+        createtime
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.channel.entity.JsmsKeywordList" >
+        INSERT INTO t_sms_keyword_list 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="keyword != null" >
+                keyword,
+            </if>
+            <if test="remarks != null" >
+                remarks,
+            </if>
+            <if test="createtime != null" >
+                createtime
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="keyword != null" >
+                #{keyword},
+            </if>
+            <if test="remarks != null" >
+                #{remarks},
+            </if>
+            <if test="createtime != null" >
+                #{createtime}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_keyword_list (
+            id,
+            keyword,
+            remarks,
+            createtime
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.keyword},
+                #{item.remarks},
+                #{item.createtime}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_keyword_list WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.channel.entity.JsmsKeywordList" >
+        UPDATE t_sms_keyword_list SET 
+            keyword=#{keyword},
+            remarks=#{remarks},
+            createtime=#{createtime}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.channel.entity.JsmsKeywordList" >
+        UPDATE t_sms_keyword_list 
+            <set>
+                <if test="keyword != null and keyword != ''">
+                    keyword = #{keyword},
+                </if>
+                <if test="remarks != null and remarks != ''">
+                    remarks = #{remarks},
+                </if>
+                <if test="createtime != null and createtime != ''">
+                    createtime = #{createtime}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_keyword_list
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_keyword_list 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.keyword != null and params.keyword != ''">
+                and keyword = #{params.keyword}
+            </if>
+            <if test="params.remarks != null and params.remarks != ''">
+                and remarks = #{params.remarks}
+            </if>
+            <if test="params.createtime != null and params.createtime != ''">
+                and createtime = #{params.createtime}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_keyword_list 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                and keyword = #{keyword}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+            <if test="createtime != null and createtime != ''">
+                and createtime = #{createtime}
+            </if>
+    </select>
+
+    <select id="getAllKeywordList" resultType="string">
+        SELECT
+        keyword
+        FROM t_sms_keyword_list
+    </select>
+
+</mapper>
+

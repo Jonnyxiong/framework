@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.audit.mapper.JsmsUserAuditKeywordIgnoreMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.audit.entity.JsmsUserAuditKeywordIgnore">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="smstype" jdbcType="INTEGER" column="smstype"/>
+        <result property="ignoreKeyword" jdbcType="VARCHAR" column="ignore_keyword"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="remarks" jdbcType="VARCHAR" column="remarks"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="operatorId" jdbcType="BIGINT" column="operator_id"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        clientid,
+        smstype,
+        ignore_keyword,
+        status,
+        remarks,
+        update_date,
+        operator_id
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.audit.entity.JsmsUserAuditKeywordIgnore" >
+        INSERT INTO t_sms_user_audit_keyword_ignore 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="clientid != null" >
+                clientid,
+            </if>
+            <if test="smstype != null" >
+                smstype,
+            </if>
+            <if test="ignoreKeyword != null" >
+                ignore_keyword,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="remarks != null" >
+                remarks,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="operatorId != null" >
+                operator_id
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="clientid != null" >
+                #{clientid},
+            </if>
+            <if test="smstype != null" >
+                #{smstype},
+            </if>
+            <if test="ignoreKeyword != null" >
+                #{ignoreKeyword},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="remarks != null" >
+                #{remarks},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="operatorId != null" >
+                #{operatorId}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_user_audit_keyword_ignore (
+            clientid,
+            smstype,
+            ignore_keyword,
+            status,
+            remarks,
+            update_date,
+            operator_id
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.clientid},
+                #{item.smstype},
+                #{item.ignoreKeyword},
+                #{item.status},
+                #{item.remarks},
+                now(),
+                #{item.operatorId}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_user_audit_keyword_ignore WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.audit.entity.JsmsUserAuditKeywordIgnore" >
+        UPDATE t_sms_user_audit_keyword_ignore SET 
+            clientid=#{clientid},
+            smstype=#{smstype},
+            ignore_keyword=#{ignoreKeyword},
+            status=#{status},
+            remarks=#{remarks},
+            update_date=#{updateDate},
+            operator_id=#{operatorId}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.audit.entity.JsmsUserAuditKeywordIgnore" >
+        UPDATE t_sms_user_audit_keyword_ignore 
+            <set>
+                <if test="clientid != null">
+                    clientid = #{clientid},
+                </if>
+                <if test="smstype != null">
+                    smstype = #{smstype},
+                </if>
+                <if test="ignoreKeyword != null">
+                    ignore_keyword = #{ignoreKeyword},
+                </if>
+                <if test="status != null">
+                    status = #{status},
+                </if>
+                <if test="remarks != null">
+                    remarks = #{remarks},
+                </if>
+                <if test="updateDate != null">
+                    update_date = #{updateDate},
+                </if>
+                <if test="operatorId != null">
+                    operator_id = #{operatorId}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_user_audit_keyword_ignore
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_user_audit_keyword_ignore 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null">
+                and id = #{params.id}
+            </if>
+            <if test="params.clientid != null">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.smstype != null">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.ignoreKeyword != null">
+                and ignore_keyword = #{params.ignoreKeyword}
+            </if>
+            <if test="params.status != null">
+                and status = #{params.status}
+            </if>
+            <if test="params.remarks != null">
+                and remarks = #{params.remarks}
+            </if>
+            <if test="params.updateDate != null">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.operatorId != null">
+                and operator_id = #{params.operatorId}
+            </if>
+            <if test="params.condition != null and params.condition != ''">
+                and (ignore_keyword LIKE CONCAT('%',#{params.simplifredChineseCondition},'%') or ignore_keyword LIKE CONCAT('%',#{params.traditionalChineseCondition},'%') )
+            </if>
+            <if test="params.clientIdStr != null">
+                and clientid like concat('%', #{params.clientIdStr},'%')
+            </if>
+	     </trim>
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_user_audit_keyword_ignore
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="clientid != null">
+                and clientid = #{clientid}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="ignoreKeyword != null">
+                and ignore_keyword = #{ignoreKeyword}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remarks != null">
+                and remarks = #{remarks}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="operatorId != null">
+                and operator_id = #{operatorId}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_user_audit_keyword_ignore 
+        WHERE 
+            1 = 1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="clientid != null">
+                and clientid = #{clientid}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="ignoreKeyword != null">
+                and ignore_keyword = #{ignoreKeyword}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remarks != null">
+                and remarks = #{remarks}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="operatorId != null">
+                and operator_id = #{operatorId}
+            </if>
+    </select>
+
+    <update id="updateStatus">
+        UPDATE t_sms_user_audit_keyword_ignore SET status=#{status},update_date=#{updateDate},operator_id=#{operatorId}
+        where id = #{id}
+    </update>
+
+    <select id="findByClientIdAndSmsType" resultMap="rowMapper">
+        SELECT <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_user_audit_keyword_ignore
+        where clientid=#{clientId} and smstype = #{smsType}
+    </select>
+
+    <select id="queryExistData" resultMap="rowMapper">
+        SELECT <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_user_audit_keyword_ignore
+        where clientid=#{clientId} and smstype = #{smsType} and ignore_keyword = #{ignoreKeyword} and status=#{status}
+    </select>
+</mapper>
+

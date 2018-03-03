@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.channel.mapper.JsmsChannelAttributeRealtimeWeightMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.channel.entity.JsmsChannelAttributeRealtimeWeight">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="channelid" jdbcType="INTEGER" column="channelid"/>
+        <result property="successRate" jdbcType="DECIMAL" column="success_rate"/>
+        <result property="unitPrice" jdbcType="DECIMAL" column="unit_price"/>
+        <result property="antiComplaint" jdbcType="DECIMAL" column="anti_complaint"/>
+        <result property="exFlag" jdbcType="INTEGER" column="ex_flag"/>
+        <result property="lowConsumeLimit" jdbcType="DECIMAL" column="low_consume_limit"/>
+        <result property="yzSuccessWeight" jdbcType="DECIMAL" column="yz_success_weight"/>
+        <result property="tzSuccessWeight" jdbcType="DECIMAL" column="tz_success_weight"/>
+        <result property="yxSuccessWeight" jdbcType="DECIMAL" column="yx_success_weight"/>
+        <result property="gjSuccessWeight" jdbcType="DECIMAL" column="gj_success_weight"/>
+        <result property="ydPriceWeight" jdbcType="DECIMAL" column="yd_price_weight"/>
+        <result property="ltPriceWeight" jdbcType="DECIMAL" column="lt_price_weight"/>
+        <result property="dxPriceWeight" jdbcType="DECIMAL" column="dx_price_weight"/>
+        <result property="updator" jdbcType="BIGINT" column="updator"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        channelid,
+        ROUND(success_rate,2) as success_rate,
+        ROUND(unit_price,4) as unit_price,
+        ROUND(anti_complaint,2) as anti_complaint,
+        ex_flag,
+        ROUND(low_consume_limit,4) as low_consume_limit,
+        ROUND(yz_success_weight,2) as yz_success_weight,
+        ROUND(tz_success_weight,2) as tz_success_weight,
+        ROUND(yx_success_weight,2) as yx_success_weight,
+        ROUND(gj_success_weight,2) as gj_success_weight,
+        ROUND(yd_price_weight,2) as yd_price_weight,
+        ROUND(lt_price_weight,2) as lt_price_weight,
+        ROUND(dx_price_weight,2) as dx_price_weight,
+        updator,
+        update_date,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.channel.entity.JsmsChannelAttributeRealtimeWeight" >
+        INSERT INTO t_sms_channel_attribute_realtime_weight 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="channelid != null" >
+                channelid,
+            </if>
+            <if test="successRate != null" >
+                success_rate,
+            </if>
+            <if test="unitPrice != null" >
+                unit_price,
+            </if>
+            <if test="antiComplaint != null" >
+                anti_complaint,
+            </if>
+            <if test="exFlag != null" >
+                ex_flag,
+            </if>
+            <if test="lowConsumeLimit != null" >
+                low_consume_limit,
+            </if>
+            <if test="yzSuccessWeight != null" >
+                yz_success_weight,
+            </if>
+            <if test="tzSuccessWeight != null" >
+                tz_success_weight,
+            </if>
+            <if test="yxSuccessWeight != null" >
+                yx_success_weight,
+            </if>
+            <if test="gjSuccessWeight != null" >
+                gj_success_weight,
+            </if>
+            <if test="ydPriceWeight != null" >
+                yd_price_weight,
+            </if>
+            <if test="ltPriceWeight != null" >
+                lt_price_weight,
+            </if>
+            <if test="dxPriceWeight != null" >
+                dx_price_weight,
+            </if>
+            <if test="updator != null" >
+                updator,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="channelid != null" >
+                #{channelid},
+            </if>
+            <if test="successRate != null" >
+                #{successRate},
+            </if>
+            <if test="unitPrice != null" >
+                #{unitPrice},
+            </if>
+            <if test="antiComplaint != null" >
+                #{antiComplaint},
+            </if>
+            <if test="exFlag != null" >
+                #{exFlag},
+            </if>
+            <if test="lowConsumeLimit != null" >
+                #{lowConsumeLimit},
+            </if>
+            <if test="yzSuccessWeight != null" >
+                #{yzSuccessWeight},
+            </if>
+            <if test="tzSuccessWeight != null" >
+                #{tzSuccessWeight},
+            </if>
+            <if test="yxSuccessWeight != null" >
+                #{yxSuccessWeight},
+            </if>
+            <if test="gjSuccessWeight != null" >
+                #{gjSuccessWeight},
+            </if>
+            <if test="ydPriceWeight != null" >
+                #{ydPriceWeight},
+            </if>
+            <if test="ltPriceWeight != null" >
+                #{ltPriceWeight},
+            </if>
+            <if test="dxPriceWeight != null" >
+                #{dxPriceWeight},
+            </if>
+            <if test="updator != null" >
+                #{updator},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_channel_attribute_realtime_weight (
+            id,
+            channelid,
+            success_rate,
+            unit_price,
+            anti_complaint,
+            ex_flag,
+            low_consume_limit,
+            yz_success_weight,
+            tz_success_weight,
+            yx_success_weight,
+            gj_success_weight,
+            yd_price_weight,
+            lt_price_weight,
+            dx_price_weight,
+            updator,
+            update_date,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.channelid},
+                #{item.successRate},
+                #{item.unitPrice},
+                #{item.antiComplaint},
+                #{item.exFlag},
+                #{item.lowConsumeLimit},
+                #{item.yzSuccessWeight},
+                #{item.tzSuccessWeight},
+                #{item.yxSuccessWeight},
+                #{item.gjSuccessWeight},
+                #{item.ydPriceWeight},
+                #{item.ltPriceWeight},
+                #{item.dxPriceWeight},
+                #{item.updator},
+                #{item.updateDate},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_channel_attribute_realtime_weight WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.channel.entity.JsmsChannelAttributeRealtimeWeight" >
+        UPDATE t_sms_channel_attribute_realtime_weight SET 
+            channelid=#{channelid},
+            success_rate=#{successRate},
+            unit_price=#{unitPrice},
+            anti_complaint=#{antiComplaint},
+            ex_flag=#{exFlag},
+            low_consume_limit=#{lowConsumeLimit},
+            yz_success_weight=#{yzSuccessWeight},
+            tz_success_weight=#{tzSuccessWeight},
+            yx_success_weight=#{yxSuccessWeight},
+            gj_success_weight=#{gjSuccessWeight},
+            yd_price_weight=#{ydPriceWeight},
+            lt_price_weight=#{ltPriceWeight},
+            dx_price_weight=#{dxPriceWeight},
+            updator=#{updator},
+            update_date=#{updateDate},
+            remark=#{remark}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.channel.entity.JsmsChannelAttributeRealtimeWeight" >
+        UPDATE t_sms_channel_attribute_realtime_weight 
+            <set>
+                <if test="channelid != null and channelid != ''">
+                    channelid = #{channelid},
+                </if>
+                <if test="successRate != null and successRate != ''">
+                    success_rate = #{successRate},
+                </if>
+                <if test="unitPrice != null and unitPrice != ''">
+                    unit_price = #{unitPrice},
+                </if>
+                <if test="antiComplaint != null and antiComplaint != ''">
+                    anti_complaint = #{antiComplaint},
+                </if>
+                <if test="exFlag != null and exFlag != ''">
+                    ex_flag = #{exFlag},
+                </if>
+                <if test="lowConsumeLimit != null and lowConsumeLimit != ''">
+                    low_consume_limit = #{lowConsumeLimit},
+                </if>
+                <if test="yzSuccessWeight != null and yzSuccessWeight != ''">
+                    yz_success_weight = #{yzSuccessWeight},
+                </if>
+                <if test="tzSuccessWeight != null and tzSuccessWeight != ''">
+                    tz_success_weight = #{tzSuccessWeight},
+                </if>
+                <if test="yxSuccessWeight != null and yxSuccessWeight != ''">
+                    yx_success_weight = #{yxSuccessWeight},
+                </if>
+                <if test="gjSuccessWeight != null and gjSuccessWeight != ''">
+                    gj_success_weight = #{gjSuccessWeight},
+                </if>
+                <if test="ydPriceWeight != null and ydPriceWeight != ''">
+                    yd_price_weight = #{ydPriceWeight},
+                </if>
+                <if test="ltPriceWeight != null and ltPriceWeight != ''">
+                    lt_price_weight = #{ltPriceWeight},
+                </if>
+                <if test="dxPriceWeight != null and dxPriceWeight != ''">
+                    dx_price_weight = #{dxPriceWeight},
+                </if>
+                <if test="updator != null">
+                    updator = #{updator},
+                </if>
+                <if test="updateDate != null ">
+                    update_date = now(),
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+
+    <update id="updateWeightByChannelId" parameterType="com.jsmsframework.channel.entity.JsmsChannelAttributeRealtimeWeight" >
+        UPDATE t_sms_channel_attribute_realtime_weight
+        <set>
+            <if test="unitPrice != null and unitPrice != ''">
+                unit_price = #{unitPrice},
+            </if>
+            <if test="yzSuccessWeight != null and yzSuccessWeight != ''">
+                yz_success_weight = #{yzSuccessWeight},
+            </if>
+            <if test="tzSuccessWeight != null and tzSuccessWeight != ''">
+                tz_success_weight = #{tzSuccessWeight},
+            </if>
+            <if test="yxSuccessWeight != null and yxSuccessWeight != ''">
+                yx_success_weight = #{yxSuccessWeight},
+            </if>
+            <if test="gjSuccessWeight != null and gjSuccessWeight != ''">
+                gj_success_weight = #{gjSuccessWeight},
+            </if>
+            <if test="ydPriceWeight != null and ydPriceWeight != ''">
+                yd_price_weight = #{ydPriceWeight},
+            </if>
+            <if test="ltPriceWeight != null and ltPriceWeight != ''">
+                lt_price_weight = #{ltPriceWeight},
+            </if>
+            <if test="dxPriceWeight != null and dxPriceWeight != ''">
+                dx_price_weight = #{dxPriceWeight},
+            </if>
+            <if test="updator != null" >
+                updator= #{updator},
+            </if>
+            <if test="updateDate != null" >
+                update_date = #{updateDate}
+            </if>
+        </set>
+        WHERE
+        channelid = #{channelid}
+    </update>
+
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_channel_attribute_realtime_weight
+        WHERE 
+            id = #{id}
+    </select>
+
+
+    <select id="getByChannelId" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_channel_attribute_realtime_weight
+        WHERE
+        channelid = #{channelid}
+    </select>
+
+    <select id="queryAll" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_channel_attribute_realtime_weight
+    </select>
+
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_channel_attribute_realtime_weight 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.channelid != null and params.channelid != ''">
+                and channelid = #{params.channelid}
+            </if>
+            <if test="params.successRate != null and params.successRate != ''">
+                and success_rate = #{params.successRate}
+            </if>
+            <if test="params.unitPrice != null and params.unitPrice != ''">
+                and unit_price = #{params.unitPrice}
+            </if>
+            <if test="params.antiComplaint != null and params.antiComplaint != ''">
+                and anti_complaint = #{params.antiComplaint}
+            </if>
+            <if test="params.exFlag != null and params.exFlag != ''">
+                and ex_flag = #{params.exFlag}
+            </if>
+            <if test="params.lowConsumeLimit != null and params.lowConsumeLimit != ''">
+                and low_consume_limit = #{params.lowConsumeLimit}
+            </if>
+            <if test="params.yzSuccessWeight != null and params.yzSuccessWeight != ''">
+                and yz_success_weight = #{params.yzSuccessWeight}
+            </if>
+            <if test="params.tzSuccessWeight != null and params.tzSuccessWeight != ''">
+                and tz_success_weight = #{params.tzSuccessWeight}
+            </if>
+            <if test="params.yxSuccessWeight != null and params.yxSuccessWeight != ''">
+                and yx_success_weight = #{params.yxSuccessWeight}
+            </if>
+            <if test="params.gjSuccessWeight != null and params.gjSuccessWeight != ''">
+                and gj_success_weight = #{params.gjSuccessWeight}
+            </if>
+            <if test="params.ydPriceWeight != null and params.ydPriceWeight != ''">
+                and yd_price_weight = #{params.ydPriceWeight}
+            </if>
+            <if test="params.ltPriceWeight != null and params.ltPriceWeight != ''">
+                and lt_price_weight = #{params.ltPriceWeight}
+            </if>
+            <if test="params.dxPriceWeight != null and params.dxPriceWeight != ''">
+                and dx_price_weight = #{params.dxPriceWeight}
+            </if>
+            <if test="params.updator != null and params.updator != ''">
+                and updator = #{params.updator}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_channel_attribute_realtime_weight 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="channelid != null and channelid != ''">
+                and channelid = #{channelid}
+            </if>
+            <if test="successRate != null and successRate != ''">
+                and success_rate = #{successRate}
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="antiComplaint != null and antiComplaint != ''">
+                and anti_complaint = #{antiComplaint}
+            </if>
+            <if test="exFlag != null and exFlag != ''">
+                and ex_flag = #{exFlag}
+            </if>
+            <if test="lowConsumeLimit != null and lowConsumeLimit != ''">
+                and low_consume_limit = #{lowConsumeLimit}
+            </if>
+            <if test="yzSuccessWeight != null and yzSuccessWeight != ''">
+                and yz_success_weight = #{yzSuccessWeight}
+            </if>
+            <if test="tzSuccessWeight != null and tzSuccessWeight != ''">
+                and tz_success_weight = #{tzSuccessWeight}
+            </if>
+            <if test="yxSuccessWeight != null and yxSuccessWeight != ''">
+                and yx_success_weight = #{yxSuccessWeight}
+            </if>
+            <if test="gjSuccessWeight != null and gjSuccessWeight != ''">
+                and gj_success_weight = #{gjSuccessWeight}
+            </if>
+            <if test="ydPriceWeight != null and ydPriceWeight != ''">
+                and yd_price_weight = #{ydPriceWeight}
+            </if>
+            <if test="ltPriceWeight != null and ltPriceWeight != ''">
+                and lt_price_weight = #{ltPriceWeight}
+            </if>
+            <if test="dxPriceWeight != null and dxPriceWeight != ''">
+                and dx_price_weight = #{dxPriceWeight}
+            </if>
+            <if test="updator != null and updator != ''">
+                and updator = #{updator}
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                and update_date = #{updateDate}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+	 
+</mapper>
+

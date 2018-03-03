@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.audit.mapper.JsmsAuditkeywordRecordMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.audit.entity.JsmsAuditkeywordRecord">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="auditid" jdbcType="BIGINT" column="auditid"/>
+        <result property="keyword" jdbcType="VARCHAR" column="keyword"/>
+        <result property="auditStatus" jdbcType="INTEGER" column="audit_status"/>
+        <result property="auditCreateTime" jdbcType="TIMESTAMP" column="audit_create_time"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="categoryId" jdbcType="INTEGER" column="category_id"/>
+        <result property="sort" jdbcType="INTEGER" column="sort"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        auditid,
+        keyword,
+        audit_status,
+        audit_create_time,
+        create_time,
+        category_id,
+        sort
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.audit.entity.JsmsAuditkeywordRecord" >
+        INSERT INTO t_sms_auditkeyword_record 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="auditid != null" >
+                auditid,
+            </if>
+            <if test="keyword != null" >
+                keyword,
+            </if>
+            <if test="auditStatus != null" >
+                audit_status,
+            </if>
+            <if test="auditCreateTime != null" >
+                audit_create_time,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="categoryId != null" >
+                category_id,
+            </if>
+            <if test="sort != null" >
+                sort
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="auditid != null" >
+                #{auditid},
+            </if>
+            <if test="keyword != null" >
+                #{keyword},
+            </if>
+            <if test="auditStatus != null" >
+                #{auditStatus},
+            </if>
+            <if test="auditCreateTime != null" >
+                #{auditCreateTime},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="categoryId != null" >
+                #{categoryId},
+            </if>
+            <if test="sort != null" >
+                #{sort}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_auditkeyword_record (
+            id,
+            auditid,
+            keyword,
+            audit_status,
+            audit_create_time,
+            create_time,
+            category_id,
+            sort
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.auditid},
+                #{item.keyword},
+                #{item.auditStatus},
+                #{item.auditCreateTime},
+                now(),
+                #{item.categoryId},
+                #{item.sort}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_auditkeyword_record WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.audit.entity.JsmsAuditkeywordRecord" >
+        UPDATE t_sms_auditkeyword_record SET 
+            auditid=#{auditid},
+            keyword=#{keyword},
+            audit_status=#{auditStatus},
+            audit_create_time=#{auditCreateTime},
+            create_time=#{createTime},
+            category_id=#{categoryId},
+            sort=#{sort}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.audit.entity.JsmsAuditkeywordRecord" >
+        UPDATE t_sms_auditkeyword_record 
+            <set>
+                <if test="auditid != null and auditid != ''">
+                    auditid = #{auditid},
+                </if>
+                <if test="keyword != null and keyword != ''">
+                    keyword = #{keyword},
+                </if>
+                <if test="auditStatus != null and auditStatus != ''">
+                    audit_status = #{auditStatus},
+                </if>
+                <if test="auditCreateTime != null and auditCreateTime != ''">
+                    audit_create_time = #{auditCreateTime},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="categoryId != null">
+                    category_id = #{categoryId},
+                </if>
+                <if test="sort != null">
+                    sort = #{sort}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_auditkeyword_record
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_auditkeyword_record 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.auditid != null and params.auditid != ''">
+                and auditid = #{params.auditid}
+            </if>
+            <if test="params.keyword != null and params.keyword != ''">
+                and keyword = #{params.keyword}
+            </if>
+            <if test="params.auditStatus != null and params.auditStatus != ''">
+                and audit_status = #{params.auditStatus}
+            </if>
+            <if test="params.auditCreateTime != null and params.auditCreateTime != ''">
+                and audit_create_time = #{params.auditCreateTime}
+            </if>
+            <if test="params.createTime != null ">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.categoryId != null">
+                and category_id = #{params.categoryId}
+            </if>
+            <if test="params.sort != null">
+                and sort = #{params.sort}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_auditkeyword_record
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="auditid != null and auditid != ''">
+                and auditid = #{auditid}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                and keyword = #{keyword}
+            </if>
+            <if test="auditStatus != null and auditStatus != ''">
+                and audit_status = #{auditStatus}
+            </if>
+            <if test="auditCreateTime != null and auditCreateTime != ''">
+                and audit_create_time = #{auditCreateTime}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+    </select>
+
+
+    <select id="queryAll"  resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_auditkeyword_record
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="auditid != null and auditid != ''">
+            and auditid = #{auditid}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            and keyword = #{keyword}
+        </if>
+        <if test="auditStatus != null and auditStatus != ''">
+            and audit_status = #{auditStatus}
+        </if>
+        <if test="auditCreateTime != null and auditCreateTime != ''">
+            and audit_create_time = #{auditCreateTime}
+        </if>
+        <if test="createTime != null">
+            and create_time = #{createTime}
+        </if>
+        <if test="categoryId != null">
+            and category_id = #{categoryId}
+        </if>
+        <if test="sort != null">
+            and sort = #{sort}
+        </if>
+    </select>
+
+    <select id="queryAllRemoveRecordAndCreatetime" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_auditkeyword_record
+        where  audit_create_time &lt; #{date}
+    </select>
+
+    <select id="queryByIdAndCreateTime" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_auditkeyword_record
+        WHERE
+        id = #{id}
+        and audit_create_time = #{createtime}
+    </select>
+
+
+    <delete id="deleteByIdAndCreatetime">
+        delete from t_sms_auditkeyword_record
+        where id = #{id}
+        and audit_create_time = #{createtime}
+    </delete>
+
+    <insert id="insertWithTableName" >
+        INSERT INTO ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="model.id != null" >
+                id,
+            </if>
+            <if test="model.auditid != null" >
+                auditid,
+            </if>
+            <if test="model.keyword != null" >
+                keyword,
+            </if>
+            <if test="model.auditStatus != null" >
+                audit_status,
+            </if>
+            <if test="model.createTime != null" >
+                audit_create_time,
+            </if>
+            <if test="model.createTime != null" >
+                create_time,
+            </if>
+            <if test="model.categoryId != null" >
+                category_id,
+            </if>
+            <if test="model.sort != null" >
+                sort
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="model.id != null" >
+                #{model.id},
+            </if>
+            <if test="model.auditid != null" >
+                #{model.auditid},
+            </if>
+            <if test="model.keyword != null" >
+                #{model.keyword},
+            </if>
+            <if test="model.auditStatus != null" >
+                #{model.auditStatus},
+            </if>
+            <if test="model.auditCreateTime != null" >
+                #{model.auditCreateTime},
+            </if>
+            <if test="model.createTime != null" >
+                #{model.createTime},
+            </if>
+            <if test="model.categoryId != null" >
+                #{model.categoryId},
+            </if>
+            <if test="model.sort != null" >
+                #{model.sort}
+            </if>
+        </trim>
+    </insert>
+</mapper>
+

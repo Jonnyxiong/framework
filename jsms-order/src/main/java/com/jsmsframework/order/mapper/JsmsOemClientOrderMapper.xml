@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.order.mapper.JsmsOemClientOrderMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.order.entity.JsmsOemClientOrder">
+        <result property="orderId" jdbcType="BIGINT" column="order_id"/>
+        <result property="orderNo" jdbcType="BIGINT" column="order_no"/>
+        <result property="productType" jdbcType="INTEGER" column="product_type"/>
+        <result property="operatorCode" jdbcType="INTEGER" column="operator_code"/>
+        <result property="areaCode" jdbcType="INTEGER" column="area_code"/>
+        <result property="orderType" jdbcType="INTEGER" column="order_type"/>
+        <result property="orderNumber" jdbcType="INTEGER" column="order_number"/>
+        <result property="unitPrice" jdbcType="DECIMAL" column="unit_price"/>
+        <result property="orderPrice" jdbcType="DECIMAL" column="order_price"/>
+        <result property="clientId" jdbcType="VARCHAR" column="client_id"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="clientPoolId" jdbcType="BIGINT" column="client_pool_id"/>
+        <result property="dueTime" jdbcType="TIMESTAMP" column="due_time"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="consumerDate" jdbcType="INTEGER" column="consumer_date"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        order_id,
+        order_no,
+        product_type,
+        operator_code,
+        area_code,
+        order_type,
+        order_number,
+        unit_price,
+        order_price,
+        client_id,
+        agent_id,
+        client_pool_id,
+        due_time,
+        consumer_date,
+        operator,
+        create_time,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.order.entity.JsmsOemClientOrder" >
+        INSERT INTO t_sms_oem_client_order 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="orderNo != null" >
+                order_no,
+            </if>
+            <if test="productType != null" >
+                product_type,
+            </if>
+            <if test="operatorCode != null" >
+                operator_code,
+            </if>
+            <if test="areaCode != null" >
+                area_code,
+            </if>
+            <if test="orderType != null" >
+                order_type,
+            </if>
+            <if test="orderNumber != null" >
+                order_number,
+            </if>
+            <if test="unitPrice != null" >
+                unit_price,
+            </if>
+            <if test="orderPrice != null" >
+                order_price,
+            </if>
+            <if test="clientId != null" >
+                client_id,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="clientPoolId != null" >
+                client_pool_id,
+            </if>
+            <if test="dueTime != null" >
+                due_time,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="consumerDate != null" >
+                consumer_date,
+            </if>
+            <if test="operator != null" >
+                operator,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="orderId != null" >
+                #{orderId},
+            </if>
+            <if test="orderNo != null" >
+                #{orderNo},
+            </if>
+            <if test="productType != null" >
+                #{productType},
+            </if>
+            <if test="operatorCode != null" >
+                #{operatorCode},
+            </if>
+            <if test="areaCode != null" >
+                #{areaCode},
+            </if>
+            <if test="orderType != null" >
+                #{orderType},
+            </if>
+            <if test="orderNumber != null" >
+                #{orderNumber},
+            </if>
+            <if test="unitPrice != null" >
+                #{unitPrice},
+            </if>
+            <if test="orderPrice != null" >
+                #{orderPrice},
+            </if>
+            <if test="clientId != null" >
+                #{clientId},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="clientPoolId != null" >
+                #{clientPoolId},
+            </if>
+            <if test="dueTime != null" >
+                #{dueTime},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="consumerDate != null" >
+                #{consumerDate},
+            </if>
+            <if test="operator != null" >
+                #{operator},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_oem_client_order (
+            order_id,
+            order_no,
+            product_type,
+            operator_code,
+            area_code,
+            order_type,
+            order_number,
+            unit_price,
+            order_price,
+            client_id,
+            agent_id,
+            client_pool_id,
+            due_time,
+            create_time,
+            consumer_date,
+            operator,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.orderId},
+                #{item.orderNo},
+                #{item.productType},
+                #{item.operatorCode},
+                #{item.areaCode},
+                #{item.orderType},
+                #{item.orderNumber},
+                #{item.unitPrice},
+                #{item.orderPrice},
+                #{item.clientId},
+                #{item.agentId},
+                #{item.clientPoolId},
+                #{item.dueTime},
+                now(),
+                #{item.consumerDate},
+                #{item.operator},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_oem_client_order WHERE order_id = #{orderId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.order.entity.JsmsOemClientOrder" >
+        UPDATE t_sms_oem_client_order SET 
+            order_no=#{orderNo},
+            product_type=#{productType},
+            operator_code=#{operatorCode},
+            area_code=#{areaCode},
+            order_type=#{orderType},
+            order_number=#{orderNumber},
+            unit_price=#{unitPrice},
+            order_price=#{orderPrice},
+            client_id=#{clientId},
+            agent_id=#{agentId},
+            client_pool_id=#{clientPoolId},
+            due_time=#{dueTime},
+            create_time=#{createTime},
+            consumer_date=#{consumerDate},
+            operator=#{operator},
+            remark=#{remark}
+        WHERE 
+            order_id = #{orderId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.order.entity.JsmsOemClientOrder" >
+        UPDATE t_sms_oem_client_order 
+            <set>
+                <if test="orderNo != null and orderNo != ''">
+                    order_no = #{orderNo},
+                </if>
+                <if test="productType != null and productType != ''">
+                    product_type = #{productType},
+                </if>
+                <if test="operatorCode != null and operatorCode != ''">
+                    operator_code = #{operatorCode},
+                </if>
+                <if test="areaCode != null and areaCode != ''">
+                    area_code = #{areaCode},
+                </if>
+                <if test="orderType != null and orderType != ''">
+                    order_type = #{orderType},
+                </if>
+                <if test="orderNumber != null and orderNumber != ''">
+                    order_number = #{orderNumber},
+                </if>
+                <if test="unitPrice != null and unitPrice != ''">
+                    unit_price = #{unitPrice},
+                </if>
+                <if test="orderPrice != null and orderPrice != ''">
+                    order_price = #{orderPrice},
+                </if>
+                <if test="clientId != null and clientId != ''">
+                    client_id = #{clientId},
+                </if>
+                <if test="agentId != null and agentId != ''">
+                    agent_id = #{agentId},
+                </if>
+                <if test="clientPoolId != null and clientPoolId != ''">
+                    client_pool_id = #{clientPoolId},
+                </if>
+                <if test="dueTime != null and dueTime != ''">
+                    due_time = #{dueTime},
+                </if>
+                <if test="createTime != null and createTime != ''">
+                    create_time = #{createTime},
+                </if>
+                <if test="consumerDate != null and consumerDate != ''">
+                    consumer_date=#{consumerDate},
+                </if>
+                <if test="operator != null and operator != ''">
+                    operator=#{operator},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            order_id = #{orderId} 
+    </update>
+
+    <select id="getByOrderId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_oem_client_order
+        WHERE 
+            order_id = #{orderId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_oem_client_order 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.orderId != null">
+                and order_id = #{params.orderId}
+            </if>
+            <if test="params.orderNo != null and params.orderNo != ''">
+                and order_no = #{params.orderNo}
+            </if>
+            <if test="params.productType != null and params.productType != ''">
+                and product_type = #{params.productType}
+            </if>
+            <if test="params.operatorCode != null and params.operatorCode != ''">
+                and operator_code = #{params.operatorCode}
+            </if>
+            <if test="params.areaCode != null and params.areaCode != ''">
+                and area_code = #{params.areaCode}
+            </if>
+            <if test="params.orderType != null">
+                and order_type = #{params.orderType}
+            </if>
+            <if test="params.orderNumber != null and params.orderNumber != ''">
+                and order_number = #{params.orderNumber}
+            </if>
+            <if test="params.unitPrice != null and params.unitPrice != ''">
+                and unit_price = #{params.unitPrice}
+            </if>
+            <if test="params.orderPrice != null and params.orderPrice != ''">
+                and order_price = #{params.orderPrice}
+            </if>
+            <if test="params.clientId != null and params.clientId != ''">
+                and client_id = #{params.clientId}
+            </if>
+            <if test="params.agentId != null and params.agentId != ''">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.clientPoolId != null and params.clientPoolId != ''">
+                and client_pool_id = #{params.clientPoolId}
+            </if>
+            <if test="params.dueTime != null and params.dueTime != ''">
+                and due_time = #{params.dueTime}
+            </if>
+            <if test="params.createTime != null">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != ''">
+                and create_time &gt;= #{params.beginCreateTime}
+            </if>
+            <if test="params.endCreateTime != null and params.endCreateTime != ''">
+                and create_time &lt;= #{params.endCreateTime}
+            </if>
+            <if test="params.consumerDate != null and params.consumerDate != ''">
+                and consumer_date=#{params.consumerDate}
+            </if>
+            <if test="params.operator != null and params.operator != ''">
+                and operator=#{params.operator}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.clientIds != null">
+                and client_id IN
+                <foreach collection="params.clientIds" item="item" open="(" close=")" separator="," index="idx">
+                    #{item.clientid}
+                </foreach>
+            </if>
+
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_oem_client_order 
+        WHERE 
+            1 = 1
+            <if test="orderId != null and orderId != ''">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                and order_no = #{orderNo}
+            </if>
+            <if test="productType != null and productType != ''">
+                and product_type = #{productType}
+            </if>
+            <if test="operatorCode != null and operatorCode != ''">
+                operator_code = #{operatorCode},
+            </if>
+            <if test="areaCode != null and areaCode != ''">
+                area_code = #{areaCode},
+            </if>
+            <if test="orderType != null and orderType != ''">
+                and order_type = #{orderType}
+            </if>
+            <if test="orderNumber != null and orderNumber != ''">
+                and order_number = #{orderNumber}
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="orderPrice != null and orderPrice != ''">
+                and order_price = #{orderPrice}
+            </if>
+            <if test="clientId != null and clientId != ''">
+                and client_id = #{clientId}
+            </if>
+            <if test="agentId != null and agentId != ''">
+                and agent_id = #{agentId}
+            </if>
+            <if test="clientPoolId != null and clientPoolId != ''">
+                and client_pool_id = #{clientPoolId}
+            </if>
+            <if test="dueTime != null and dueTime != ''">
+                and due_time = #{dueTime}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="consumerDate != null and consumerDate != ''">
+                consumer_date=#{consumerDate},
+            </if>
+            <if test="operator != null and operator != ''">
+                operator=#{operator},
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+
+
+    <select id="queryOemClientOrderListTotal" resultType="com.jsmsframework.order.dto.OemClientOrderListTotal">
+        SELECT
+            SUM(
+                CASE
+                WHEN order_type = 1 THEN
+                IFNULL(order_number, 0)
+                WHEN order_type = 3 THEN
+                IFNULL(order_number, 0)
+                ELSE
+                0 - IFNULL(order_number, 0)
+                END
+            ) AS orderNumberTotal,
+            SUM(
+                CASE
+                  WHEN product_type = 2
+                   THEN
+                    CASE
+                        WHEN order_type = 1
+                          THEN IFNULL(order_price, 0)
+                          ELSE 0 - IFNULL(order_price, 0)
+                        END
+                    ELSE 0
+                END
+            ) AS orderPriceTotal
+        FROM
+        t_sms_oem_client_order
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="orderId != null">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                and order_no = #{orderNo}
+            </if>
+            <if test="productType != null">
+                and product_type = #{productType}
+            </if>
+            <if test="operatorCode != null">
+                operator_code = #{operatorCode},
+            </if>
+            <if test="areaCode != null">
+                area_code = #{areaCode},
+            </if>
+            <if test="orderType != null">
+                and order_type = #{orderType}
+            </if>
+            <if test="orderNumber != null and orderNumber != ''">
+                and order_number = #{orderNumber}
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="orderPrice != null and orderPrice != ''">
+                and order_price = #{orderPrice}
+            </if>
+            <if test="clientId != null and clientId != ''">
+                and client_id = #{clientId}
+            </if>
+            <if test="agentId != null and agentId != ''">
+                and agent_id = #{agentId}
+            </if>
+            <if test="clientPoolId != null and clientPoolId != ''">
+                and client_pool_id = #{clientPoolId}
+            </if>
+            <if test="dueTime != null and dueTime != ''">
+                and due_time = #{dueTime}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="beginCreateTime != null">
+                and create_time &gt;= #{beginCreateTime}
+            </if>
+            <if test="endCreateTime != null">
+                and create_time &lt;= #{endCreateTime}
+            </if>
+            <if test="consumerDate != null and consumerDate != ''">
+                consumer_date=#{consumerDate},
+            </if>
+            <if test="operator != null and operator != ''">
+                operator=#{operator},
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </trim>
+    </select>
+
+
+    <select id="getNewBuyer" resultType="string">
+        SELECT
+        a.client_id AS clientid
+        FROM
+        t_sms_oem_client_order a
+        JOIN t_sms_client_balance_alarm b ON b.clientid = a.client_id
+        AND a.create_time &gt; b.reset_time
+        AND a.create_time &lt;= #{checkTime}
+        WHERE
+            (b.yzm_alarm_number >0 or b.gj_alarm_amount > 0 or b.tz_alarm_number > 0 or b.yx_alarm_number > 0)
+            <if test="clientIds != null and clientIds.size > 0">
+                and a.client_id IN
+                <foreach collection="clientIds" index="item" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+        GROUP BY a.client_id
+    </select>
+
+    <select id="getNewBuyerNew" resultType="string">
+        SELECT
+        a.client_id AS clientid
+        FROM
+        t_sms_oem_client_order a
+        JOIN t_sms_client_balance_alarm b ON b.clientid = a.client_id
+        AND a.create_time &gt; b.reset_time
+        AND a.create_time &lt;= #{checkTime}
+        WHERE
+        (b.alarm_number >0 or b.alarm_amount > 0) and b.alarm_type = #{alarmType}
+        <if test="productTypes !=null and productTypes.size > 0">
+            and a.product_type in
+            <foreach collection="productTypes" index="item" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="clientIds != null and clientIds.size > 0">
+            and a.client_id IN
+            <foreach collection="clientIds" index="item" item="item" separator="," open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+        GROUP BY a.client_id
+    </select>
+
+
+    <select id="queryOEMConsumeTotal" resultType="integer">
+        SELECT
+        SUM(order_number)
+        FROM t_sms_oem_client_order
+        WHERE
+        1 = 1
+            <if test="orderId != null">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                and order_no = #{orderNo}
+            </if>
+            <if test="productType != null and productType != ''">
+                and product_type = #{productType}
+            </if>
+            <if test="operatorCode != null and operatorCode != ''">
+                and operator_code = #{operatorCode}
+            </if>
+            <if test="areaCode != null and areaCode != ''">
+                and area_code = #{areaCode}
+            </if>
+            <if test="orderType != null">
+                and order_type = #{orderType}
+            </if>
+            <if test="orderNumber != null and orderNumber != ''">
+                and order_number = #{orderNumber}
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="orderPrice != null and orderPrice != ''">
+                and order_price = #{orderPrice}
+            </if>
+            <if test="clientId != null and clientId != ''">
+                and client_id = #{clientId}
+            </if>
+            <if test="agentId != null and agentId != ''">
+                and agent_id = #{agentId}
+            </if>
+            <if test="clientPoolId != null and clientPoolId != ''">
+                and client_pool_id = #{clientPoolId}
+            </if>
+            <if test="dueTime != null and dueTime != ''">
+                and due_time = #{dueTime}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="beginCreateTime != null and beginCreateTime != ''">
+                and create_time &gt;= #{beginCreateTime}
+            </if>
+            <if test="endCreateTime != null and endCreateTime != ''">
+                and create_time &lt;= #{endCreateTime}
+            </if>
+            <if test="consumerDate != null and consumerDate != ''">
+                and consumer_date=#{consumerDate}
+            </if>
+            <if test="operator != null and operator != ''">
+                and operator=#{operator}
+            </if>
+            <if test="clientIds != null">
+                and client_id IN
+                <foreach collection="clientIds" item="item" open="(" close=")" separator="," index="idx">
+                    #{item.clientid}
+                </foreach>
+            </if>
+    </select>
+</mapper>
+

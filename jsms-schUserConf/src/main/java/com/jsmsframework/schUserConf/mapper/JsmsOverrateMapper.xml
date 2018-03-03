@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.schUserConf.mapper.JsmsOverrateMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.schUserConf.entity.JsmsOverrate">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="userid" jdbcType="VARCHAR" column="userid"/>
+        <result property="overrateMode" jdbcType="INTEGER" column="overrate_mode"/>
+        <result property="smstype" jdbcType="INTEGER" column="smstype"/>
+        <result property="sign" jdbcType="VARCHAR" column="sign"/>
+        <result property="overRateNumS" jdbcType="INTEGER" column="overRate_num_s"/>
+        <result property="overRateTimeS" jdbcType="INTEGER" column="overRate_time_s"/>
+        <result property="overRateNumM" jdbcType="INTEGER" column="overRate_num_m"/>
+        <result property="overRateTimeM" jdbcType="INTEGER" column="overRate_time_m"/>
+        <result property="overRateNumH" jdbcType="INTEGER" column="overRate_num_h"/>
+        <result property="overRateTimeH" jdbcType="INTEGER" column="overRate_time_h"/>
+        <result property="overRateUpdatetime" jdbcType="TIMESTAMP" column="overRate_updatetime"/>
+        <result property="state" jdbcType="INTEGER" column="state"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        userid,
+        overrate_mode,
+        smstype,
+        sign,
+        overRate_num_s,
+        overRate_time_s,
+        overRate_num_m,
+        overRate_time_m,
+        overRate_num_h,
+        overRate_time_h,
+        overRate_updatetime,
+        state
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.schUserConf.entity.JsmsOverrate" >
+        INSERT INTO t_template_overrate 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="userid != null" >
+                userid,
+            </if>
+            <if test="overrateMode != null" >
+                overrate_mode,
+            </if>
+            <if test="smstype != null" >
+                smstype,
+            </if>
+            <if test="sign != null" >
+                sign,
+            </if>
+            <if test="overRateNumS != null" >
+                overRate_num_s,
+            </if>
+            <if test="overRateTimeS != null" >
+                overRate_time_s,
+            </if>
+            <if test="overRateNumM != null" >
+                overRate_num_m,
+            </if>
+            <if test="overRateTimeM != null" >
+                overRate_time_m,
+            </if>
+            <if test="overRateNumH != null" >
+                overRate_num_h,
+            </if>
+            <if test="overRateTimeH != null" >
+                overRate_time_h,
+            </if>
+            <if test="overRateUpdatetime != null" >
+                overRate_updatetime,
+            </if>
+            <if test="state != null" >
+                state
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="userid != null" >
+                #{userid},
+            </if>
+            <if test="overrateMode != null" >
+                #{overrateMode},
+            </if>
+            <if test="smstype != null" >
+                #{smstype},
+            </if>
+            <if test="sign != null" >
+                #{sign},
+            </if>
+            <if test="overRateNumS != null" >
+                #{overRateNumS},
+            </if>
+            <if test="overRateTimeS != null" >
+                #{overRateTimeS},
+            </if>
+            <if test="overRateNumM != null" >
+                #{overRateNumM},
+            </if>
+            <if test="overRateTimeM != null" >
+                #{overRateTimeM},
+            </if>
+            <if test="overRateNumH != null" >
+                #{overRateNumH},
+            </if>
+            <if test="overRateTimeH != null" >
+                #{overRateTimeH},
+            </if>
+            <if test="overRateUpdatetime != null" >
+                #{overRateUpdatetime},
+            </if>
+            <if test="state != null" >
+                #{state}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_template_overrate (
+            id,
+            userid,
+            overrate_mode,
+            smstype,
+            sign,
+            overRate_num_s,
+            overRate_time_s,
+            overRate_num_m,
+            overRate_time_m,
+            overRate_num_h,
+            overRate_time_h,
+            overRate_updatetime,
+            state
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.userid},
+                #{item.overrateMode},
+                #{item.smstype},
+                #{item.sign},
+                #{item.overRateNumS},
+                #{item.overRateTimeS},
+                #{item.overRateNumM},
+                #{item.overRateTimeM},
+                #{item.overRateNumH},
+                #{item.overRateTimeH},
+                #{item.overRateUpdatetime},
+                #{item.state}
+            )
+        </foreach>
+    </insert>
+
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM
+        t_template_overrate
+        where id=#{id}
+
+    </delete>
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_template_overrate WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.schUserConf.entity.JsmsOverrate" >
+        UPDATE t_template_overrate SET 
+            userid=#{userid},
+            overrate_mode=#{overrateMode},
+            smstype=#{smstype},
+            sign=#{sign},
+            overRate_num_s=#{overRateNumS},
+            overRate_time_s=#{overRateTimeS},
+            overRate_num_m=#{overRateNumM},
+            overRate_time_m=#{overRateTimeM},
+            overRate_num_h=#{overRateNumH},
+            overRate_time_h=#{overRateTimeH},
+            overRate_updatetime=#{overRateUpdatetime},
+            state=#{state}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+    <update id="updateState" >
+        UPDATE t_template_overrate
+        SET
+        <if test="state != null and state != ''">
+            state = #{state}
+        </if>
+
+        WHERE  id=#{id}
+
+    </update>
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.schUserConf.entity.JsmsOverrate" >
+        UPDATE t_template_overrate 
+            <set>
+                <if test="userid != null and userid != ''">
+                    userid = #{userid},
+                </if>
+                <if test="overrateMode != null and overrateMode != ''">
+                    overrate_mode = #{overrateMode},
+                </if>
+                <if test="smstype != null and smstype != ''">
+                    smstype = #{smstype},
+                </if>
+                <if test="sign != null and sign != ''">
+                    sign = #{sign},
+                </if>
+                <if test="overRateNumS != null and overRateNumS != ''">
+                    overRate_num_s = #{overRateNumS},
+                </if>
+                <if test="overRateTimeS != null and overRateTimeS != ''">
+                    overRate_time_s = #{overRateTimeS},
+                </if>
+                <if test="overRateNumM != null and overRateNumM != ''">
+                    overRate_num_m = #{overRateNumM},
+                </if>
+                <if test="overRateTimeM != null and overRateTimeM != ''">
+                    overRate_time_m = #{overRateTimeM},
+                </if>
+                <if test="overRateNumH != null and overRateNumH != ''">
+                    overRate_num_h = #{overRateNumH},
+                </if>
+                <if test="overRateTimeH != null and overRateTimeH != ''">
+                    overRate_time_h = #{overRateTimeH},
+                </if>
+                <if test="overRateUpdatetime != null ">
+                    overRate_updatetime = #{overRateUpdatetime},
+                </if>
+                <if test="state != null ">
+                    state = #{state}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_template_overrate
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_template_overrate 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.userid != null and params.userid != ''">
+                and userid = #{params.userid}
+            </if>
+            <if test="params.overrateMode != null and params.overrateMode != ''">
+                and overrate_mode = #{params.overrateMode}
+            </if>
+            <if test="params.smstype != null and params.smstype != ''">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.sign != null and params.sign != ''">
+                and sign = #{params.sign}
+            </if>
+            <if test="params.overRateNumS != null and params.overRateNumS != ''">
+                and overRate_num_s = #{params.overRateNumS}
+            </if>
+            <if test="params.overRateTimeS != null and params.overRateTimeS != ''">
+                and overRate_time_s = #{params.overRateTimeS}
+            </if>
+            <if test="params.overRateNumM != null and params.overRateNumM != ''">
+                and overRate_num_m = #{params.overRateNumM}
+            </if>
+            <if test="params.overRateTimeM != null and params.overRateTimeM != ''">
+                and overRate_time_m = #{params.overRateTimeM}
+            </if>
+            <if test="params.overRateNumH != null and params.overRateNumH != ''">
+                and overRate_num_h = #{params.overRateNumH}
+            </if>
+            <if test="params.overRateTimeH != null and params.overRateTimeH != ''">
+                and overRate_time_h = #{params.overRateTimeH}
+            </if>
+            <if test="params.overRateUpdatetime != null and params.overRateUpdatetime != ''">
+                and overRate_updatetime = #{params.overRateUpdatetime}
+            </if>
+            <if test="params.state != null and params.state != ''">
+                and state = #{params.state}
+
+            </if>
+            <if test="params.startTime != null and params.startTime != ''">
+                AND <![CDATA[ overRate_updatetime >= #{params.startTime} ]]>
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                AND <![CDATA[ overRate_updatetime <= #{params.endTime} ]]>
+            </if>
+        </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_template_overrate 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="userid != null and userid != ''">
+                and userid = #{userid}
+            </if>
+            <if test="overrateMode != null and overrateMode != ''">
+                and overrate_mode = #{overrateMode}
+            </if>
+            <if test="smstype != null and smstype != ''">
+                and smstype = #{smstype}
+            </if>
+            <if test="sign != null and sign != ''">
+                and sign = #{sign}
+            </if>
+            <if test="overRateNumS != null and overRateNumS != ''">
+                and overRate_num_s = #{overRateNumS}
+            </if>
+            <if test="overRateTimeS != null and overRateTimeS != ''">
+                and overRate_time_s = #{overRateTimeS}
+            </if>
+            <if test="overRateNumM != null and overRateNumM != ''">
+                and overRate_num_m = #{overRateNumM}
+            </if>
+            <if test="overRateTimeM != null and overRateTimeM != ''">
+                and overRate_time_m = #{overRateTimeM}
+            </if>
+            <if test="overRateNumH != null and overRateNumH != ''">
+                and overRate_num_h = #{overRateNumH}
+            </if>
+            <if test="overRateTimeH != null and overRateTimeH != ''">
+                and overRate_time_h = #{overRateTimeH}
+            </if>
+            <if test="overRateUpdatetime != null and overRateUpdatetime != ''">
+                and overRate_updatetime = #{overRateUpdatetime}
+            </if>
+            <if test="state != null and state != ''">
+              and state = #{state}
+            </if>
+    </select>
+
+    <select id="checkExist" resultType="map">
+        SELECT
+        id
+        FROM t_template_overrate
+        WHERE
+        overrate_mode = 1
+        AND sign = #{sign} AND userid=#{userid}
+        <if test="id != null ">
+            AND  id != #{id}
+        </if>
+    </select>
+	 
+</mapper>
+

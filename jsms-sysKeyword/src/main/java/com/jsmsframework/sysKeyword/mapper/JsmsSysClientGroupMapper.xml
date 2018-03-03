@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.sysKeyword.mapper.JsmsSysClientGroupMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.sysKeyword.entity.JsmsSysClientGroup">
+        <result property="cgroupId" jdbcType="INTEGER" column="cgroup_id"/>
+        <result property="cgroupName" jdbcType="VARCHAR" column="cgroup_name"/>
+        <result property="kgroupId" jdbcType="INTEGER" column="kgroup_id"/>
+        <result property="isDefault" jdbcType="INTEGER" column="is_default"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap>
+
+    <resultMap id="dtoMapper" type="com.jsmsframework.sysKeyword.dto.JsmsSysClientGroupDTO">
+        <result property="cgroupId" jdbcType="INTEGER" column="cgroup_id"/>
+        <result property="cgroupName" jdbcType="VARCHAR" column="cgroup_name"/>
+        <result property="kgroupId" jdbcType="INTEGER" column="kgroup_id"/>
+        <result property="isDefault" jdbcType="INTEGER" column="is_default"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="categoryName" jdbcType="VARCHAR" column="categoryName"/>
+        <result property="groupName" jdbcType="VARCHAR" column="groupName"/>
+        <result property="clientName" jdbcType="VARCHAR" column="clientName"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN_LIST">
+        cgroup_id,
+        cgroup_name,
+        kgroup_id,
+        is_default,
+        operator,
+        update_date,
+        remark
+    </sql>
+
+    <sql id="DTO_COLUMN_LIST">
+        cg.cgroup_id,
+        cg.cgroup_name,
+        cg.kgroup_id,
+        cg.is_default,
+        cg.operator,
+        cg.update_date,
+        cg.remark,
+        g.kgroup_name as groupName
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.sysKeyword.entity.JsmsSysClientGroup" >
+        INSERT INTO t_sms_sys_client_group 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="cgroupId != null" >
+                cgroup_id,
+            </if>
+            <if test="cgroupName != null" >
+                cgroup_name,
+            </if>
+            <if test="kgroupId != null" >
+                kgroup_id,
+            </if>
+            <if test="isDefault != null" >
+                is_default,
+            </if>
+            <if test="operator != null" >
+                operator,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="cgroupId != null" >
+                #{cgroupId},
+            </if>
+            <if test="cgroupName != null" >
+                #{cgroupName},
+            </if>
+            <if test="kgroupId != null" >
+                #{kgroupId},
+            </if>
+            <if test="isDefault != null" >
+                #{isDefault},
+            </if>
+            <if test="operator != null" >
+                #{operator},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_sys_client_group (
+            cgroup_id,
+            cgroup_name,
+            kgroup_id,
+            is_default,
+            operator,
+            update_date,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.cgroupId},
+                #{item.cgroupName},
+                #{item.kgroupId},
+                #{item.isDefault},
+                #{item.operator},
+                #{item.updateDate},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_sys_client_group WHERE cgroup_id = #{cgroupId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.sysKeyword.entity.JsmsSysClientGroup" >
+        UPDATE t_sms_sys_client_group SET 
+            cgroup_name=#{cgroupName},
+            kgroup_id=#{kgroupId},
+            is_default=#{isDefault},
+            operator=#{operator},
+            update_date=#{updateDate},
+            remark=#{remark}
+        WHERE 
+            cgroup_id = #{cgroupId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.sysKeyword.entity.JsmsSysClientGroup" >
+        UPDATE t_sms_sys_client_group 
+            <set>
+                <if test="cgroupName != null">
+                    cgroup_name = #{cgroupName},
+                </if>
+                <if test="kgroupId != null">
+                    kgroup_id = #{kgroupId},
+                </if>
+                <if test="isDefault != null">
+                    is_default = #{isDefault},
+                </if>
+                <if test="operator != null">
+                    operator = #{operator},
+                </if>
+                <if test="updateDate != null">
+                    update_date = #{updateDate},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            cgroup_id = #{cgroupId} 
+    </update>
+
+    <select id="getByCgroupId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sys_client_group
+        WHERE 
+            cgroup_id = #{cgroupId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_sys_client_group 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.cgroupId != null">
+                and cgroup_id = #{params.cgroupId}
+            </if>
+            <if test="params.cgroupName != null">
+                and cgroup_name = #{params.cgroupName}
+            </if>
+            <if test="params.kgroupId != null">
+                and kgroup_id = #{params.kgroupId}
+            </if>
+            <if test="params.isDefault != null">
+                and is_default = #{params.isDefault}
+            </if>
+            <if test="params.operator != null">
+                and operator = #{params.operator}
+            </if>
+            <if test="params.updateDate != null">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.remark != null">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sys_client_group
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="cgroupId != null">
+                and cgroup_id = #{cgroupId}
+            </if>
+            <if test="cgroupName != null">
+                and cgroup_name = #{cgroupName}
+            </if>
+            <if test="kgroupId != null">
+                and kgroup_id = #{kgroupId}
+            </if>
+            <if test="isDefault != null">
+                and is_default = #{isDefault}
+            </if>
+            <if test="operator != null">
+                and operator = #{operator}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_sys_client_group 
+        WHERE 
+            1 = 1
+            <if test="cgroupId != null">
+                and cgroup_id = #{cgroupId}
+            </if>
+            <if test="cgroupName != null">
+                and cgroup_name = #{cgroupName}
+            </if>
+            <if test="kgroupId != null">
+                and kgroup_id = #{kgroupId}
+            </if>
+            <if test="isDefault != null">
+                and is_default = #{isDefault}
+            </if>
+            <if test="operator != null">
+                and operator = #{operator}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+    </select>
+
+    <select id="queryListForDTO" resultMap="dtoMapper">
+        SELECT
+          <include refid="DTO_COLUMN_LIST"/>
+        from t_sms_sys_client_group cg
+          LEFT JOIN t_sms_sys_keyword_group g on cg.kgroup_id=g.kgroup_id
+          LEFT JOIN t_sms_sys_kgroup_ref_category grc on g.kgroup_id = grc.kgroup_id
+          LEFT JOIN t_sms_sys_keyword_category c on c.category_id = grc.category_id
+          LEFT JOIN t_sms_sys_cgroup_ref_client crc on cg.cgroup_id = crc.cgroup_id
+          LEFT JOIN t_sms_account tsa on tsa.clientid = crc.clientid
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.cgroupId != null and params.cgroupId != ''">
+                and cg.cgroup_id = #{params.cgroupId}
+            </if>
+            <if test="params.cgroupName != null and params.cgroupName != ''">
+                and cg.cgroup_name = #{params.cgroupName}
+            </if>
+            <if test="params.kgroupId != null and params.kgroupId != ''">
+                and cg.kgroup_id = #{params.kgroupId}
+            </if>
+            <if test="params.mistiness != null and params.mistiness !=''">
+                and (
+                cg.cgroup_id like CONCAT('%',#{params.mistiness},'%' )
+                or cg.cgroup_name like CONCAT('%',#{params.mistiness},'%' )
+                or c.category_name like CONCAT('%',#{params.mistiness},'%' )
+                or tsa.realname like CONCAT('%',#{params.mistiness},'%' )
+                )
+            </if>
+        </trim>
+        GROUP BY cg.cgroup_id
+    </select>
+
+
+    <select id="checkByCGroupName" resultType="int">
+        SELECT COUNT(1) FROM t_sms_sys_client_group
+        where cgroup_name = #{cGroupName} and cgroup_id != ${cGroupId}
+    </select>
+
+    <delete id="deleteByCgroupId">
+        DELETE FROM t_sms_sys_client_group WHERE cgroup_id = ${cgroupId}
+    </delete>
+    
+    <select id="getDefault" resultMap="rowMapper">
+        SELECT <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_sys_client_group
+        where is_default = 1 limit 1
+    </select>
+</mapper>
+

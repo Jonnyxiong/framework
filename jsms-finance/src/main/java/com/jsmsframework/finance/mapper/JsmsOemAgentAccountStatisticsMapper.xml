@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsOemAgentAccountStatisticsMapper">
+
+
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsOemAgentAccountStatistics">
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="hyTotalPurchaseNumber" jdbcType="INTEGER" column="hy_total_purchase_number"/>
+        <result property="hyRemainRebateNumber" jdbcType="INTEGER" column="hy_remain_rebate_number"/>
+        <result property="yxTotalPurchaseNumber" jdbcType="INTEGER" column="yx_total_purchase_number"/>
+        <result property="yxRemainRebateNumber" jdbcType="INTEGER" column="yx_remain_rebate_number"/>
+        <result property="gjTotalPurchaseAmount" jdbcType="DECIMAL" column="gj_total_purchase_amount"/>
+        <result property="gjRemainRebateAmount" jdbcType="DECIMAL" column="gj_remain_rebate_amount"/>
+        <result property="yzmTotalPurchaseNumber" jdbcType="INTEGER" column="yzm_total_purchase_number"/>
+        <result property="yzmRemainRebateNumber" jdbcType="INTEGER" column="yzm_remain_rebate_number"/>
+        <result property="tzTotalPurchaseNumber" jdbcType="INTEGER" column="tz_total_purchase_number"/>
+        <result property="tzRemainRebateNumber" jdbcType="INTEGER" column="tz_remain_rebate_number"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN_LIST">
+        agent_id,
+        hy_total_purchase_number,
+        hy_remain_rebate_number,
+        yx_total_purchase_number,
+        yx_remain_rebate_number,
+        gj_total_purchase_amount,
+        gj_remain_rebate_amount,
+        yzm_total_purchase_number,
+        yzm_remain_rebate_number,
+        tz_total_purchase_number,
+        tz_remain_rebate_number
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsOemAgentAccountStatistics">
+        INSERT INTO t_sms_oem_agent_account_statistics
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="agentId != null">
+                agent_id,
+            </if>
+            <if test="hyTotalPurchaseNumber != null">
+                hy_total_purchase_number,
+            </if>
+            <if test="hyRemainRebateNumber != null">
+                hy_remain_rebate_number,
+            </if>
+            <if test="yxTotalPurchaseNumber != null">
+                yx_total_purchase_number,
+            </if>
+            <if test="yxRemainRebateNumber != null">
+                yx_remain_rebate_number,
+            </if>
+            <if test="gjTotalPurchaseAmount != null">
+                gj_total_purchase_amount,
+            </if>
+            <if test="gjRemainRebateAmount != null">
+                gj_remain_rebate_amount,
+            </if>
+            <if test="yzmTotalPurchaseNumber != null">
+                yzm_total_purchase_number,
+            </if>
+            <if test="yzmRemainRebateNumber != null">
+                yzm_remain_rebate_number,
+            </if>
+            <if test="tzTotalPurchaseNumber != null">
+                tz_total_purchase_number,
+            </if>
+            <if test="tzRemainRebateNumber != null">
+                tz_remain_rebate_number
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="agentId != null">
+                #{agentId},
+            </if>
+            <if test="hyTotalPurchaseNumber != null">
+                #{hyTotalPurchaseNumber},
+            </if>
+            <if test="hyRemainRebateNumber != null">
+                #{hyRemainRebateNumber},
+            </if>
+            <if test="yxTotalPurchaseNumber != null">
+                #{yxTotalPurchaseNumber},
+            </if>
+            <if test="yxRemainRebateNumber != null">
+                #{yxRemainRebateNumber},
+            </if>
+            <if test="gjTotalPurchaseAmount != null">
+                #{gjTotalPurchaseAmount},
+            </if>
+            <if test="gjRemainRebateAmount != null">
+                #{gjRemainRebateAmount},
+            </if>
+            <if test="yzmTotalPurchaseNumber != null">
+                #{yzmTotalPurchaseNumber},
+            </if>
+            <if test="yzmRemainRebateNumber != null">
+                #{yzmRemainRebateNumber},
+            </if>
+            <if test="tzTotalPurchaseNumber != null">
+                #{tzTotalPurchaseNumber},
+            </if>
+            <if test="tzRemainRebateNumber != null">
+                #{tzRemainRebateNumber}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO t_sms_oem_agent_account_statistics (
+        agent_id,
+        hy_total_purchase_number,
+        hy_remain_rebate_number,
+        yx_total_purchase_number,
+        yx_remain_rebate_number,
+        gj_total_purchase_amount,
+        gj_remain_rebate_amount,
+        yzm_total_purchase_number,
+        yzm_remain_rebate_number,
+        tz_total_purchase_number,
+        tz_remain_rebate_number
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.agentId},
+            #{item.hyTotalPurchaseNumber},
+            #{item.hyRemainRebateNumber},
+            #{item.yxTotalPurchaseNumber},
+            #{item.yxRemainRebateNumber},
+            #{item.gjTotalPurchaseAmount},
+            #{item.gjRemainRebateAmount},
+            #{item.yzmTotalPurchaseNumber},
+            #{item.yzmRemainRebateNumber},
+            #{item.tzTotalPurchaseNumber},
+            #{item.tzRemainRebateNumber}
+            )
+        </foreach>
+    </insert>
+
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_oem_agent_account_statistics WHERE agent_id = #{agentId}
+    </delete>
+    -->
+
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsOemAgentAccountStatistics">
+        UPDATE t_sms_oem_agent_account_statistics SET 
+            hy_total_purchase_number=#{hyTotalPurchaseNumber},
+            hy_remain_rebate_number=#{hyRemainRebateNumber},
+            yx_total_purchase_number=#{yxTotalPurchaseNumber},
+            yx_remain_rebate_number=#{yxRemainRebateNumber},
+            gj_total_purchase_amount=#{gjTotalPurchaseAmount},
+            gj_remain_rebate_amount=#{gjRemainRebateAmount},
+            yzm_total_purchase_number=#{yzmTotalPurchaseNumber},
+            yzm_remain_rebate_number=#{yzmRemainRebateNumber},
+            tz_total_purchase_number=#{tzTotalPurchaseNumber},
+            tz_remain_rebate_number=#{tzRemainRebateNumber}
+        WHERE 
+            agent_id = #{agentId} 
+    </update>
+
+    <update id="updateForAddPurchaseNumber"
+            parameterType="com.jsmsframework.finance.entity.JsmsOemAgentAccountStatistics">
+        UPDATE t_sms_oem_agent_account_statistics
+        <set>
+            <if test="hyTotalPurchaseNumber != null">
+                hy_total_purchase_number = hy_total_purchase_number + #{hyTotalPurchaseNumber},
+            </if>
+            <if test="hyRemainRebateNumber != null">
+                hy_remain_rebate_number = hy_remain_rebate_number + #{hyRemainRebateNumber},
+            </if>
+            <if test="yxTotalPurchaseNumber != null">
+                yx_total_purchase_number = yx_total_purchase_number + #{yxTotalPurchaseNumber},
+            </if>
+            <if test="yxRemainRebateNumber != null">
+                yx_remain_rebate_number = yx_remain_rebate_number + #{yxRemainRebateNumber},
+            </if>
+            <if test="gjTotalPurchaseAmount != null">
+                gj_total_purchase_amount = gj_total_purchase_amount + #{gjTotalPurchaseAmount},
+            </if>
+            <if test="gjRemainRebateAmount != null">
+                gj_remain_rebate_amount = gj_remain_rebate_amount + #{gjRemainRebateAmount},
+            </if>
+            <if test="yzmTotalPurchaseNumber != null">
+                yzm_total_purchase_number = yzm_total_purchase_number + #{yzmTotalPurchaseNumber},
+            </if>
+            <if test="yzmRemainRebateNumber != null">
+                yzm_remain_rebate_number = yzm_remain_rebate_number + #{yzmRemainRebateNumber},
+            </if>
+            <if test="tzTotalPurchaseNumber != null">
+                tz_total_purchase_number = tz_total_purchase_number + #{tzTotalPurchaseNumber},
+            </if>
+            <if test="tzRemainRebateNumber != null">
+                tz_remain_rebate_number = tz_remain_rebate_number + #{tzRemainRebateNumber}
+            </if>
+        </set>
+        WHERE
+        agent_id = #{agentId}
+    </update>
+
+
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsOemAgentAccountStatistics">
+        UPDATE t_sms_oem_agent_account_statistics
+        <set>
+            <if test="hyTotalPurchaseNumber != null and hyTotalPurchaseNumber != ''">
+                hy_total_purchase_number = #{hyTotalPurchaseNumber},
+            </if>
+            <if test="hyRemainRebateNumber != null and hyRemainRebateNumber != ''">
+                hy_remain_rebate_number = #{hyRemainRebateNumber},
+            </if>
+            <if test="yxTotalPurchaseNumber != null and yxTotalPurchaseNumber != ''">
+                yx_total_purchase_number = #{yxTotalPurchaseNumber},
+            </if>
+            <if test="yxRemainRebateNumber != null and yxRemainRebateNumber != ''">
+                yx_remain_rebate_number = #{yxRemainRebateNumber},
+            </if>
+            <if test="gjTotalPurchaseAmount != null and gjTotalPurchaseAmount != ''">
+                gj_total_purchase_amount = #{gjTotalPurchaseAmount},
+            </if>
+            <if test="gjRemainRebateAmount != null and gjRemainRebateAmount != ''">
+                gj_remain_rebate_amount = #{gjRemainRebateAmount},
+            </if>
+            <if test="yzmTotalPurchaseNumber != null and yzmTotalPurchaseNumber != ''">
+                yzm_total_purchase_number = #{yzmTotalPurchaseNumber},
+            </if>
+            <if test="yzmRemainRebateNumber != null and yzmRemainRebateNumber != ''">
+                yzm_remain_rebate_number = #{yzmRemainRebateNumber},
+            </if>
+            <if test="tzTotalPurchaseNumber != null and tzTotalPurchaseNumber != ''">
+                tz_total_purchase_number = #{tzTotalPurchaseNumber},
+            </if>
+            <if test="tzRemainRebateNumber != null and tzRemainRebateNumber != ''">
+                tz_remain_rebate_number = #{tzRemainRebateNumber}
+            </if>
+        </set>
+        WHERE
+        agent_id = #{agentId}
+    </update>
+
+    <select id="getByAgentId" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_oem_agent_account_statistics
+        WHERE
+        agent_id = #{agentId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_oem_agent_account_statistics
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.agentId != null and params.agentId != ''">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.hyTotalPurchaseNumber != null and params.hyTotalPurchaseNumber != ''">
+                and hy_total_purchase_number = #{params.hyTotalPurchaseNumber}
+            </if>
+            <if test="params.hyRemainRebateNumber != null and params.hyRemainRebateNumber != ''">
+                and hy_remain_rebate_number = #{params.hyRemainRebateNumber}
+            </if>
+            <if test="params.yxTotalPurchaseNumber != null and params.yxTotalPurchaseNumber != ''">
+                and yx_total_purchase_number = #{params.yxTotalPurchaseNumber}
+            </if>
+            <if test="params.yxRemainRebateNumber != null and params.yxRemainRebateNumber != ''">
+                and yx_remain_rebate_number = #{params.yxRemainRebateNumber}
+            </if>
+            <if test="params.gjTotalPurchaseAmount != null and params.gjTotalPurchaseAmount != ''">
+                and gj_total_purchase_amount = #{params.gjTotalPurchaseAmount}
+            </if>
+            <if test="params.gjRemainRebateAmount != null and params.gjRemainRebateAmount != ''">
+                and gj_remain_rebate_amount = #{params.gjRemainRebateAmount}
+            </if>
+            <if test="params.yzmTotalPurchaseNumber != null and params.yzmTotalPurchaseNumber != ''">
+                and yzm_total_purchase_number = #{params.yzmTotalPurchaseNumber}
+            </if>
+            <if test="params.yzmRemainRebateNumber != null and params.yzmRemainRebateNumber != ''">
+                and yzm_remain_rebate_number = #{params.yzmRemainRebateNumber}
+            </if>
+            <if test="params.tzTotalPurchaseNumber != null and params.tzTotalPurchaseNumber != ''">
+                and tz_total_purchase_number = #{params.tzTotalPurchaseNumber}
+            </if>
+            <if test="params.tzRemainRebateNumber != null and params.tzRemainRebateNumber != ''">
+                and tz_remain_rebate_number = #{params.tzRemainRebateNumber}
+            </if>
+        </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_oem_agent_account_statistics
+        WHERE
+        1 = 1
+        <if test="agentId != null and agentId != ''">
+            and agent_id = #{agentId}
+        </if>
+        <if test="hyTotalPurchaseNumber != null and hyTotalPurchaseNumber != ''">
+            and hy_total_purchase_number = #{hyTotalPurchaseNumber}
+        </if>
+        <if test="hyRemainRebateNumber != null and hyRemainRebateNumber != ''">
+            and hy_remain_rebate_number = #{hyRemainRebateNumber}
+        </if>
+        <if test="yxTotalPurchaseNumber != null and yxTotalPurchaseNumber != ''">
+            and yx_total_purchase_number = #{yxTotalPurchaseNumber}
+        </if>
+        <if test="yxRemainRebateNumber != null and yxRemainRebateNumber != ''">
+            and yx_remain_rebate_number = #{yxRemainRebateNumber}
+        </if>
+        <if test="gjTotalPurchaseAmount != null and gjTotalPurchaseAmount != ''">
+            and gj_total_purchase_amount = #{gjTotalPurchaseAmount}
+        </if>
+        <if test="gjRemainRebateAmount != null and gjRemainRebateAmount != ''">
+            and gj_remain_rebate_amount = #{gjRemainRebateAmount}
+        </if>
+        <if test="yzmTotalPurchaseNumber != null and yzmTotalPurchaseNumber != ''">
+            and yzm_total_purchase_number = #{yzmTotalPurchaseNumber}
+        </if>
+        <if test="yzmRemainRebateNumber != null and yzmRemainRebateNumber != ''">
+            and yzm_remain_rebate_number = #{yzmRemainRebateNumber}
+        </if>
+        <if test="tzTotalPurchaseNumber != null and tzTotalPurchaseNumber != ''">
+            and tz_total_purchase_number = #{tzTotalPurchaseNumber}
+        </if>
+        <if test="tzRemainRebateNumber != null and tzRemainRebateNumber != ''">
+            and tz_remain_rebate_number = #{tzRemainRebateNumber}
+        </if>
+    </select>
+
+</mapper>
+

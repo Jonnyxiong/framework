@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.audit.mapper.JsmsAudit0Mapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.audit.entity.JsmsAudit0">
+        <result property="auditid" jdbcType="BIGINT" column="auditid"/>
+        <result property="createtime" jdbcType="TIMESTAMP" column="createtime"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="username" jdbcType="VARCHAR" column="username"/>
+        <result property="content" jdbcType="VARCHAR" column="content"/>
+        <result property="sign" jdbcType="VARCHAR" column="sign"/>
+        <result property="smstype" jdbcType="INTEGER" column="smstype"/>
+        <result property="md5" jdbcType="VARCHAR" column="md5"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="sendnum" jdbcType="INTEGER" column="sendnum"/>
+        <result property="lastSendtime" jdbcType="TIMESTAMP" column="last_sendtime"/>
+        <result property="paytype" jdbcType="INTEGER" column="paytype"/>
+        <result property="removeflag" jdbcType="INTEGER" column="removeflag"/>
+        <result property="readedflag" jdbcType="INTEGER" column="readedflag"/>
+        <result property="transferperson" jdbcType="VARCHAR" column="transferperson"/>
+        <result property="transfertime" jdbcType="TIMESTAMP" column="transfertime"/>
+        <result property="auditperson" jdbcType="VARCHAR" column="auditperson"/>
+        <result property="audittime" jdbcType="TIMESTAMP" column="audittime"/>
+        <result property="optRemark" jdbcType="VARCHAR" column="opt_remark"/>
+        <result property="tableDate" jdbcType="VARCHAR" column="tableDate"/>
+
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        auditid,
+          DATE_FORMAT(createtime,'%Y-%m-%d %T') as createtime,
+        clientid,
+        username,
+        content,
+        sign,
+        smstype,
+        md5,
+        status,
+        sendnum,
+        last_sendtime,
+        paytype,
+        removeflag,
+        readedflag,
+        transferperson,
+        transfertime,
+        auditperson,
+        DATE_FORMAT(audittime,'%Y-%m-%d %T') as audittime,
+        opt_remark
+    </sql>
+
+
+    <select id="getByAuditid" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_#{tableDate}
+        WHERE 
+            auditid = #{auditid}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_audit_#{tableDate}
+        WHERE
+        1 = 1
+        <include refid="queryListCondition"/>
+        <if test="limitIndex !=null and limitIndex !=''">
+            LIMIT #{limitIndex},#{total}
+        </if>
+    </select>
+
+    <sql id="queryListCondition">
+        <if test="ishis!=null">
+            and status !=0
+        </if>
+        <if test="auditid != null">
+            and auditid in (#{auditid})
+        </if>
+        <if test="createtime != null">
+            and createtime = #{createtime}
+        </if>
+        <if test="clientid != null and clientid != ''">
+            and clientid LIKE CONCAT('%',#{clientid},'%')
+        </if>
+        <if test="username != null and username != ''">
+            and username = #{username}
+        </if>
+        <if test="content != null and content != ''">
+            and content LIKE CONCAT('%', #{content} ,'%')
+        </if>
+        <if test="sign != null and sign != ''">
+            and sign LIKE CONCAT('%',#{sign},'%')
+        </if>
+        <if test="smstype != null">
+            and smstype = #{smstype}
+        </if>
+        <if test="md5 != null and md5 != ''">
+            and md5 = #{md5}
+        </if>
+        <if test="status != null and status != ''">
+            and status = #{status}
+        </if>
+        <if test="sendnum != null and sendnum != ''">
+            and sendnum = #{sendnum}
+        </if>
+        <if test="lastSendtime != null and lastSendtime != ''">
+            and last_sendtime = #{lastSendtime}
+        </if>
+        <if test="paytype != null">
+            and paytype = #{paytype}
+        </if>
+        <if test="removeflag != null">
+            and removeflag = #{removeflag}
+        </if>
+        <if test="readedflag != null">
+            and readedflag = #{readedflag}
+        </if>
+        <if test="transferperson != null and transferperson.size > 0">
+            and transferperson in
+            <foreach item="item" index="index" collection="transferperson" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="transfertime != null and transfertime != ''">
+            and transfertime = #{transfertime}
+        </if>
+        <if test="auditperson != null and auditperson.size > 0">
+            and auditperson in
+            <foreach item="item" index="index" collection="auditperson" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="audittime != null and audittime != ''">
+            and audittime = #{audittime}
+        </if>
+        <if test="optRemark != null and optRemark != ''">
+            and opt_remark = #{optRemark}
+        </if>
+        <!-- 历史审核时间条件-->
+        <if test="hstart_time != null and hstart_time != ''">
+            AND <![CDATA[ createtime >= #{hstart_time} ]]>
+        </if>
+        <if test="hend_time != null and hend_time != ''">
+            AND <![CDATA[ createtime <= #{hend_time} ]]>
+        </if>
+    </sql>
+
+
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_audit_#{tableDate}
+        WHERE 
+            1 = 1
+            <if test="ishis!=null">
+              and status !=0
+            </if>
+            <if test="auditid != null and auditid != ''">
+                and auditid in (#{auditid})
+            </if>
+            <if test="createtime != null and createtime != ''">
+                and createtime = #{createtime}
+            </if>
+            <if test="clientid != null and clientid != ''">
+                and clientid LIKE CONCAT('%',#{clientid},'%')
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="content != null and content != ''">
+                and content LIKE CONCAT('%', #{content},'%')
+            </if>
+            <if test="sign != null and sign != ''">
+                and sign LIKE CONCAT('%',#{sign},'%')
+            </if>
+            <if test="smstype != null and smstype != ''">
+                and smstype = #{smstype}
+            </if>
+            <if test="md5 != null and md5 != ''">
+                and md5 = #{md5}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="sendnum != null and sendnum != ''">
+                and sendnum = #{sendnum}
+            </if>
+            <if test="lastSendtime != null and lastSendtime != ''">
+                and last_sendtime = #{lastSendtime}
+            </if>
+            <if test="paytype != null and paytype != ''">
+                and paytype = #{paytype}
+            </if>
+            <if test="removeflag != null and removeflag != ''">
+                and removeflag = #{removeflag}
+            </if>
+            <if test="readedflag != null and readedflag != ''">
+                and readedflag = #{readedflag}
+            </if>
+            <if test="transferperson != null and transferperson.size > 0">
+                and transferperson in
+                <foreach item="item" index="index" collection="transferperson" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="transfertime != null and transfertime != ''">
+                and transfertime = #{transfertime}
+            </if>
+            <if test="auditperson != null and auditperson.size > 0">
+                and auditperson in
+                <foreach item="item" index="index" collection="auditperson" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        <if test="hstart_time != null and hstart_time != ''">
+            AND <![CDATA[ createtime >= #{hstart_time} ]]>
+        </if>
+        <if test="hend_time != null and hend_time != ''">
+            AND <![CDATA[ createtime <= #{hend_time} ]]>
+        </if>
+        ORDER BY createtime asc
+    </select>
+
+
+</mapper>
+

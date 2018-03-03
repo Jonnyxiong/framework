@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.record.record.mapper.JsmsRecordMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.record.record.entity.JsmsRecord">
+        <result property="smsuuid" jdbcType="VARCHAR" column="smsuuid"/>
+        <result property="channelid" jdbcType="INTEGER" column="channelid"/>
+        <result property="channeloperatorstype" jdbcType="VARCHAR" column="channeloperatorstype"/>
+        <result property="channelremark" jdbcType="VARCHAR" column="channelremark"/>
+        <result property="operatorstype" jdbcType="INTEGER" column="operatorstype"/>
+        <result property="area" jdbcType="INTEGER" column="area"/>
+        <result property="smsid" jdbcType="VARCHAR" column="smsid"/>
+        <result property="sid" jdbcType="VARCHAR" column="sid"/>
+        <result property="username" jdbcType="VARCHAR" column="username"/>
+        <result property="content" jdbcType="VARCHAR" column="content"/>
+        <result property="smscnt" jdbcType="INTEGER" column="smscnt"/>
+        <result property="state" jdbcType="INTEGER" column="state"/>
+        <result property="phone" jdbcType="VARCHAR" column="phone"/>
+        <result property="duration" jdbcType="INTEGER" column="duration"/>
+        <result property="remarks" jdbcType="VARCHAR" column="remarks"/>
+        <result property="ip" jdbcType="VARCHAR" column="ip"/>
+        <result property="templatetype" jdbcType="INTEGER" column="templatetype"/>
+        <result property="smsfrom" jdbcType="INTEGER" column="smsfrom"/>
+        <result property="smsindex" jdbcType="INTEGER" column="smsindex"/>
+        <result property="costFee" jdbcType="DECIMAL" column="costFee"/>
+        <result property="saleFee" jdbcType="DECIMAL" column="saleFee"/>
+        <result property="channelsmsid" jdbcType="VARCHAR" column="channelsmsid"/>
+        <result property="paytype" jdbcType="INTEGER" column="paytype"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="errorcode" jdbcType="VARCHAR" column="errorcode"/>
+        <result property="date" jdbcType="TIMESTAMP" column="date"/>
+        <result property="submit" jdbcType="VARCHAR" column="submit"/>
+        <result property="submitdate" jdbcType="TIMESTAMP" column="submitdate"/>
+        <result property="subret" jdbcType="VARCHAR" column="subret"/>
+        <result property="subretdate" jdbcType="TIMESTAMP" column="subretdate"/>
+        <result property="report" jdbcType="VARCHAR" column="report"/>
+        <result property="reportdate" jdbcType="TIMESTAMP" column="reportdate"/>
+        <result property="recvreportdate" jdbcType="TIMESTAMP" column="recvreportdate"/>
+        <result property="sidinpaas" jdbcType="INTEGER" column="sidinpaas"/>
+        <result property="showphone" jdbcType="VARCHAR" column="showphone"/>
+        <result property="templateId" jdbcType="INTEGER" column="template_id"/>
+        <result property="channelTempid" jdbcType="VARCHAR" column="channel_tempid"/>
+        <result property="tempParams" jdbcType="VARCHAR" column="temp_params"/>
+        <result property="sendId" jdbcType="INTEGER" column="send_id"/>
+        <result property="longsms" jdbcType="INTEGER" column="longsms"/>
+        <result property="clientcnt" jdbcType="INTEGER" column="clientcnt"/>
+        <result property="channelcnt" jdbcType="INTEGER" column="channelcnt"/>
+        <result property="senddate" jdbcType="TIMESTAMP" column="senddate"/>
+        <result property="belongSale" jdbcType="BIGINT" column="belong_sale"/>
+        <result property="belongBusiness" jdbcType="BIGINT" column="belong_business"/>
+        <result property="sign" jdbcType="VARCHAR" column="sign"/>
+        <result property="smstype" jdbcType="INTEGER" column="smstype"/>
+        <result property="failedResendFlag" jdbcType="INTEGER" column="failed_resend_flag"/>
+        <result property="failedResendTimes" jdbcType="INTEGER" column="failed_resend_times"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        smsuuid,
+        channelid,
+        channeloperatorstype,
+        channelremark,
+        operatorstype,
+        area,
+        smsid,
+        sid,
+        username,
+        content,
+        smscnt,
+        state,
+        phone,
+        duration,
+        remarks,
+        ip,
+        templatetype,
+        smsfrom,
+        smsindex,
+        costFee,
+        saleFee,
+        channelsmsid,
+        paytype,
+        clientid,
+        errorcode,
+        date,
+        submit,
+        submitdate,
+        subret,
+        subretdate,
+        report,
+        reportdate,
+        recvreportdate,
+        sidinpaas,
+        showphone,
+        template_id,
+        channel_tempid,
+        temp_params,
+        send_id,
+        longsms,
+        clientcnt,
+        channelcnt,
+        senddate,
+        belong_sale,
+        belong_business,
+        sign,
+        smstype
+    </sql>
+
+
+    <sql id="FAIL_COLUMN_LIST">
+        smsuuid,
+        channelid,
+        channeloperatorstype,
+        channelremark,
+        operatorstype,
+        area,
+        smsid,
+        sid,
+        username,
+        content,
+        smscnt,
+        state,
+        phone,
+        duration,
+        remarks,
+        ip,
+        templatetype,
+        smsfrom,
+        smsindex,
+        costFee,
+        saleFee,
+        channelsmsid,
+        paytype,
+        clientid,
+        errorcode,
+        date,
+        submit,
+        submitdate,
+        subret,
+        subretdate,
+        report,
+        reportdate,
+        recvreportdate,
+        sidinpaas,
+        showphone,
+        template_id,
+        channel_tempid,
+        temp_params,
+        send_id,
+        longsms,
+        clientcnt,
+        channelcnt,
+        senddate,
+        belong_sale,
+        belong_business,
+        sign,
+        smstype,
+        <choose>
+            <when test="params.c_failed_resend_flag == 1">
+                failed_resend_flag,
+            </when>
+            <otherwise>
+                '' AS failed_resend_flag,
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="params.c_failed_resend_times == 1">
+                failed_resend_times
+            </when>
+            <otherwise>
+                '' AS failed_resend_times
+            </otherwise>
+        </choose>
+    </sql>
+
+    <sql id="search_condition">
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.smsuuid != null">
+                and smsuuid = #{params.smsuuid}
+            </if>
+            <if test="params.channelid != null">
+                and channelid = #{params.channelid}
+            </if>
+            <if test="params.channeloperatorstype != null">
+                and channeloperatorstype = #{params.channeloperatorstype}
+            </if>
+            <if test="params.channelremark != null">
+                and channelremark = #{params.channelremark}
+            </if>
+            <if test="params.operatorstype != null">
+                and operatorstype = #{params.operatorstype}
+            </if>
+            <if test="params.area != null">
+                and area = #{params.area}
+            </if>
+            <if test="params.smsid != null">
+                and smsid like concat('%',#{params.smsid},'%')
+            </if>
+            <if test="params.sid != null">
+                and sid = #{params.sid}
+            </if>
+            <if test="params.username != null">
+                and username = #{params.username}
+            </if>
+            <if test="params.content != null">
+                and content like concat('%',#{params.content},'%')
+            </if>
+            <if test="params.smscnt != null">
+                and smscnt = #{params.smscnt}
+            </if>
+            <if test="params.state != null">
+                and state = #{params.state}
+            </if>
+            <if test="params.phone != null">
+                and phone like concat('%',#{params.phone},'%')
+            </if>
+            <if test="params.duration != null">
+                and duration = #{params.duration}
+            </if>
+            <if test="params.remarks != null">
+                and remarks = #{params.remarks}
+            </if>
+            <if test="params.ip != null">
+                and ip = #{params.ip}
+            </if>
+            <if test="params.templatetype != null">
+                and templatetype = #{params.templatetype}
+            </if>
+            <if test="params.smsfrom != null">
+                and smsfrom = #{params.smsfrom}
+            </if>
+            <if test="params.smsindex != null">
+                and smsindex = #{params.smsindex}
+            </if>
+            <if test="params.costFee != null">
+                and costFee = #{params.costFee}
+            </if>
+            <if test="params.saleFee != null">
+                and saleFee = #{params.saleFee}
+            </if>
+            <if test="params.channelsmsid != null">
+                and channelsmsid = #{params.channelsmsid}
+            </if>
+            <if test="params.paytype != null">
+                and paytype = #{params.paytype}
+            </if>
+            <if test="params.clientid != null">
+                and clientid like concat('%',#{params.clientid},'%')
+            </if>
+            <if test="params.errorcode != null">
+                and errorcode = #{params.errorcode}
+            </if>
+            <if test="params.date != null">
+                and date = #{params.date}
+            </if>
+            <if test="params.submit != null">
+                and submit = #{params.submit}
+            </if>
+            <if test="params.submitdate != null">
+                and submitdate = #{params.submitdate}
+            </if>
+            <if test="params.subret != null">
+                and subret = #{params.subret}
+            </if>
+            <if test="params.subretdate != null">
+                and subretdate = #{params.subretdate}
+            </if>
+            <if test="params.report != null">
+                and report = #{params.report}
+            </if>
+            <if test="params.reportdate != null">
+                and reportdate = #{params.reportdate}
+            </if>
+            <if test="params.recvreportdate != null">
+                and recvreportdate = #{params.recvreportdate}
+            </if>
+            <if test="params.sidinpaas != null">
+                and sidinpaas = #{params.sidinpaas}
+            </if>
+            <if test="params.showphone != null">
+                and showphone = #{params.showphone}
+            </if>
+            <if test="params.templateId != null">
+                and template_id = #{params.templateId}
+            </if>
+            <if test="params.channelTempid != null">
+                and channel_tempid = #{params.channelTempid}
+            </if>
+            <if test="params.tempParams != null">
+                and temp_params = #{params.tempParams}
+            </if>
+            <if test="params.sendId != null">
+                and send_id = #{params.sendId}
+            </if>
+            <if test="params.longsms != null">
+                and longsms = #{params.longsms}
+            </if>
+            <if test="params.clientcnt != null">
+                and clientcnt = #{params.clientcnt}
+            </if>
+            <if test="params.channelcnt != null">
+                and channelcnt = #{params.channelcnt}
+            </if>
+            <if test="params.senddate != null">
+                and senddate = #{params.senddate}
+            </if>
+            <if test="params.belongSale != null">
+                and belong_sale = #{params.belongSale}
+            </if>
+            <if test="params.belongBusiness != null">
+                and belong_business = #{params.belongBusiness}
+            </if>
+            <if test="params.sign != null">
+                and sign like concat('%',#{params.sign},'%')
+            </if>
+            <if test="params.smstype != null">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.failedResendFlag != null and params.c_failed_resend_flag == 1">
+                and failed_resend_flag = #{params.failedResendFlag}
+            </if>
+            <if test="params.failedResendTimes != null and params.c_failed_resend_times == 1">
+                and failed_resend_times = #{params.failedResendTimes}
+            </if>
+            <if test="params.failedResendTimesStr != null and params.c_failed_resend_times == 1">
+                and failed_resend_times > #{params.failedResendTimesStr}
+            </if>
+            <if test="params.searchAccess==null">
+                <if test="params.startTime!=null">
+                    and date &gt;= date_format(#{params.startTime},'%Y-%m-%d %T')
+                </if>
+                <if test="params.endTime!=null">
+                    and date &lt;= date_format(#{params.endTime},'%Y-%m-%d %T')
+                </if>
+            </if>
+        </trim>
+    </sql>
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_record_0 WHERE smsuuid = #{smsuuid}
+    </delete>
+    -->
+    
+
+    
+
+
+    <select id="getBySmsuuid" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM ${tableName}
+        WHERE 
+            smsuuid = #{smsuuid}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_record_0 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.smsuuid != null">
+                and smsuuid = #{params.smsuuid}
+            </if>
+            <if test="params.channelid != null">
+                and channelid = #{params.channelid}
+            </if>
+            <if test="params.channeloperatorstype != null">
+                and channeloperatorstype = #{params.channeloperatorstype}
+            </if>
+            <if test="params.channelremark != null">
+                and channelremark = #{params.channelremark}
+            </if>
+            <if test="params.operatorstype != null">
+                and operatorstype = #{params.operatorstype}
+            </if>
+            <if test="params.area != null">
+                and area = #{params.area}
+            </if>
+            <if test="params.smsid != null">
+                and smsid = #{params.smsid}
+            </if>
+            <if test="params.sid != null">
+                and sid = #{params.sid}
+            </if>
+            <if test="params.username != null">
+                and username = #{params.username}
+            </if>
+            <if test="params.content != null">
+                and content = #{params.content}
+            </if>
+            <if test="params.smscnt != null">
+                and smscnt = #{params.smscnt}
+            </if>
+            <if test="params.state != null">
+                and state = #{params.state}
+            </if>
+            <if test="params.phone != null">
+                and phone = #{params.phone}
+            </if>
+            <if test="params.duration != null">
+                and duration = #{params.duration}
+            </if>
+            <if test="params.remarks != null">
+                and remarks = #{params.remarks}
+            </if>
+            <if test="params.ip != null">
+                and ip = #{params.ip}
+            </if>
+            <if test="params.templatetype != null">
+                and templatetype = #{params.templatetype}
+            </if>
+            <if test="params.smsfrom != null">
+                and smsfrom = #{params.smsfrom}
+            </if>
+            <if test="params.smsindex != null">
+                and smsindex = #{params.smsindex}
+            </if>
+            <if test="params.costFee != null">
+                and costFee = #{params.costFee}
+            </if>
+            <if test="params.saleFee != null">
+                and saleFee = #{params.saleFee}
+            </if>
+            <if test="params.channelsmsid != null">
+                and channelsmsid = #{params.channelsmsid}
+            </if>
+            <if test="params.paytype != null">
+                and paytype = #{params.paytype}
+            </if>
+            <if test="params.clientid != null">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.errorcode != null">
+                and errorcode = #{params.errorcode}
+            </if>
+            <if test="params.date != null">
+                and date = #{params.date}
+            </if>
+            <if test="params.submit != null">
+                and submit = #{params.submit}
+            </if>
+            <if test="params.submitdate != null">
+                and submitdate = #{params.submitdate}
+            </if>
+            <if test="params.subret != null">
+                and subret = #{params.subret}
+            </if>
+            <if test="params.subretdate != null">
+                and subretdate = #{params.subretdate}
+            </if>
+            <if test="params.report != null">
+                and report = #{params.report}
+            </if>
+            <if test="params.reportdate != null">
+                and reportdate = #{params.reportdate}
+            </if>
+            <if test="params.recvreportdate != null">
+                and recvreportdate = #{params.recvreportdate}
+            </if>
+            <if test="params.sidinpaas != null">
+                and sidinpaas = #{params.sidinpaas}
+            </if>
+            <if test="params.showphone != null">
+                and showphone = #{params.showphone}
+            </if>
+            <if test="params.templateId != null">
+                and template_id = #{params.templateId}
+            </if>
+            <if test="params.channelTempid != null">
+                and channel_tempid = #{params.channelTempid}
+            </if>
+            <if test="params.tempParams != null">
+                and temp_params = #{params.tempParams}
+            </if>
+            <if test="params.sendId != null">
+                and send_id = #{params.sendId}
+            </if>
+            <if test="params.longsms != null">
+                and longsms = #{params.longsms}
+            </if>
+            <if test="params.clientcnt != null">
+                and clientcnt = #{params.clientcnt}
+            </if>
+            <if test="params.channelcnt != null">
+                and channelcnt = #{params.channelcnt}
+            </if>
+            <if test="params.senddate != null">
+                and senddate = #{params.senddate}
+            </if>
+            <if test="params.belongSale != null">
+                and belong_sale = #{params.belongSale}
+            </if>
+            <if test="params.belongBusiness != null">
+                and belong_business = #{params.belongBusiness}
+            </if>
+            <if test="params.sign != null">
+                and sign = #{params.sign}
+            </if>
+            <if test="params.smstype != null">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.failedResendFlag != null">
+                and failed_resend_flag = #{params.failedResendFlag}
+            </if>
+            <if test="params.failedResendTimes != null">
+                and failed_resend_times = #{params.failedResendTimes}
+            </if>
+	     </trim>
+    </select>
+    <!-- 短信记录流水表（t_sms_record_yyyyMMdd） -->
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM ${tableName}
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="smsuuid != null">
+                and smsuuid = #{smsuuid}
+            </if>
+            <if test="channelid != null">
+                and channelid = #{channelid}
+            </if>
+            <if test="channeloperatorstype != null">
+                and channeloperatorstype = #{channeloperatorstype}
+            </if>
+            <if test="channelremark != null">
+                and channelremark = #{channelremark}
+            </if>
+            <if test="operatorstype != null">
+                and operatorstype = #{operatorstype}
+            </if>
+            <if test="area != null">
+                and area = #{area}
+            </if>
+            <if test="smsid != null">
+                and smsid = #{smsid}
+            </if>
+            <if test="sid != null">
+                and sid = #{sid}
+            </if>
+            <if test="username != null">
+                and username = #{username}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="smscnt != null">
+                and smscnt = #{smscnt}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="duration != null">
+                and duration = #{duration}
+            </if>
+            <if test="remarks != null">
+                and remarks = #{remarks}
+            </if>
+            <if test="ip != null">
+                and ip = #{ip}
+            </if>
+            <if test="templatetype != null">
+                and templatetype = #{templatetype}
+            </if>
+            <if test="smsfrom != null">
+                and smsfrom = #{smsfrom}
+            </if>
+            <if test="smsindex != null">
+                and smsindex = #{smsindex}
+            </if>
+            <if test="costFee != null">
+                and costFee = #{costFee}
+            </if>
+            <if test="saleFee != null">
+                and saleFee = #{saleFee}
+            </if>
+            <if test="channelsmsid != null">
+                and channelsmsid = #{channelsmsid}
+            </if>
+            <if test="paytype != null">
+                and paytype = #{paytype}
+            </if>
+            <if test="clientid != null">
+                and clientid = #{clientid}
+            </if>
+            <if test="errorcode != null">
+                and errorcode = #{errorcode}
+            </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
+            <if test="submit != null">
+                and submit = #{submit}
+            </if>
+            <if test="submitdate != null">
+                and submitdate = #{submitdate}
+            </if>
+            <if test="subret != null">
+                and subret = #{subret}
+            </if>
+            <if test="subretdate != null">
+                and subretdate = #{subretdate}
+            </if>
+            <if test="report != null">
+                and report = #{report}
+            </if>
+            <if test="reportdate != null">
+                and reportdate = #{reportdate}
+            </if>
+            <if test="recvreportdate != null">
+                and recvreportdate = #{recvreportdate}
+            </if>
+            <if test="sidinpaas != null">
+                and sidinpaas = #{sidinpaas}
+            </if>
+            <if test="showphone != null">
+                and showphone = #{showphone}
+            </if>
+            <if test="templateId != null">
+                and template_id = #{templateId}
+            </if>
+            <if test="channelTempid != null">
+                and channel_tempid = #{channelTempid}
+            </if>
+            <if test="tempParams != null">
+                and temp_params = #{tempParams}
+            </if>
+            <if test="sendId != null">
+                and send_id = #{sendId}
+            </if>
+            <if test="longsms != null">
+                and longsms = #{longsms}
+            </if>
+            <if test="clientcnt != null">
+                and clientcnt = #{clientcnt}
+            </if>
+            <if test="channelcnt != null">
+                and channelcnt = #{channelcnt}
+            </if>
+            <if test="senddate != null">
+                and senddate = #{senddate}
+            </if>
+            <if test="belongSale != null">
+                and belong_sale = #{belongSale}
+            </if>
+            <if test="belongBusiness != null">
+                and belong_business = #{belongBusiness}
+            </if>
+            <if test="sign != null">
+                and sign = #{sign}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="failedResendFlag != null">
+                and failed_resend_flag = #{failedResendFlag}
+            </if>
+            <if test="failedResendTimes != null">
+                and failed_resend_times = #{failedResendTimes}
+            </if>
+	     </trim>
+
+        ORDER  BY smsindex ASC
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_record_0 
+        WHERE 
+            1 = 1
+            <if test="smsuuid != null">
+                and smsuuid = #{smsuuid}
+            </if>
+            <if test="channelid != null">
+                and channelid = #{channelid}
+            </if>
+            <if test="channeloperatorstype != null">
+                and channeloperatorstype = #{channeloperatorstype}
+            </if>
+            <if test="channelremark != null">
+                and channelremark = #{channelremark}
+            </if>
+            <if test="operatorstype != null">
+                and operatorstype = #{operatorstype}
+            </if>
+            <if test="area != null">
+                and area = #{area}
+            </if>
+            <if test="smsid != null">
+                and smsid = #{smsid}
+            </if>
+            <if test="sid != null">
+                and sid = #{sid}
+            </if>
+            <if test="username != null">
+                and username = #{username}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="smscnt != null">
+                and smscnt = #{smscnt}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="duration != null">
+                and duration = #{duration}
+            </if>
+            <if test="remarks != null">
+                and remarks = #{remarks}
+            </if>
+            <if test="ip != null">
+                and ip = #{ip}
+            </if>
+            <if test="templatetype != null">
+                and templatetype = #{templatetype}
+            </if>
+            <if test="smsfrom != null">
+                and smsfrom = #{smsfrom}
+            </if>
+            <if test="smsindex != null">
+                and smsindex = #{smsindex}
+            </if>
+            <if test="costFee != null">
+                and costFee = #{costFee}
+            </if>
+            <if test="saleFee != null">
+                and saleFee = #{saleFee}
+            </if>
+            <if test="channelsmsid != null">
+                and channelsmsid = #{channelsmsid}
+            </if>
+            <if test="paytype != null">
+                and paytype = #{paytype}
+            </if>
+            <if test="clientid != null">
+                and clientid = #{clientid}
+            </if>
+            <if test="errorcode != null">
+                and errorcode = #{errorcode}
+            </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
+            <if test="submit != null">
+                and submit = #{submit}
+            </if>
+            <if test="submitdate != null">
+                and submitdate = #{submitdate}
+            </if>
+            <if test="subret != null">
+                and subret = #{subret}
+            </if>
+            <if test="subretdate != null">
+                and subretdate = #{subretdate}
+            </if>
+            <if test="report != null">
+                and report = #{report}
+            </if>
+            <if test="reportdate != null">
+                and reportdate = #{reportdate}
+            </if>
+            <if test="recvreportdate != null">
+                and recvreportdate = #{recvreportdate}
+            </if>
+            <if test="sidinpaas != null">
+                and sidinpaas = #{sidinpaas}
+            </if>
+            <if test="showphone != null">
+                and showphone = #{showphone}
+            </if>
+            <if test="templateId != null">
+                and template_id = #{templateId}
+            </if>
+            <if test="channelTempid != null">
+                and channel_tempid = #{channelTempid}
+            </if>
+            <if test="tempParams != null">
+                and temp_params = #{tempParams}
+            </if>
+            <if test="sendId != null">
+                and send_id = #{sendId}
+            </if>
+            <if test="longsms != null">
+                and longsms = #{longsms}
+            </if>
+            <if test="clientcnt != null">
+                and clientcnt = #{clientcnt}
+            </if>
+            <if test="channelcnt != null">
+                and channelcnt = #{channelcnt}
+            </if>
+            <if test="senddate != null">
+                and senddate = #{senddate}
+            </if>
+            <if test="belongSale != null">
+                and belong_sale = #{belongSale}
+            </if>
+            <if test="belongBusiness != null">
+                and belong_business = #{belongBusiness}
+            </if>
+            <if test="sign != null">
+                and sign = #{sign}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="failedResendFlag != null">
+                and failed_resend_flag = #{failedResendFlag}
+            </if>
+            <if test="failedResendTimes != null">
+                and failed_resend_times = #{failedResendTimes}
+            </if>
+    </select>
+
+    <select id="queryFailRecord" resultMap="rowMapper">
+        SELECT <include refid="FAIL_COLUMN_LIST"/>
+        FROM (
+          <foreach collection="params.tableNames" item="tableName" separator=" UNION ALL ">
+              SELECT
+              <include refid="FAIL_COLUMN_LIST" />
+              FROM ${tableName}
+              <include refid="search_condition"/>
+          </foreach>
+        ) a
+    </select>
+
+    <!-- 根据数据库名和表名查询表所有的字段 -->
+    <select id="getRecordTableSchema" resultType="map">
+        SELECT
+        CONCAT("c_", COLUMN_NAME) AS COLUMN_NAME
+        FROM
+        INFORMATION_SCHEMA.COLUMNS
+        WHERE
+        table_name = #{table_name}
+        AND table_schema = #{record_database_name}
+    </select>
+
+    <!-- 查询当前数据库的数据库名称 -->
+    <select id="getCurrentDatabaseName" resultType="string">
+        SELECT database()
+    </select>
+
+</mapper>
+

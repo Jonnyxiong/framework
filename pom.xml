@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jsmsframework</groupId>
+    <artifactId>jsms-framework</artifactId>
+    <!-- 更改版本命令:  mvn versions:set -DnewVersion=1.1-SNAPSHOT -->
+    <!-- 提交版本命令:  mvn versions:commit -->
+    <!-- 回滚版本命令:  mvn versions:revert-->
+
+    <version>5.4.0-SNAPSHOT</version>
+
+    <modules>
+        <module>jsms-code-generator</module>
+        <module>jsms-common</module>
+        <module>jsms-product</module>
+        <module>jsms-order</module>
+        <module>jsms-finance</module>
+        <module>jsms-user</module>
+        <module>jsms-redis</module>
+        <module>jsms-order-product</module>
+        <module>jsms-audit</module>
+        <module>jsms-user-audit</module>
+        <module>jsms-order-finance</module>
+        <module>jsms-channel</module>
+        <module>jsms-schUserConf</module>
+        <module>jsms-sms-send</module>
+        <module>jsms-access</module>
+        <module>jsms-sale-credit</module>
+        <module>jsms-middleware</module>
+        <module>jsms-stats</module>
+        <module>jsms-user-finance</module>
+        <module>jsms-monitor</module>
+        <module>jsms-code-gen</module>
+        <module>jsms-sysKeyword</module>
+        <module>jsms-sysConfig</module>
+        <module>jsms-record</module>
+        <module>jsms-statistics</module>
+    </modules>
+    <packaging>pom</packaging>
+    <name>短信项目底层框架</name>
+
+    <repositories>
+        <repository>
+            <id>JSMS repository</id>
+            <url>http://nexus.jsms.com/content/groups/jsms-group/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>JSMS plugin repository</id>
+            <url>http://nexus.jsms.com/content/groups/jsms-group/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!-- 部署命令deploy -->
+    <distributionManagement>
+        <repository>
+            <id>jsms-releases</id> <!-- 需在setting.xml配置server节点账号密码，根据id去匹配仓库的账号密码 -->
+            <name>jsms releases</name>
+            <url>http://nexus.jsms.com/content/repositories/jsms-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>jsms-snapshots</id>
+            <name>jsms snapshots</name>
+            <url>http://nexus.jsms.com/content/repositories/jsms-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <properties>
+        <!-- 项目文件编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+
+        <junit.version>4.12</junit.version>
+        <!-- Spring -->
+        <spring.version>4.3.8.RELEASE</spring.version>
+
+        <!-- db -->
+        <mysql.version>5.1.39</mysql.version>
+        <mybatis-spring.version>1.3.0</mybatis-spring.version>
+        <mybatis.version>3.4.1</mybatis.version>
+        <dbcp2.version>2.0.1</dbcp2.version>
+
+
+        <!-- Logging -->
+        <slf4j.version>1.7.21</slf4j.version>
+        <logback.version>1.1.7</logback.version>
+
+        <!-- Web -->
+        <servlet3.version>3.0.1</servlet3.version>
+        <jstl.version>1.2</jstl.version>
+        <httpclient.version>4.3.6</httpclient.version>
+        <thymeleaf.version>2.1.5.RELEASE</thymeleaf.version>
+        <thymeleaf.extras.version>2.1.2.RELEASE</thymeleaf.extras.version>
+        <aspectj.version>1.8.9</aspectj.version>
+
+
+        <!-- commons -->
+        <commons-io.version>2.0.1</commons-io.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
+        <commons-fileupload.version>1.3.2</commons-fileupload.version>
+        <commons-digester3>3.2</commons-digester3>
+        <commons-beanutils>1.9.2</commons-beanutils>
+        <commons-codec-version>1.10</commons-codec-version>
+        <httpclient.version>4.5.2</httpclient.version>
+
+        <joda-time.version>2.3</joda-time.version>
+        <poi.version>3.17</poi.version>
+        <easypoi.version>3.0.4-SNAPSHOT</easypoi.version>
+        <jxl.version>2.6.12</jxl.version>
+
+        <!-- json -->
+        <jackson.version>2.6.3</jackson.version>
+        <gson.version>2.4</gson.version>
+        <!-- jxpath -->
+        <jxpath.version>1.3</jxpath.version>
+        <!-- 简繁体工具类-->
+        <hanlp.version>portable-1.5.2</hanlp.version>
+        <smsa-common-util.version>1.0.1.RELEASE</smsa-common-util.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- Log依赖 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <!--spring使用的jcl，需使用桥接的方式替换spring的jcl -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <!-- logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency> <!-- logback的condition语句需要依赖此包 -->
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>2.7.8</version>
+        </dependency>
+        <!-- Log依赖 -->
+
+        <dependency>
+            <groupId>com.ucpaas.sms</groupId>
+            <artifactId>smsa-common-util</artifactId>
+            <version>${smsa-common-util.version}</version>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+
+            <!-- Log依赖 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!--spring使用的jcl，需使用桥接的方式替换spring的jcl -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- logback -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency> <!-- logback的condition语句需要依赖此包 -->
+                <groupId>org.codehaus.janino</groupId>
+                <artifactId>janino</artifactId>
+                <version>2.7.8</version>
+            </dependency>
+            <!-- Log依赖 -->
+
+            <!-- Web -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet3.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>${jstl.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-aop</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-beans</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-context</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-expression</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- mybatis相关配置start -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            <!-- mybatis相关配置end -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
+            <!-- JSR 303 with Hibernate Validator -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>4.1.0.Final</version>
+            </dependency>
+
+            <!-- commons -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-digester3</artifactId>
+                <version>${commons-digester3}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <!-- json -->
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.jexcelapi</groupId>
+                <artifactId>jxl</artifactId>
+                <version>${jxl.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>log4j</artifactId>
+                        <groupId>log4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--分页使用 -->
+            <dependency>
+                <groupId>commons-jxpath</groupId>
+                <artifactId>commons-jxpath</artifactId>
+                <version>${jxpath.version}</version>
+            </dependency>
+            <!-- 简繁体工具类-->
+            <dependency>
+                <groupId>com.hankcs</groupId>
+                <artifactId>hanlp</artifactId>
+                <version>${hanlp.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.12.4</version>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+                <!-- 打包源代码插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.2.1</version>
+                    <configuration>
+                        <attach>true</attach>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <!-- 打包源代码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>system.properties</include>
+                </includes>
+                <!-- 是否替换资源中的属性 -->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+
+    </build>
+</project>

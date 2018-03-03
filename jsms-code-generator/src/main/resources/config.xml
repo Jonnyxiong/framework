@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<package packageName="com.jsmsframework" author="huangwenjie" date="2017-11-04"
+		 company="云之迅" destDir="E:\jsms-framework">
+
+	<!-- moduleName: 模块名字,用于包名.模块名.类名 -->
+	<module moduleName="user" moduleNameZh="用户模块">
+		<table tableName="t_sms_account" description="用户信息表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_client_info_ext" description="用户信息扩展表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_account_login_status" description="用户登陆状态表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_clientid_sequence" description="客户账号clientid序列表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_role" description="角色表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_role_menu" description="角色菜单表" dbKey="role_menu_Id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_user" description="用户表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_user_role" description="用户角色关系表" dbKey="ru_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_agent_apply" description="代理商申请表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_agent_info" description="代理商信息表" dbKey="agent_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_menu" description="菜单表" dbKey="menu_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_oem_data_config" description="OEM资料配置" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_oauth_audit_log" description="认证审核记录表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_oauth_pic" description="代理商和客户证件表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_department" description="部门表" dbKey="department_id" tablePrefix="t_sms"  overwrite="false"></table>
+	</module>
+	<module moduleName="finance" moduleNameZh="财务相关模块">
+		<table tableName="t_sms_agent_account" description="代理商帐户表" dbKey="agent_id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_agent_balance_bill" description="代理商帐户余额收支明细" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_agent_commission_income_bill" description="代理商佣金帐户收支明细" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_agent_credit_record" description="代理商授信记录" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_agent_deposit_bill" description="代理商押金账户收支明细" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_agent_rebate" description="代理返点比例配置" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_agent_rebate_bill" description="代理商返点账户收支明细" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_client_balance_alarm" description="预付费客户余额预警信息表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_user_price_log" description="后付费用户价格变更记录" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_oem_agent_rebate" description="OEM代理返点比例配置" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_agent_balance_alarm" description="代理商余额预警信息表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_task_alarm_setting" description="提醒设置表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_oem_agent_account_statistics" description="OEM代理商帐户统计表" dbKey="agent_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_online_payment" description="在线支付流水表" dbKey="payment_id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_online_payment_log" description="在线支付流水日志表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+
+	</module>
+	<module moduleName="order" moduleNameZh="订单相关模块">
+		<table tableName="t_sms_client_order" description="客户订单表" dbKey="sub_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_oem_agent_order" description="OEM代理商订单" dbKey="order_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_oem_agent_pool" description="OEM代理商短信池" dbKey="agent_pool_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_oem_client_order" description="OEM代理商客户订单" dbKey="order_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_oem_client_pool" description="OEM代理商客户短信池" dbKey="client_pool_id" tablePrefix="t_sms"  overwrite="false"></table>
+	</module>
+	<module moduleName="product" moduleNameZh="产品相关模块">
+		<table tableName="t_sms_agent_product" description="代理商产品表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_client_product" description="客户产品表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_oem_product_info" description="OEM产品信息表" dbKey="product_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_product_info" description="产品信息表" dbKey="product_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_oem_agent_product" description="OEM代理商产品表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_client_tariff" description="国际短信费率表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+	</module>
+	<module moduleName="common" moduleNameZh="公共模块">
+		<table tableName="t_sms_agent_client_param" description="代理商和客户属性配置表" dbKey="param_id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_dict" description="数据字典表" dbKey="param_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_param" description="参数表" dbKey="param_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_client_dict" description="用户数据字典表" dbKey="param_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_system_error_desc" description="平台错误码对应表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_mailprop" description="邮件配置表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+	</module>
+
+	<module moduleName="audit" moduleNameZh="审核模块">
+		<table tableName="t_sms_auto_template" description="智能模板表" dbKey="template_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit" description="审核内容表" dbKey="auditid" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit_bak" description="审核内容表（备份）" dbKey="auditid" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit_sms" description="审核明细表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit_sms_bak" description="审核明细表（备份）" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_auditkeyword_record" description="短信审核与关键字记录表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_auditkeyword_record_0" description="短信审核与关键字记录分表原始表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit_conclusion" description="审核原因表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_overrate_keyword" description="超频关键字表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit_keyword_category" description="审核关键字分类表" dbKey="category_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit_keyword_list" description="审核关键字列表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit_keyword_group" description="审核关键字分组表" dbKey="kgroup_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit_kgroup_ref_category" description="审核关键字组内类别表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit_client_group" description="审核用户组" dbKey="cgroup_id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_audit_cgroup_ref_client" description="审核用户组内用户表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+		<table tableName="t_sms_auto_black_template" description="智能黑模板表" dbKey="template_id" tablePrefix="t_sms" overwrite="false"></table>
+
+	</module>
+	<!--<module moduleName="channel" moduleNameZh="通道模块">
+		<table tableName="t_sms_channel" description="短信通道信息表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+	</module>-->
+	<module moduleName="channel" moduleNameZh="通道模块">
+		<table tableName="t_sms_channel" description="短信通道信息表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_channel_property_log" description="通道属性变更记录表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+	</module>
+	<!--<module moduleName="channel" moduleNameZh="通道模块">--><!--<module moduleName="channel" moduleNameZh="通道模块">-->
+		<!--<table tableName="t_sms_channel" description="短信通道信息表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_white_keyword_channel" description="白关键字强制路由通道表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_channelgroup" description="通道组明细表" dbKey="channelgroupid" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_channel_pool_policy" description="通道池策略表" dbKey="policy_id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_channel_attribute_realtime_weight" description="通道属性实时权重表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_channel_attribute_weight_config" description="通道属性区间权重配置表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_channel_attribute_weight_config" description="通道属性区间权重配置表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_keyword_list" description="关键字表" dbKey="id" tablePrefix="t_sms"  overwrite="false"></table>
+	</module>-->
+	<!--<module moduleName="schUserConf" moduleNameZh="调度系统用户配置模块">-->
+	<!--<table tableName="t_template_overrate" description="模板超频表" dbKey="id" tablePrefix="t_template" overwrite="false"></table>-->
+	<!--</module>-->
+	<!--<module moduleName="access" moduleNameZh="Access模块">
+		<table tableName="t_sms_client_fail_return" description="客户失败返回清单表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_access_channel_statistics" description="客户发送统计表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_access_send_stat" description="客户发送量表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_channel_pool_policy" description="通道池策略表" dbKey="policy_id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_channel_attribute_realtime_weight" description="通道属性实时权重表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_channel_attribute_weight_config" description="通道属性区间权重配置表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+	</module>
+	<module moduleName="schUserConf" moduleNameZh="调度系统用户配置模块">
+		<table tableName="t_template_overrate" description="模板超频表" dbKey="id" tablePrefix="t_template" overwrite="false"></table>
+	</module>
+	<module moduleName="middleware" moduleNameZh="中间件模块">
+		<table tableName="t_sms_component_ref_mq" description="组件与MQ关联表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_middleware_configure" description="中间件配置信息表" dbKey="middleware_id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_mq_configure" description="MQ配置表" dbKey="mq_id" tablePrefix="t_sms" overwrite="false"></table>
+		<table tableName="t_sms_component_configure" description="组件配置信息表" dbKey="id" tablePrefix="t_sms" overwrite="false"></table>
+	</module>
+	</module>
+   -->
+	<module moduleName="monitor" moduleNameZh="监控模块">
+        <table tableName="t_sms_task" description="定时任务表" dbKey="task_id" tablePrefix="t_sms"  overwrite="false"></table>
+    </module>
+</package>
+
+
+

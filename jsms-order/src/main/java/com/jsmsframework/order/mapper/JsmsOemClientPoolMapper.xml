@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.order.mapper.JsmsOemClientPoolMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.order.entity.JsmsOemClientPool">
+        <result property="clientPoolId" jdbcType="BIGINT" column="client_pool_id"/>
+        <result property="clientId" jdbcType="VARCHAR" column="client_id"/>
+        <result property="productType" jdbcType="INTEGER" column="product_type"/>
+        <result property="operatorCode" jdbcType="INTEGER" column="operator_code"/>
+        <result property="areaCode" jdbcType="INTEGER" column="area_code"/>
+        <result property="dueTime" jdbcType="TIMESTAMP" column="due_time"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="totalNumber" jdbcType="INTEGER" column="total_number"/>
+        <result property="remainNumber" jdbcType="INTEGER" column="remain_number"/>
+        <result property="unitPrice" jdbcType="DECIMAL" column="unit_price"/>
+        <result property="totalAmount" jdbcType="DECIMAL" column="total_amount"/>
+        <result property="remainAmount" jdbcType="DECIMAL" column="remain_amount"/>
+        <result property="remainTestNumber" jdbcType="INTEGER" column="remain_test_number"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        client_pool_id,
+        client_id,
+        product_type,
+        operator_code,
+        area_code,
+        due_time,
+        status,
+        total_number,
+        remain_number,
+        unit_price,
+        total_amount,
+        remain_amount,
+        remain_test_number,
+        update_time,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.order.entity.JsmsOemClientPool" useGeneratedKeys="true" keyProperty="clientPoolId">
+        INSERT INTO t_sms_oem_client_pool 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="clientPoolId != null" >
+                client_pool_id,
+            </if>
+            <if test="clientId != null" >
+                client_id,
+            </if>
+            <if test="productType != null" >
+                product_type,
+            </if>
+            <if test="operatorCode != null" >
+                operator_code,
+            </if>
+            <if test="areaCode != null" >
+                area_code,
+            </if>
+            <if test="dueTime != null" >
+                due_time,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="totalNumber != null" >
+                total_number,
+            </if>
+            <if test="remainNumber != null" >
+                remain_number,
+            </if>
+            <if test="unitPrice != null" >
+                unit_price,
+            </if>
+            <if test="totalAmount != null" >
+                total_amount,
+            </if>
+            <if test="remainAmount != null" >
+                remain_amount,
+            </if>
+            <if test="remainTestNumber != null" >
+                remain_test_number,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="clientPoolId != null" >
+                #{clientPoolId},
+            </if>
+            <if test="clientId != null" >
+                #{clientId},
+            </if>
+            <if test="productType != null" >
+                #{productType},
+            </if>
+            <if test="operatorCode != null" >
+                #{operatorCode},
+            </if>
+            <if test="areaCode != null" >
+                #{areaCode},
+            </if>
+            <if test="dueTime != null" >
+                #{dueTime},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="totalNumber != null" >
+                #{totalNumber},
+            </if>
+            <if test="remainNumber != null" >
+                #{remainNumber},
+            </if>
+            <if test="unitPrice != null" >
+                #{unitPrice},
+            </if>
+            <if test="totalAmount != null" >
+                #{totalAmount},
+            </if>
+            <if test="remainAmount != null" >
+                #{remainAmount},
+            </if>
+            <if test="remainTestNumber != null" >
+                #{remainTestNumber},
+            </if>
+            <if test="updateTime != null" >
+                now(),
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_oem_client_pool (
+            client_pool_id,
+            client_id,
+            product_type,
+            operator_code,
+            area_code,
+            due_time,
+            status,
+            total_number,
+            remain_number,
+            unit_price,
+            total_amount,
+            remain_amount,
+            remain_test_number,
+            update_time,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.clientPoolId},
+                #{item.clientId},
+                #{item.productType},
+                #{item.operatorCode},
+                #{item.areaCode},
+                #{item.dueTime},
+                #{item.status},
+                #{item.totalNumber},
+                #{item.remainNumber},
+                #{item.unitPrice},
+                #{item.totalAmount},
+                #{item.remainAmount},
+                #{item.remainTestNumber},
+                now(),
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_oem_client_pool WHERE client_pool_id = #{clientPoolId}
+    </delete>
+    -->
+
+
+    <update id="update" parameterType="com.jsmsframework.order.entity.JsmsOemClientPool" >
+        UPDATE t_sms_oem_client_pool SET
+        client_id=#{clientId},
+        product_type=#{productType},
+        operator_code=#{operatorCode},
+        area_code=#{areaCode},
+        due_time=#{dueTime},
+        status=#{status},
+        total_number=#{totalNumber},
+        remain_number=#{remainNumber},
+        unit_price=#{unitPrice},
+        total_amount=#{totalAmount},
+        remain_amount=#{remainAmount},
+        remain_test_number=#{remainTestNumber},
+        update_time=#{updateTime},
+        remark=#{remark}
+        WHERE
+        client_pool_id = #{clientPoolId}
+    </update>
+
+    <update id="updateRemainNumber" parameterType="com.jsmsframework.order.entity.JsmsOemClientPool" >
+        UPDATE t_sms_oem_client_pool
+         <set>
+            status=#{status},
+            remain_number=remain_number + #{remainNumber}
+             <if test="updateTime != null">
+                 ,update_time = #{updateTime}
+             </if>
+         </set>
+        WHERE
+          client_pool_id = #{clientPoolId}
+    </update>
+
+
+
+    <update id="updateSelective" parameterType="com.jsmsframework.order.entity.JsmsOemClientPool" >
+        UPDATE t_sms_oem_client_pool 
+            <set>
+                <if test="clientId != null and clientId != ''">
+                    client_id = #{clientId},
+                </if>
+                <if test="productType != null and productType != ''">
+                    product_type = #{productType},
+                </if>
+                <if test="operatorCode != null and operatorCode != ''">
+                    operator_code = #{operatorCode},
+                </if>
+                <if test="areaCode != null and areaCode != ''">
+                    area_code = #{areaCode},
+                </if>
+                <if test="dueTime != null and dueTime != ''">
+                    due_time = #{dueTime},
+                </if>
+                <if test="status != null and status != ''">
+                    status = #{status},
+                </if>
+                <if test="totalNumber != null and totalNumber != ''">
+                    total_number = #{totalNumber},
+                </if>
+                <if test="remainNumber != null and remainNumber != ''">
+                    remain_number = #{remainNumber},
+                </if>
+                <if test="unitPrice != null and unitPrice != ''">
+                    unit_price = #{unitPrice},
+                </if>
+                <if test="totalAmount != null and totalAmount != ''">
+                    total_amount = #{totalAmount},
+                </if>
+                <if test="remainAmount != null and remainAmount != ''">
+                    remain_amount = #{remainAmount},
+                </if>
+                <if test="remainTestNumber != null and remainTestNumber != ''">
+                    remain_test_number = #{remainTestNumber},
+                </if>
+                <if test="updateTime != null and updateTime != ''">
+                    update_time = #{updateTime},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            client_pool_id = #{clientPoolId} 
+    </update>
+
+    <select id="getByClientPoolId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_oem_client_pool
+        WHERE 
+            client_pool_id = #{clientPoolId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_oem_client_pool 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.clientPoolId != null and params.clientPoolId != ''">
+                and client_pool_id = #{params.clientPoolId}
+            </if>
+            <if test="params.clientId != null and params.clientId != ''">
+                and client_id = #{params.clientId}
+            </if>
+            <if test="params.productType != null and params.productType != ''">
+                and product_type = #{params.productType}
+            </if>
+            <if test="params.operatorCode != null and params.operatorCode != ''">
+                and operator_code = #{params.operatorCode}
+            </if>
+            <if test="params.areaCode != null and params.areaCode != ''">
+                and area_code = #{params.areaCode}
+            </if>
+            <if test="params.dueTime != null and params.dueTime != ''">
+                and due_time = #{params.dueTime}
+            </if>
+            <if test="params.status != null and params.status != ''">
+                and status = #{params.status}
+            </if>
+            <if test="params.totalNumber != null and params.totalNumber != ''">
+                and total_number = #{params.totalNumber}
+            </if>
+            <if test="params.remainNumber != null and params.remainNumber != ''">
+                and remain_number = #{params.remainNumber}
+            </if>
+            <if test="params.unitPrice != null and params.unitPrice != ''">
+                and unit_price = #{params.unitPrice}
+            </if>
+            <if test="params.totalAmount != null and params.totalAmount != ''">
+                and total_amount = #{params.totalAmount}
+            </if>
+            <if test="params.remainAmount != null and params.remainAmount != ''">
+                and remain_amount = #{params.remainAmount}
+            </if>
+            <if test="params.remainTestNumber != null and params.remainTestNumber != ''">
+                and remain_test_number = #{params.remainTestNumber}
+            </if>
+            <if test="params.updateTime != null and params.updateTime != ''">
+                and update_time = #{params.updateTime}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_oem_client_pool 
+        WHERE 
+            1 = 1
+            <if test="clientPoolId != null and clientPoolId != ''">
+                and client_pool_id = #{clientPoolId}
+            </if>
+            <if test="clientId != null and clientId != ''">
+                and client_id = #{clientId}
+            </if>
+            <if test="productType != null and productType != ''">
+                and product_type = #{productType}
+            </if>
+            <if test="operatorCode != null and operatorCode != ''">
+                and operator_code = #{operatorCode}
+            </if>
+            <if test="areaCode != null and areaCode != ''">
+                and area_code = #{areaCode}
+            </if>
+            <if test="dueTime != null and dueTime != ''">
+                and due_time = #{dueTime}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="totalNumber != null and totalNumber != ''">
+                and total_number = #{totalNumber}
+            </if>
+            <if test="remainNumber != null and remainNumber != ''">
+                and remain_number = #{remainNumber}
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="totalAmount != null and totalAmount != ''">
+                and total_amount = #{totalAmount}
+            </if>
+            <if test="remainAmount != null and remainAmount != ''">
+                and remain_amount = #{remainAmount}
+            </if>
+            <if test="remainTestNumber != null and remainTestNumber != ''">
+                and remain_test_number = #{remainTestNumber}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+
+    <select id="getByClientPoolInfo" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST"/>
+        FROM
+            t_sms_oem_client_pool
+        <where>
+            <if test="clientId != null">
+                AND client_id = #{clientId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="productType != null">
+                AND product_type = #{productType}
+            </if>
+            <if test="operatorCode != null">
+                AND operator_code = #{operatorCode}
+            </if>
+            <if test="areaCode != null">
+                AND area_code = #{areaCode}
+            </if>
+            <if test="dueTime != null">
+                AND due_time = #{dueTime}
+            </if>
+            <if test="unitPrice != null">
+                AND unit_price = #{unitPrice}
+            </if>
+            ORDER BY client_pool_id DESC LIMIT 1
+        </where>
+    </select>
+
+
+    <select id="getListByClientPoolInfo" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM
+        t_sms_oem_client_pool
+        <where>
+            <if test="clientId != null">
+                AND client_id = #{clientId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="productType != null">
+                AND product_type = #{productType}
+            </if>
+            <if test="operatorCode != null">
+                AND operator_code = #{operatorCode}
+            </if>
+            <if test="areaCode != null">
+                AND area_code = #{areaCode}
+            </if>
+            <if test="dueTime != null">
+                AND due_time = #{dueTime}
+            </if>
+            <if test="unitPrice != null">
+                AND unit_price = #{unitPrice}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryRemainQuantityClientPoolInfo" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM
+        t_sms_oem_client_pool
+        <where>
+            <if test="clientId != null">
+                AND client_id = #{clientId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="productType != null">
+                AND product_type = #{productType}
+            </if>
+            <choose>
+                <when test="productType != null and productType != ''">
+                    AND ap.product_type = #{productType}
+                    <choose>
+                        <when test='productType == 2'>
+                            AND remain_amount &gt; 0
+                        </when>
+                        <otherwise>
+                            AND remain_number &gt; 0
+                        </otherwise>
+                    </choose>
+                </when>
+                <otherwise>
+                    AND ((product_type = 2 &amp;&amp; remain_amount &gt; 0) OR (product_type != 2 &amp;&amp; remain_number &gt; 0))
+                </otherwise>
+            </choose>
+            <if test="operatorCode != null">
+                AND operator_code = #{operatorCode}
+            </if>
+            <if test="areaCode != null">
+                AND area_code = #{areaCode}
+            </if>
+            <if test="dueTime != null">
+                AND due_time = #{dueTime}
+            </if>
+            <if test="unitPrice != null">
+                AND unit_price = #{unitPrice}
+            </if>
+        </where>
+    </select>
+
+    <select id="getListByPoolInfoAndDueTimeRange" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM
+        t_sms_oem_client_pool
+        <where>
+            <if test="model.clientId != null">
+                AND client_id = #{model.clientId}
+            </if>
+            <if test="model.status != null">
+                AND status = #{model.status}
+            </if>
+            <if test="model.productType != null">
+                AND product_type = #{model.productType}
+            </if>
+            <if test="model.operatorCode != null">
+                AND operator_code = #{model.operatorCode}
+            </if>
+            <if test="model.areaCode != null">
+                AND area_code = #{model.areaCode}
+            </if>
+            <if test="model.dueTime != null">
+                AND due_time = #{model.dueTime}
+            </if>
+            <if test="beginStartTime != null">
+                AND due_time &gt;= #{beginStartTime}
+            </if>
+            <if test="endStartTime != null">
+                AND due_time &lt;= #{endStartTime}
+            </if>
+            <if test="model.unitPrice != null">
+                AND unit_price = #{model.unitPrice}
+            </if>
+        </where>
+    </select>
+
+    <select id="getListByPoolInfoAndDueTimeRange1" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM
+        t_sms_oem_client_pool
+        <where>
+            <if test="clientId != null">
+                AND client_id = #{clientId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="productType != null">
+                AND product_type = #{productType}
+            </if>
+            <if test="operatorCode != null">
+                AND operator_code = #{operatorCode}
+            </if>
+            <if test="areaCode != null">
+                AND area_code = #{areaCode}
+            </if>
+            <if test="dueTime != null">
+                AND due_time = #{dueTime}
+            </if>
+            <if test="beginStartTime != null">
+                AND due_time &gt;= #{beginStartTime}
+            </if>
+            <if test="endStartTime != null">
+                AND due_time &lt;= #{endStartTime}
+            </if>
+            <if test="unitPrice != null">
+                AND unit_price = #{unitPrice}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateForAddClientPoolRemainNum" parameterType="com.jsmsframework.order.entity.JsmsOemClientPool">
+        UPDATE
+            t_sms_oem_client_pool
+        <set>
+            <if test="productType != 2">
+                <if test="totalNumber != null">
+                  total_number = total_number + #{totalNumber},
+                </if>
+                <if test="remainNumber != null">
+                  remain_number = remain_number + #{remainNumber},
+                </if>
+            </if>
+            <if test="productType == 2">
+                <if test="totalAmount != null">
+                  total_amount = total_amount + #{totalAmount},
+                </if>
+                <if test="remainAmount != null">
+                  remain_amount = remain_amount + #{remainAmount},
+                </if>
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        WHERE client_pool_id = #{clientPoolId}
+    </update>
+
+    <update id="updateForReduceClientPoolRemainNum">
+        UPDATE
+        t_sms_oem_client_pool
+        <if test="productType != 2">
+            <set>
+                <if test="remainNumber != null">
+                    remain_number = remain_number - #{reduceNumActual}
+                </if>
+            </set>
+            <where>
+                client_pool_id = #{clientPoolId}
+                <if test="totalNumber != null">
+                    AND remain_number = #{remainNumber}
+                </if>
+            </where>
+        </if>
+        <if test="productType == 2">
+            <set>
+                <if test="remainAmount != null">
+                    remain_amount = remain_amount - #{reduceNumActual}
+                </if>
+            </set>
+            <where>
+                client_pool_id = #{clientPoolId}
+                <if test="totalAmount != null">
+                    AND remain_amount = #{remainAmount}
+                </if>
+            </where>
+        </if>
+    </update>
+
+    <select id="findSUMTotal" resultMap="rowMapper">
+        SELECT
+            client_pool_id,
+            client_id,
+            product_type,
+            operator_code,
+            area_code,
+            due_time,
+            status,
+            total_number,
+            SUM(IFNULL(remain_number,0)) as remain_number,
+            unit_price,
+            total_amount,
+            SUM(IFNULL(remain_amount,0)) as remain_amount,
+            SUM(IFNULL(remain_test_number,0)) as remain_test_number,
+            update_time,
+            remark
+        FROM t_sms_oem_client_pool
+        <where>
+            `status` = 0
+            <![CDATA[
+              and due_time >= NOW()
+            ]]>
+            <if test="clientIds != null and clientIds.size > 0">
+                and client_id IN
+                <foreach collection="clientIds" index="item" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        GROUP BY client_id, product_type, operator_code, area_code;
+    </select>
+
+    <update id="updateClientPoolByCondition">
+        UPDATE
+        t_sms_oem_client_pool
+        SET
+        total_number = total_number + #{test_num},
+        remain_number = remain_number + #{test_num},
+        remain_test_number = remain_test_number + #{test_num}
+        WHERE
+        client_pool_id = #{client_pool_id}
+    </update>
+
+</mapper>
+

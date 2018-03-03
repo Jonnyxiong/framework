@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.user.mapper.JsmsUserPropertyLogMapper">
+
+
+    <resultMap id="rowMapper" type="com.jsmsframework.user.entity.JsmsUserPropertyLog">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="property" jdbcType="VARCHAR" column="property"/>
+        <result property="value" jdbcType="VARCHAR" column="value"/>
+        <result property="effectDate" jdbcType="DATE" column="effect_date"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        clientid,
+        property,
+        value,
+        effect_date,
+        operator,
+        create_time,
+        update_time,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.user.entity.JsmsUserPropertyLog">
+        INSERT INTO t_sms_user_property_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="clientid != null">
+                clientid,
+            </if>
+            <if test="property != null">
+                property,
+            </if>
+            <if test="value != null">
+                value,
+            </if>
+            <if test="effectDate != null">
+                effect_date,
+            </if>
+            <if test="operator != null">
+                operator,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="remark != null">
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="clientid != null">
+                #{clientid},
+            </if>
+            <if test="property != null">
+                #{property},
+            </if>
+            <if test="value != null">
+                #{value},
+            </if>
+            <if test="effectDate != null">
+                #{effectDate},
+            </if>
+            <if test="operator != null">
+                #{operator},
+            </if>
+            <if test="createTime != null">
+                now(),
+            </if>
+            <if test="updateTime != null">
+                now(),
+            </if>
+            <if test="remark != null">
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO t_sms_user_property_log (
+        id,
+        clientid,
+        property,
+        value,
+        effect_date,
+        operator,
+        create_time,
+        update_time,
+        remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.clientid},
+            #{item.property},
+            #{item.value},
+            #{item.effectDate},
+            #{item.operator},
+            now(),
+            now(),
+            #{item.remark}
+            )
+        </foreach>
+    </insert>
+
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_user_property_log WHERE id = #{id}
+    </delete>
+    -->
+
+    <update id="update" parameterType="com.jsmsframework.user.entity.JsmsUserPropertyLog">
+        UPDATE t_sms_user_property_log
+        SET
+            clientid    = #{clientid},
+            property    = #{property},
+            value       = #{value},
+            effect_date = #{effectDate},
+            operator    = #{operator},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            remark      = #{remark}
+        WHERE
+            id = #{id}
+    </update>
+
+
+    <update id="updateSelective" parameterType="com.jsmsframework.user.entity.JsmsUserPropertyLog">
+        UPDATE t_sms_user_property_log
+        <set>
+            <if test="clientid != null and clientid != ''">
+                clientid = #{clientid},
+            </if>
+            <if test="property != null and property != ''">
+                property = #{property},
+            </if>
+            <if test="value != null and value != ''">
+                value = #{value},
+            </if>
+            <if test="effectDate != null">
+                effect_date = #{effectDate},
+            </if>
+            <if test="operator != null and operator != ''">
+                operator = #{operator},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark}
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_user_property_log
+        WHERE
+        id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_user_property_log
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.clientid != null and params.clientid != ''">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.property != null and params.property != ''">
+                and property = #{params.property}
+            </if>
+            <if test="params.value != null and params.value != ''">
+                and value = #{params.value}
+            </if>
+            <if test="params.effectDate != null">
+                and effect_date = #{params.effectDate}
+            </if>
+            <if test="params.operator != null and params.operator != ''">
+                and operator = #{params.operator}
+            </if>
+            <if test="params.createTime != null">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.updateTime != null">
+                and update_time = #{params.updateTime}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+        </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_user_property_log
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="clientid != null and clientid != ''">
+            and clientid = #{clientid}
+        </if>
+        <if test="property != null and property != ''">
+            and property = #{property}
+        </if>
+        <if test="value != null and value != ''">
+            and value = #{value}
+        </if>
+        <if test="effectDate != null">
+            and effect_date = #{effectDate}
+        </if>
+        <if test="operator != null and operator != ''">
+            and operator = #{operator}
+        </if>
+        <if test="createTime != null">
+            and create_time = #{createTime}
+        </if>
+        <if test="updateTime != null">
+            and update_time = #{updateTime}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+    </select>
+
+    <select id="getChargeRuleByClientIdAndDate" resultType="Integer">
+        SELECT e.value AS "value"
+        FROM (
+             SELECT
+                 `value`,
+                 (STR_TO_DATE(#{date}, "%Y%m%d") - effect_date) AS "time"
+             FROM t_sms_user_property_log
+             WHERE
+                 STR_TO_DATE(#{date}, "%Y%m%d") >= effect_date
+                 AND clientid= #{clientId} and property = 'charge_rule'
+             ) e
+        ORDER BY e.time LIMIT 1
+    </select>
+
+    <select id="getCanUpdateChargeRuleByClientIdAndEffectDate" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_user_property_log
+        WHERE clientid=#{clientId} AND property = 'charge_rule'
+        <![CDATA[
+          AND effect_date > NOW()
+        ]]>
+    </select>
+
+    <select id="findLastEffectDateList" resultMap="rowMapper">
+        SELECT
+            a.id,
+            a.clientid,
+            a.property,
+            a.`value`,
+            a.effect_date
+        FROM t_sms_user_property_log a
+        JOIN (
+            SELECT
+                MAX(effect_date) AS effect_date,
+                clientid
+            FROM t_sms_user_property_log
+            WHERE
+                property = #{property}
+                <![CDATA[
+                  AND effect_date < NOW()
+                ]]>
+            GROUP BY clientid
+        ) b ON a.effect_date = b.effect_date AND a.clientid = b.clientid
+        WHERE
+          1=1 and property = #{property}
+            <if test="value != null and value != ''">
+                and a.`value` = #{value}
+            </if>
+    </select>
+
+    <!--<select id="getCanUpdateChargeRuleByClientIdAndEffectDate" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_user_property_log
+        WHERE clientid=#{clientId} AND property = 'charge_rule'
+        <![CDATA[
+          AND effect_date > STR_TO_DATE(#{date}, "%Y-%m-%d")
+        ]]>
+    </select>-->
+    
+    
+    <select id="getUserPropertyByClientidAndProperty" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_user_property_log
+        <where>
+            <if test="clientid != null and clientid != ''">
+                AND clientid = #{clientid}
+            </if>
+            <if test="property != null and property != ''">
+                AND property = #{property}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateValueByClientidAndProperty" parameterType="com.jsmsframework.user.entity.JsmsUserPropertyLog">
+        UPDATE t_sms_user_property_log
+        SET
+        value = #{value},
+        operator = #{operator},
+        update_time = now(),
+        effect_date = now()
+        WHERE
+        clientid = #{clientid}
+        and property = #{property}
+    </update>
+</mapper>
+

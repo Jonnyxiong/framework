@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsAgentDepositBillMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsAgentDepositBill">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="paymentType" jdbcType="INTEGER" column="payment_type"/>
+        <result property="financialType" jdbcType="INTEGER" column="financial_type"/>
+        <result property="amount" jdbcType="DECIMAL" column="amount"/>
+        <result property="balance" jdbcType="DECIMAL" column="balance"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="adminId" jdbcType="BIGINT" column="admin_id"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        agent_id,
+        payment_type,
+        financial_type,
+        amount,
+        balance,
+        create_time,
+        admin_id,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsAgentDepositBill" >
+        INSERT INTO t_sms_agent_deposit_bill 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="paymentType != null" >
+                payment_type,
+            </if>
+            <if test="financialType != null" >
+                financial_type,
+            </if>
+            <if test="amount != null" >
+                amount,
+            </if>
+            <if test="balance != null" >
+                balance,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="adminId != null" >
+                admin_id,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="paymentType != null" >
+                #{paymentType},
+            </if>
+            <if test="financialType != null" >
+                #{financialType},
+            </if>
+            <if test="amount != null" >
+                #{amount},
+            </if>
+            <if test="balance != null" >
+                #{balance},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="adminId != null" >
+                #{adminId},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_agent_deposit_bill (
+            id,
+            agent_id,
+            payment_type,
+            financial_type,
+            amount,
+            balance,
+            create_time,
+            admin_id,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.agentId},
+                #{item.paymentType},
+                #{item.financialType},
+                #{item.amount},
+                #{item.balance},
+                now(),
+                #{item.adminId},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_agent_deposit_bill WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsAgentDepositBill" >
+        UPDATE t_sms_agent_deposit_bill SET 
+            agent_id=#{agentId},
+            payment_type=#{paymentType},
+            financial_type=#{financialType},
+            amount=#{amount},
+            balance=#{balance},
+            create_time=#{createTime},
+            admin_id=#{adminId},
+            remark=#{remark}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsAgentDepositBill" >
+        UPDATE t_sms_agent_deposit_bill 
+            <set>
+                <if test="agentId != null and agentId != ''">
+                    agent_id = #{agentId},
+                </if>
+                <if test="paymentType != null and paymentType != ''">
+                    payment_type = #{paymentType},
+                </if>
+                <if test="financialType != null and financialType != ''">
+                    financial_type = #{financialType},
+                </if>
+                <if test="amount != null and amount != ''">
+                    amount = #{amount},
+                </if>
+                <if test="balance != null and balance != ''">
+                    balance = #{balance},
+                </if>
+                <if test="createTime != null and createTime != ''">
+                    create_time = #{createTime},
+                </if>
+                <if test="adminId != null and adminId != ''">
+                    admin_id = #{adminId},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_deposit_bill
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_agent_deposit_bill 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.agentId != null and params.agentId != ''">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.paymentType != null and params.paymentType != ''">
+                and payment_type = #{params.paymentType}
+            </if>
+            <if test="params.financialType != null and params.financialType != ''">
+                and financial_type = #{params.financialType}
+            </if>
+            <if test="params.amount != null and params.amount != ''">
+                and amount = #{params.amount}
+            </if>
+            <if test="params.balance != null and params.balance != ''">
+                and balance = #{params.balance}
+            </if>
+            <if test="params.createTime != null and params.createTime != ''">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.adminId != null and params.adminId != ''">
+                and admin_id = #{params.adminId}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_agent_deposit_bill 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="agentId != null and agentId != ''">
+                and agent_id = #{agentId}
+            </if>
+            <if test="paymentType != null and paymentType != ''">
+                and payment_type = #{paymentType}
+            </if>
+            <if test="financialType != null and financialType != ''">
+                and financial_type = #{financialType}
+            </if>
+            <if test="amount != null and amount != ''">
+                and amount = #{amount}
+            </if>
+            <if test="balance != null and balance != ''">
+                and balance = #{balance}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="adminId != null and adminId != ''">
+                and admin_id = #{adminId}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+	 
+</mapper>
+

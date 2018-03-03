@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.common.mapper.JsmsClientDictMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.common.entity.JsmsClientDict">
+        <result property="paramId" jdbcType="INTEGER" column="param_id"/>
+        <result property="paramType" jdbcType="VARCHAR" column="param_type"/>
+        <result property="paramTypeName" jdbcType="VARCHAR" column="param_type_name"/>
+        <result property="paramKey" jdbcType="VARCHAR" column="param_key"/>
+        <result property="paramValue" jdbcType="VARCHAR" column="param_value"/>
+        <result property="paramOrder" jdbcType="INTEGER" column="param_order"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        param_id,
+        param_type,
+        param_type_name,
+        param_key,
+        param_value,
+        param_order
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.common.entity.JsmsClientDict" >
+        INSERT INTO t_sms_client_dict 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="paramId != null" >
+                param_id,
+            </if>
+            <if test="paramType != null" >
+                param_type,
+            </if>
+            <if test="paramTypeName != null" >
+                param_type_name,
+            </if>
+            <if test="paramKey != null" >
+                param_key,
+            </if>
+            <if test="paramValue != null" >
+                param_value,
+            </if>
+            <if test="paramOrder != null" >
+                param_order
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="paramId != null" >
+                #{paramId},
+            </if>
+            <if test="paramType != null" >
+                #{paramType},
+            </if>
+            <if test="paramTypeName != null" >
+                #{paramTypeName},
+            </if>
+            <if test="paramKey != null" >
+                #{paramKey},
+            </if>
+            <if test="paramValue != null" >
+                #{paramValue},
+            </if>
+            <if test="paramOrder != null" >
+                #{paramOrder}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_client_dict (
+            param_id,
+            param_type,
+            param_type_name,
+            param_key,
+            param_value,
+            param_order
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.paramId},
+                #{item.paramType},
+                #{item.paramTypeName},
+                #{item.paramKey},
+                #{item.paramValue},
+                #{item.paramOrder}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_client_dict WHERE param_id = #{paramId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.common.entity.JsmsClientDict" >
+        UPDATE t_sms_client_dict SET 
+            param_type=#{paramType},
+            param_type_name=#{paramTypeName},
+            param_key=#{paramKey},
+            param_value=#{paramValue},
+            param_order=#{paramOrder}
+        WHERE 
+            param_id = #{paramId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.common.entity.JsmsClientDict" >
+        UPDATE t_sms_client_dict 
+            <set>
+                <if test="paramType != null and paramType != ''">
+                    param_type = #{paramType},
+                </if>
+                <if test="paramTypeName != null and paramTypeName != ''">
+                    param_type_name = #{paramTypeName},
+                </if>
+                <if test="paramKey != null and paramKey != ''">
+                    param_key = #{paramKey},
+                </if>
+                <if test="paramValue != null and paramValue != ''">
+                    param_value = #{paramValue},
+                </if>
+                <if test="paramOrder != null and paramOrder != ''">
+                    param_order = #{paramOrder}
+                </if>
+            </set>
+        WHERE 
+            param_id = #{paramId} 
+    </update>
+
+    <select id="getByParamId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_client_dict
+        WHERE 
+            param_id = #{paramId}
+    </select>
+
+    <select id="getByParamType" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_client_dict
+        WHERE
+           param_type = #{paramType}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_client_dict
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.paramId != null and params.paramId != ''">
+                and param_id = #{params.paramId}
+            </if>
+            <if test="params.paramType != null and params.paramType != ''">
+                and param_type = #{params.paramType}
+            </if>
+            <if test="params.paramTypeName != null and params.paramTypeName != ''">
+                and param_type_name = #{params.paramTypeName}
+            </if>
+            <if test="params.paramKey != null and params.paramKey != ''">
+                and param_key = #{params.paramKey}
+            </if>
+            <if test="params.paramValue != null and params.paramValue != ''">
+                and param_value = #{params.paramValue}
+            </if>
+            <if test="params.paramOrder != null and params.paramOrder != ''">
+                and param_order = #{params.paramOrder}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_client_dict 
+        WHERE 
+            1 = 1
+            <if test="paramId != null and paramId != ''">
+                and param_id = #{paramId}
+            </if>
+            <if test="paramType != null and paramType != ''">
+                and param_type = #{paramType}
+            </if>
+            <if test="paramTypeName != null and paramTypeName != ''">
+                and param_type_name = #{paramTypeName}
+            </if>
+            <if test="paramKey != null and paramKey != ''">
+                and param_key = #{paramKey}
+            </if>
+            <if test="paramValue != null and paramValue != ''">
+                and param_value = #{paramValue}
+            </if>
+            <if test="paramOrder != null and paramOrder != ''">
+                and param_order = #{paramOrder}
+            </if>
+    </select>
+	 
+</mapper>
+

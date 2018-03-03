@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.audit.mapper.JsmsAuditSmsMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.audit.entity.JsmsAuditSms">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="auditid" jdbcType="BIGINT" column="auditid"/>
+        <result property="smsid" jdbcType="VARCHAR" column="smsid"/>
+        <result property="createtime" jdbcType="TIMESTAMP" column="createtime"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="phone" jdbcType="VARCHAR" column="phone"/>
+        <result property="smsfrom" jdbcType="INTEGER" column="smsfrom"/>
+        <result property="smstype" jdbcType="INTEGER" column="smstype"/>
+        <result property="showsigntype" jdbcType="INTEGER" column="showsigntype"/>
+        <result property="signport" jdbcType="VARCHAR" column="signport"/>
+        <result property="userport" jdbcType="VARCHAR" column="userport"/>
+        <result property="accessid" jdbcType="INTEGER" column="accessid"/>
+        <result property="uuids" jdbcType="VARCHAR" column="uuids"/>
+        <result property="c2sId" jdbcType="INTEGER" column="c2s_id"/>
+        <result property="csdate" jdbcType="TIMESTAMP" column="csdate"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        auditid,
+        smsid,
+        createtime,
+        status,
+        phone,
+        smsfrom,
+        smstype,
+        showsigntype,
+        signport,
+        userport,
+        accessid,
+        uuids,
+        c2s_id,
+        csdate
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.audit.entity.JsmsAuditSms" >
+        INSERT INTO t_sms_audit_sms 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="auditid != null" >
+                auditid,
+            </if>
+            <if test="smsid != null" >
+                smsid,
+            </if>
+            <if test="createtime != null" >
+                createtime,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="smsfrom != null" >
+                smsfrom,
+            </if>
+            <if test="smstype != null" >
+                smstype,
+            </if>
+            <if test="showsigntype != null" >
+                showsigntype,
+            </if>
+            <if test="signport != null" >
+                signport,
+            </if>
+            <if test="userport != null" >
+                userport,
+            </if>
+            <if test="accessid != null" >
+                accessid,
+            </if>
+            <if test="uuids != null" >
+                uuids,
+            </if>
+            <if test="c2sId != null" >
+                c2s_id,
+            </if>
+            <if test="csdate != null" >
+                csdate
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="auditid != null" >
+                #{auditid},
+            </if>
+            <if test="smsid != null" >
+                #{smsid},
+            </if>
+            <if test="createtime != null" >
+                #{createtime},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="phone != null" >
+                #{phone},
+            </if>
+            <if test="smsfrom != null" >
+                #{smsfrom},
+            </if>
+            <if test="smstype != null" >
+                #{smstype},
+            </if>
+            <if test="showsigntype != null" >
+                #{showsigntype},
+            </if>
+            <if test="signport != null" >
+                #{signport},
+            </if>
+            <if test="userport != null" >
+                #{userport},
+            </if>
+            <if test="accessid != null" >
+                #{accessid},
+            </if>
+            <if test="uuids != null" >
+                #{uuids},
+            </if>
+            <if test="c2sId != null" >
+                #{c2sId},
+            </if>
+            <if test="csdate != null" >
+                #{csdate}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_audit_sms (
+            id,
+            auditid,
+            smsid,
+            createtime,
+            status,
+            phone,
+            smsfrom,
+            smstype,
+            showsigntype,
+            signport,
+            userport,
+            accessid,
+            uuids,
+            c2s_id,
+            csdate
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.auditid},
+                #{item.smsid},
+                #{item.createtime},
+                #{item.status},
+                #{item.phone},
+                #{item.smsfrom},
+                #{item.smstype},
+                #{item.showsigntype},
+                #{item.signport},
+                #{item.userport},
+                #{item.accessid},
+                #{item.uuids},
+                #{item.c2sId},
+                #{item.csdate}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM t_sms_audit_sms WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.jsmsframework.audit.entity.JsmsAuditSms" >
+        UPDATE t_sms_audit_sms SET 
+            auditid=#{auditid},
+            smsid=#{smsid},
+            createtime=#{createtime},
+            status=#{status},
+            phone=#{phone},
+            smsfrom=#{smsfrom},
+            smstype=#{smstype},
+            showsigntype=#{showsigntype},
+            signport=#{signport},
+            userport=#{userport},
+            accessid=#{accessid},
+            uuids=#{uuids},
+            c2s_id=#{c2sId},
+            csdate=#{csdate}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.audit.entity.JsmsAuditSms" >
+        UPDATE t_sms_audit_sms 
+            <set>
+                <if test="auditid != null and auditid != ''">
+                    auditid = #{auditid},
+                </if>
+                <if test="smsid != null and smsid != ''">
+                    smsid = #{smsid},
+                </if>
+                <if test="createtime != null and createtime != ''">
+                    createtime = #{createtime},
+                </if>
+                <if test="status != null and status != ''">
+                    status = #{status},
+                </if>
+                <if test="phone != null and phone != ''">
+                    phone = #{phone},
+                </if>
+                <if test="smsfrom != null and smsfrom != ''">
+                    smsfrom = #{smsfrom},
+                </if>
+                <if test="smstype != null and smstype != ''">
+                    smstype = #{smstype},
+                </if>
+                <if test="showsigntype != null and showsigntype != ''">
+                    showsigntype = #{showsigntype},
+                </if>
+                <if test="signport != null and signport != ''">
+                    signport = #{signport},
+                </if>
+                <if test="userport != null and userport != ''">
+                    userport = #{userport},
+                </if>
+                <if test="accessid != null and accessid != ''">
+                    accessid = #{accessid},
+                </if>
+                <if test="uuids != null and uuids != ''">
+                    uuids = #{uuids},
+                </if>
+                <if test="c2sId != null and c2sId != ''">
+                    c2s_id = #{c2sId},
+                </if>
+                <if test="csdate != null and csdate != ''">
+                    csdate = #{csdate}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_sms
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_audit_sms 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.auditid != null and params.auditid != ''">
+                and auditid = #{params.auditid}
+            </if>
+            <if test="params.smsid != null and params.smsid != ''">
+                and smsid = #{params.smsid}
+            </if>
+            <if test="params.createtime != null and params.createtime != ''">
+                and createtime = #{params.createtime}
+            </if>
+            <if test="params.status != null and params.status != ''">
+                and status = #{params.status}
+            </if>
+            <if test="params.phone != null and params.phone != ''">
+                and phone = #{params.phone}
+            </if>
+            <if test="params.smsfrom != null and params.smsfrom != ''">
+                and smsfrom = #{params.smsfrom}
+            </if>
+            <if test="params.smstype != null and params.smstype != ''">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.showsigntype != null and params.showsigntype != ''">
+                and showsigntype = #{params.showsigntype}
+            </if>
+            <if test="params.signport != null and params.signport != ''">
+                and signport = #{params.signport}
+            </if>
+            <if test="params.userport != null and params.userport != ''">
+                and userport = #{params.userport}
+            </if>
+            <if test="params.accessid != null and params.accessid != ''">
+                and accessid = #{params.accessid}
+            </if>
+            <if test="params.uuids != null and params.uuids != ''">
+                and uuids = #{params.uuids}
+            </if>
+            <if test="params.c2sId != null and params.c2sId != ''">
+                and c2s_id = #{params.c2sId}
+            </if>
+            <if test="params.csdate != null and params.csdate != ''">
+                and csdate = #{params.csdate}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_audit_sms 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="auditid != null and auditid != ''">
+                and auditid = #{auditid}
+            </if>
+            <if test="smsid != null and smsid != ''">
+                and smsid = #{smsid}
+            </if>
+            <if test="createtime != null and createtime != ''">
+                and createtime = #{createtime}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="smsfrom != null and smsfrom != ''">
+                and smsfrom = #{smsfrom}
+            </if>
+            <if test="smstype != null and smstype != ''">
+                and smstype = #{smstype}
+            </if>
+            <if test="showsigntype != null and showsigntype != ''">
+                and showsigntype = #{showsigntype}
+            </if>
+            <if test="signport != null and signport != ''">
+                and signport = #{signport}
+            </if>
+            <if test="userport != null and userport != ''">
+                and userport = #{userport}
+            </if>
+            <if test="accessid != null and accessid != ''">
+                and accessid = #{accessid}
+            </if>
+            <if test="uuids != null and uuids != ''">
+                and uuids = #{uuids}
+            </if>
+            <if test="c2sId != null and c2sId != ''">
+                and c2s_id = #{c2sId}
+            </if>
+            <if test="csdate != null and csdate != ''">
+                and csdate = #{csdate}
+            </if>
+    </select>
+
+    <!-- 获取需要 -->
+    <select id="getNeedBakCount" resultType="java.util.Map" useCache="false" flushCache="true">
+        select count(0) as count, IFNULL(MAX(id),0) as max, IFNULL(MIN(id),0) as min from t_sms_audit_sms where `status` != 0
+        <![CDATA[
+           and createtime < DATE_FORMAT(DATE_SUB(CURDATE(),interval #{day} day),'%Y-%m-%d %T')
+        ]]>
+    </select>
+
+    <select id="findNeedBakList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_sms
+        WHERE
+          `status` != 0
+          <![CDATA[
+            AND (id >= #{min} and id  <= #{max})
+          ]]>
+    </select>
+
+    <!-- 批量删除 -->
+    <delete id="batchDeleteAuditSms" parameterType="int">
+        delete from t_sms_audit_sms where id in
+        <foreach item="item" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="hasBakButNotDel" resultType="long">
+        select a.id from t_sms_audit_sms a
+        join t_sms_audit_sms_bak b on b.id = a.id
+    </select>
+
+
+    <select id="queryAllRemoveIdAndCreatetime" resultType="com.jsmsframework.audit.dto.JsmsIdAndCreatetime">
+        select  id,createtime from t_sms_audit_sms
+        where `status` != 0
+          and createtime &lt;  #{dataDate}
+    </select>
+
+
+    <select id="getByIdAndCreatetime" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_sms
+        WHERE
+        id = #{id}
+        and createtime = #{createtime}
+    </select>
+
+
+    <delete id="deleteByIdAndCreatetime">
+        delete from t_sms_audit_sms
+        where id = #{id}
+        and createtime = #{createtime}
+    </delete>
+</mapper>
+

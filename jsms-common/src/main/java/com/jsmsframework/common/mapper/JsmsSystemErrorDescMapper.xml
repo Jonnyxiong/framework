@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.common.mapper.JsmsSystemErrorDescMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.common.entity.JsmsSystemErrorDesc">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="syscode" jdbcType="VARCHAR" column="syscode"/>
+        <result property="type" jdbcType="INTEGER" column="type"/>
+        <result property="state" jdbcType="INTEGER" column="state"/>
+        <result property="errordesc" jdbcType="VARCHAR" column="errordesc"/>
+        <result property="clientSideNote" jdbcType="VARCHAR" column="client_side_note"/>
+        <result property="usreprotocol" jdbcType="INTEGER" column="usreprotocol"/>
+        <result property="componentType" jdbcType="VARCHAR" column="component_type"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="updatetime" jdbcType="TIMESTAMP" column="updatetime"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        syscode,
+        type,
+        state,
+        errordesc,
+        client_side_note,
+        usreprotocol,
+        component_type,
+        remark,
+        updatetime
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.common.entity.JsmsSystemErrorDesc" >
+        INSERT INTO t_sms_system_error_desc 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="syscode != null" >
+                syscode,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="state != null" >
+                state,
+            </if>
+            <if test="errordesc != null" >
+                errordesc,
+            </if>
+            <if test="clientSideNote != null" >
+                client_side_note,
+            </if>
+            <if test="usreprotocol != null" >
+                usreprotocol,
+            </if>
+            <if test="componentType != null" >
+                component_type,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="updatetime != null" >
+                updatetime
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="syscode != null" >
+                #{syscode},
+            </if>
+            <if test="type != null" >
+                #{type},
+            </if>
+            <if test="state != null" >
+                #{state},
+            </if>
+            <if test="errordesc != null" >
+                #{errordesc},
+            </if>
+            <if test="clientSideNote != null" >
+                #{clientSideNote},
+            </if>
+            <if test="usreprotocol != null" >
+                #{usreprotocol},
+            </if>
+            <if test="componentType != null" >
+                #{componentType},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="updatetime != null" >
+                #{updatetime}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_system_error_desc (
+            id,
+            syscode,
+            type,
+            state,
+            errordesc,
+            client_side_note,
+            usreprotocol,
+            component_type,
+            remark,
+            updatetime
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.syscode},
+                #{item.type},
+                #{item.state},
+                #{item.errordesc},
+                #{item.clientSideNote},
+                #{item.usreprotocol},
+                #{item.componentType},
+                #{item.remark},
+                #{item.updatetime}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_system_error_desc WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.common.entity.JsmsSystemErrorDesc" >
+        UPDATE t_sms_system_error_desc SET 
+            syscode=#{syscode},
+            type=#{type},
+            state=#{state},
+            errordesc=#{errordesc},
+            client_side_note=#{clientSideNote},
+            usreprotocol=#{usreprotocol},
+            component_type=#{componentType},
+            remark=#{remark},
+            updatetime=#{updatetime}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.common.entity.JsmsSystemErrorDesc" >
+        UPDATE t_sms_system_error_desc 
+            <set>
+                <if test="syscode != null and syscode != ''">
+                    syscode = #{syscode},
+                </if>
+                <if test="type != null and type != ''">
+                    type = #{type},
+                </if>
+                <if test="state != null and state != ''">
+                    state = #{state},
+                </if>
+                <if test="errordesc != null and errordesc != ''">
+                    errordesc = #{errordesc},
+                </if>
+                <if test="clientSideNote != null and clientSideNote != ''">
+                    client_side_note = #{clientSideNote},
+                </if>
+                <if test="usreprotocol != null and usreprotocol != ''">
+                    usreprotocol = #{usreprotocol},
+                </if>
+                <if test="componentType != null and componentType != ''">
+                    component_type = #{componentType},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark},
+                </if>
+                <if test="updatetime != null and updatetime != ''">
+                    updatetime = #{updatetime}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_system_error_desc
+        WHERE
+            id = #{id}
+    </select>
+    <select id="getBySyscode" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_system_error_desc
+        WHERE
+        syscode = #{syscode}
+    </select>
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_system_error_desc 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.syscode != null and params.syscode != ''">
+                and syscode = #{params.syscode}
+            </if>
+            <if test="params.type != null and params.type != ''">
+                and type = #{params.type}
+            </if>
+            <if test="params.state != null and params.state != ''">
+                and state = #{params.state}
+            </if>
+            <if test="params.errordesc != null and params.errordesc != ''">
+                and errordesc = #{params.errordesc}
+            </if>
+            <if test="params.clientSideNote != null and params.clientSideNote != ''">
+                and client_side_note = #{params.clientSideNote}
+            </if>
+            <if test="params.usreprotocol != null and params.usreprotocol != ''">
+                and usreprotocol = #{params.usreprotocol}
+            </if>
+            <if test="params.componentType != null and params.componentType != ''">
+                and component_type = #{params.componentType}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.updatetime != null and params.updatetime != ''">
+                and updatetime = #{params.updatetime}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="queryAllList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_system_error_desc
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="syscode != null and syscode != ''">
+                and syscode = #{syscode}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="errordesc != null and errordesc != ''">
+                and errordesc = #{errordesc}
+            </if>
+            <if test="clientSideNote != null and clientSideNote != ''">
+                and client_side_note = #{clientSideNote}
+            </if>
+            <if test="usreprotocol != null and usreprotocol != ''">
+                and usreprotocol = #{usreprotocol}
+            </if>
+            <if test="componentType != null and componentType != ''">
+                and component_type = #{componentType}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="updatetime != null">
+                and updatetime = #{updatetime}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_system_error_desc 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="syscode != null and syscode != ''">
+                and syscode = #{syscode}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="errordesc != null and errordesc != ''">
+                and errordesc = #{errordesc}
+            </if>
+            <if test="clientSideNote != null and clientSideNote != ''">
+                and client_side_note = #{clientSideNote}
+            </if>
+            <if test="usreprotocol != null and usreprotocol != ''">
+                and usreprotocol = #{usreprotocol}
+            </if>
+            <if test="componentType != null and componentType != ''">
+                and component_type = #{componentType}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="updatetime != null and updatetime != ''">
+                and updatetime = #{updatetime}
+            </if>
+    </select>
+	 
+</mapper>
+

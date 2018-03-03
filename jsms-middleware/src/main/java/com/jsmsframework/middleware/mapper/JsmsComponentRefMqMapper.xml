@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.middleware.mapper.JsmsComponentRefMqMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.middleware.entity.JsmsComponentRefMq">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="componentId" jdbcType="INTEGER" column="component_id"/>
+        <result property="messageType" jdbcType="VARCHAR" column="message_type"/>
+        <result property="mode" jdbcType="INTEGER" column="mode"/>
+        <result property="mqId" jdbcType="INTEGER" column="mq_id"/>
+        <result property="weight" jdbcType="INTEGER" column="weight"/>
+        <result property="getRate" jdbcType="INTEGER" column="get_rate"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+    </resultMap>
+
+    <resultMap id="rowMapperEXT" type="com.jsmsframework.middleware.dto.ComponentRefMqDTO">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="componentId" jdbcType="INTEGER" column="component_id"/>
+        <result property="componentIdAndName" jdbcType="VARCHAR" column="component_id_name"/>
+        <result property="messageType" jdbcType="VARCHAR" column="message_type"/>
+        <result property="mode" jdbcType="INTEGER" column="mode"/>
+        <result property="mqId" jdbcType="INTEGER" column="mq_id"/>
+        <result property="mqIdAndName" jdbcType="VARCHAR" column="mq_id_name"/>
+        <result property="weightStr" jdbcType="VARCHAR" column="weight_str"/>
+        <result property="getRateStr" jdbcType="VARCHAR" column="get_rate_str"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="ids" jdbcType="VARCHAR" column="ids"/>
+        <result property="mqIdAndOther" jdbcType="VARCHAR" column="mq_id_other"/>
+    </resultMap>
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        component_id,
+        message_type,
+        mode,
+        mq_id,
+        get_rate,
+        remark,
+        update_date
+    </sql>
+
+    <sql id="BASE2_COLUMN_LIST">
+         GROUP_CONCAT(cm.`id` ORDER BY cm.id  separator ',') as ids,
+        cm.`component_id` AS component_id,
+        cm.`message_type` AS message_type,
+        cm.`mode` AS mode,
+        GROUP_CONCAT(
+        CASE
+        WHEN cm.`mode`=0 THEN  concat_ws('|',cm.`mq_id`,ifNULL(cm.`weight`,0),CONCAT(cm.`mq_id`, "(", mq.`queue_name`, ")"),cm.`id`)
+        WHEN cm.`mode`=1 THEN  concat_ws('|',cm.`mq_id`,ifNULL(cm.`get_rate`,0),CONCAT(cm.`mq_id`, "(", mq.`queue_name`, ")"),cm.`id`)
+        END
+        ORDER BY cm.id  separator ',') AS mq_id_other,
+        cm.`remark` AS remark
+    </sql>
+
+
+    <sql id="EXT_COLUMN_LIST">
+        cm.`id` AS id,
+        GROUP_CONCAT(cm.`id` ORDER BY cm.id  separator ',') as ids,
+        cm.`component_id` AS component_id,
+        CONCAT(cm.`component_id`, "(", co.`component_name`, ")") AS component_id_name,
+        cm.`message_type` AS  message_type,
+        cm.`mode` AS mode,
+        GROUP_CONCAT(
+        CONCAT(cm.`mq_id`, "(", mq.`queue_name`, ")")
+        ORDER BY cm.`mq_id` asc SEPARATOR '<![CDATA[<br>]]>')
+        AS mq_id_name,
+        cm.`mq_id` AS mq_id,
+        GROUP_CONCAT(
+        CASE
+        WHEN cm.`mode`=0 THEN '-'
+        ELSE cm.`get_rate`
+        END ORDER BY cm.`mq_id` asc SEPARATOR '<![CDATA[<br>]]>'
+        ) as get_rate_str,
+        GROUP_CONCAT(
+        CASE
+        WHEN cm.`mode`=1 THEN '-'
+        ELSE cm.`weight`
+        END ORDER BY cm.`mq_id` asc SEPARATOR '<![CDATA[<br>]]>') as weight_str,
+        cm.`remark` AS remark,
+        date_format(
+        cm.update_date,
+        '%Y-%m-%d %H:%i:%S'
+        ) AS update_date
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.middleware.entity.JsmsComponentRefMq" >
+        INSERT INTO t_sms_component_ref_mq 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="componentId != null" >
+                component_id,
+            </if>
+            <if test="messageType != null" >
+                message_type,
+            </if>
+            <if test="mode != null" >
+                mode,
+            </if>
+            <if test="mqId != null" >
+                mq_id,
+            </if>
+            <if test="weight != null" >
+                weight,
+            </if>
+            <if test="getRate != null" >
+                get_rate,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="updateDate != null" >
+                update_date
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="componentId != null" >
+                #{componentId},
+            </if>
+            <if test="messageType != null" >
+                #{messageType},
+            </if>
+            <if test="mode != null" >
+                #{mode},
+            </if>
+            <if test="mqId != null" >
+                #{mqId},
+            </if>
+            <if test="weight != null" >
+                #{weight},
+            </if>
+            <if test="getRate != null" >
+                #{getRate},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_component_ref_mq (
+            id,
+            component_id,
+            message_type,
+            mode,
+            mq_id,
+            get_rate,
+            remark,
+            update_date
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.componentId},
+                #{item.messageType},
+                #{item.mode},
+                #{item.mqId},
+                #{item.getRate},
+                #{item.remark},
+                #{item.updateDate}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_component_ref_mq WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.middleware.entity.JsmsComponentRefMq" >
+        UPDATE t_sms_component_ref_mq SET 
+            component_id=#{componentId},
+            message_type=#{messageType},
+            mode=#{mode},
+            mq_id=#{mqId},
+            weight=#{weight},
+            get_rate=#{getRate},
+            remark=#{remark},
+            update_date=#{updateDate}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.middleware.entity.JsmsComponentRefMq" >
+        UPDATE t_sms_component_ref_mq 
+            <set>
+                <if test="componentId != null and componentId != ''">
+                    component_id = #{componentId},
+                </if>
+                <if test="messageType != null and messageType != ''">
+                    message_type = #{messageType},
+                </if>
+                <if test="mode != null and mode != ''">
+                    mode = #{mode},
+                </if>
+                <if test="mqId != null and mqId != ''">
+                    mq_id = #{mqId},
+                </if>
+                <if test="getRate != null and getRate != ''">
+                    get_rate = #{getRate},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark},
+                </if>
+                <if test="updateDate != null and updateDate != ''">
+                    update_date = #{updateDate}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_component_ref_mq
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_component_ref_mq 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.componentId != null">
+                and component_id = #{params.componentId}
+            </if>
+            <if test="params.messageType != null and params.messageType != ''">
+                and message_type = #{params.messageType}
+            </if>
+            <if test="params.mode != null and params.mode != ''">
+                and mode = #{params.mode}
+            </if>
+            <if test="params.mqId != null and params.mqId != ''">
+                and mq_id = #{params.mqId}
+            </if>
+            <if test="params.getRate != null and params.getRate != ''">
+                and get_rate = #{params.getRate}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and update_date = #{params.updateDate}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_component_ref_mq 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="componentId != null and componentId != ''">
+                and component_id = #{componentId}
+            </if>
+            <if test="messageType != null and messageType != ''">
+                and message_type = #{messageType}
+            </if>
+            <if test="mode != null and mode != ''">
+                and mode = #{mode}
+            </if>
+            <if test="mqId != null and mqId != ''">
+                and mq_id = #{mqId}
+            </if>
+            <if test="getRate != null and getRate != ''">
+                and get_rate = #{getRate}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                and update_date = #{updateDate}
+            </if>
+    </select>
+
+
+    <select id="queryList1" resultMap="rowMapperEXT">
+        SELECT
+        <include refid="EXT_COLUMN_LIST" />
+        FROM
+        t_sms_component_ref_mq cm
+        INNER JOIN t_sms_mq_configure mq
+        ON cm.mq_id = mq.mq_id
+        INNER JOIN t_sms_component_configure co
+        ON cm.component_id = co.component_id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and cm.id = #{params.id}
+            </if>
+            <if test="params.componentId != null">
+                and cm.component_id = #{params.componentId}
+            </if>
+            <if test="params.messageType != null and params.messageType != ''">
+                and cm.message_type = #{params.messageType}
+            </if>
+            <if test="params.mode != null and params.mode != ''">
+                and cm.mode = #{params.mode}
+            </if>
+            <if test="params.mqId != null and params.mqId != ''">
+                and cm.mq_id = #{params.mqId}
+            </if>
+            <if test="params.getRate != null and params.getRate != ''">
+                and cm.get_rate = #{params.getRate}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and cm.remark = #{params.remark}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and cm.update_date = #{params.updateDate}
+            </if>
+        </trim>
+        GROUP BY cm.`mode`,cm.`component_id`,cm.`message_type`
+    </select>
+
+    <select id="count1" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_component_ref_mq
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="componentId != null and componentId != ''">
+            and component_id = #{componentId}
+        </if>
+        <if test="messageType != null and messageType != ''">
+            and message_type = #{messageType}
+        </if>
+        <if test="mode != null and mode != ''">
+            and mode = #{mode}
+        </if>
+        <if test="mqId != null and mqId != ''">
+            and mq_id = #{mqId}
+        </if>
+        <if test="getRate != null and getRate != ''">
+            and get_rate = #{getRate}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+        <if test="updateDate != null and updateDate != ''">
+            and update_date = #{updateDate}
+        </if>
+        GROUP BY cm.`mode`,cm.`component_id`,cm.`message_type`
+    </select>
+
+
+    <select id="queryByParam" resultMap="rowMapperEXT">
+        SELECT <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_component_ref_mq
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="componentId != null and componentId != ''">
+            and component_id = #{componentId}
+        </if>
+        <if test="messageType != null and messageType != ''">
+            and message_type = #{messageType}
+        </if>
+        <if test="mode != null and mode != ''">
+            and mode = #{mode}
+        </if>
+        <if test="mqId != null and mqId != ''">
+            and mq_id = #{mqId}
+        </if>
+        <if test="getRate != null and getRate != ''">
+            and get_rate = #{getRate}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+        <if test="updateDate != null and updateDate != ''">
+            and update_date = #{updateDate}
+        </if>
+        GROUP BY cm.`mode`,cm.`component_id`,cm.`message_type`
+    </select>
+
+    <select id="queryByCMM" resultMap="rowMapperEXT">
+        SELECT <include refid="BASE2_COLUMN_LIST" />
+        FROM  t_sms_component_ref_mq cm
+        INNER JOIN t_sms_mq_configure mq
+        ON cm.mq_id = mq.mq_id
+        INNER JOIN t_sms_component_configure co
+        ON cm.component_id = co.component_id
+        WHERE
+        1 = 1
+        AND  cm.component_id=#{componentId}
+        AND  cm.message_type=#{messageType}
+        AND  cm.mode=#{mode}
+
+        GROUP BY cm.`mode`,cm.`component_id`,cm.`message_type`
+    </select>
+
+
+</mapper>
+

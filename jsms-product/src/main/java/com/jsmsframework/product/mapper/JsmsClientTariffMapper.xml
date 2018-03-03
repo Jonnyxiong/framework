@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.product.mapper.JsmsClientTariffMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.product.entity.JsmsClientTariff">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="prefix" jdbcType="INTEGER" column="prefix"/>
+        <result property="areaname" jdbcType="VARCHAR" column="areaname"/>
+        <result property="intername" jdbcType="VARCHAR" column="intername"/>
+        <result property="intercode" jdbcType="VARCHAR" column="intercode"/>
+        <result property="fee" jdbcType="DECIMAL" column="fee"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        prefix,
+        areaname,
+        intername,
+        intercode,
+        fee
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.product.entity.JsmsClientTariff" >
+        INSERT INTO t_sms_client_tariff 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="prefix != null" >
+                prefix,
+            </if>
+            <if test="areaname != null" >
+                areaname,
+            </if>
+            <if test="intername != null" >
+                intername,
+            </if>
+            <if test="intercode != null" >
+                intercode,
+            </if>
+            <if test="fee != null" >
+                fee
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="prefix != null" >
+                #{prefix},
+            </if>
+            <if test="areaname != null" >
+                #{areaname},
+            </if>
+            <if test="intername != null" >
+                #{intername},
+            </if>
+            <if test="intercode != null" >
+                #{intercode},
+            </if>
+            <if test="fee != null" >
+                #{fee}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_client_tariff (
+            id,
+            prefix,
+            areaname,
+            intername,
+            intercode,
+            fee
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.prefix},
+                #{item.areaname},
+                #{item.intername},
+                #{item.intercode},
+                #{item.fee}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_client_tariff WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.product.entity.JsmsClientTariff" >
+        UPDATE t_sms_client_tariff SET 
+            prefix=#{prefix},
+            areaname=#{areaname},
+            intername=#{intername},
+            intercode=#{intercode},
+            fee=#{fee}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.product.entity.JsmsClientTariff" >
+        UPDATE t_sms_client_tariff 
+            <set>
+                <if test="prefix != null and prefix != ''">
+                    prefix = #{prefix},
+                </if>
+                <if test="areaname != null and areaname != ''">
+                    areaname = #{areaname},
+                </if>
+                <if test="intername != null and intername != ''">
+                    intername = #{intername},
+                </if>
+                <if test="intercode != null and intercode != ''">
+                    intercode = #{intercode},
+                </if>
+                <if test="fee != null and fee != ''">
+                    fee = #{fee}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_client_tariff
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_client_tariff 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.prefix != null and params.prefix != ''">
+                and prefix = #{params.prefix}
+            </if>
+            <if test="params.areaname != null and params.areaname != ''">
+                and areaname = #{params.areaname}
+            </if>
+            <if test="params.intername != null and params.intername != ''">
+                and intername = #{params.intername}
+            </if>
+            <if test="params.intercode != null and params.intercode != ''">
+                and intercode = #{params.intercode}
+            </if>
+            <if test="params.fee != null and params.fee != ''">
+                and fee = #{params.fee}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_client_tariff 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="prefix != null and prefix != ''">
+                and prefix = #{prefix}
+            </if>
+            <if test="areaname != null and areaname != ''">
+                and areaname = #{areaname}
+            </if>
+            <if test="intername != null and intername != ''">
+                and intername = #{intername}
+            </if>
+            <if test="intercode != null and intercode != ''">
+                and intercode = #{intercode}
+            </if>
+            <if test="fee != null and fee != ''">
+                and fee = #{fee}
+            </if>
+    </select>
+	 
+</mapper>
+

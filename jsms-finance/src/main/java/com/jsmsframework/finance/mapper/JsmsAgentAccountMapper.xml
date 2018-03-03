@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsAgentAccountMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsAgentAccount">
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="balance" jdbcType="DECIMAL" column="balance"/>
+        <result property="creditBalance" jdbcType="DECIMAL" column="credit_balance"/>
+        <result property="historyPayment" jdbcType="DECIMAL" column="history_payment"/>
+        <result property="currentCredit" jdbcType="DECIMAL" column="current_credit"/>
+        <result property="noBackPayment" jdbcType="DECIMAL" column="no_back_payment"/>
+        <result property="commissionIncome" jdbcType="DECIMAL" column="commission_income"/>
+        <result property="rebateIncome" jdbcType="DECIMAL" column="rebate_income"/>
+        <result property="deposit" jdbcType="DECIMAL" column="deposit"/>
+        <result property="accumulatedRecharge" jdbcType="DECIMAL" column="accumulated_recharge"/>
+        <result property="accumulatedConsume" jdbcType="DECIMAL" column="accumulated_consume"/>
+        <result property="accumulatedIncome" jdbcType="DECIMAL" column="accumulated_income"/>
+        <result property="accumulatedRebateIncome" jdbcType="DECIMAL" column="accumulated_rebate_income"/>
+        <result property="accumulatedRebatePay" jdbcType="DECIMAL" column="accumulated_rebate_pay"/>
+        <result property="accumulatedRefund" jdbcType="DECIMAL" column="accumulated_refund"/>
+        <result property="hasTakeInvoice" jdbcType="DECIMAL" column="has_take_invoice"/>
+        <result property="hasTakeInvoiceInit" jdbcType="DECIMAL" column="has_take_invoice_init"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        agent_id,
+        TRUNCATE(balance,4) AS balance,
+        TRUNCATE(credit_balance,4) AS credit_balance,
+        TRUNCATE(history_payment,4) AS history_payment,
+        TRUNCATE(current_credit,4) AS current_credit,
+        TRUNCATE(no_back_payment,4) AS no_back_payment,
+        commission_income,
+        rebate_income,
+        deposit,
+        accumulated_recharge,
+        accumulated_consume,
+        accumulated_income,
+        accumulated_rebate_income,
+        accumulated_rebate_pay,
+        accumulated_refund,
+        has_take_invoice,
+        has_take_invoice_init
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsAgentAccount" >
+        INSERT INTO t_sms_agent_account 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="balance != null" >
+                balance,
+            </if>
+            <if test="creditBalance != null" >
+                credit_balance,
+            </if>
+            <if test="historyPayment != null" >
+                history_payment,
+            </if>
+            <if test="currentCredit != null" >
+                current_credit,
+            </if>
+            <if test="noBackPayment != null" >
+                no_back_payment,
+            </if>
+            <if test="commissionIncome != null" >
+                commission_income,
+            </if>
+            <if test="rebateIncome != null" >
+                rebate_income,
+            </if>
+            <if test="deposit != null" >
+                deposit,
+            </if>
+            <if test="accumulatedRecharge != null" >
+                accumulated_recharge,
+            </if>
+            <if test="accumulatedConsume != null" >
+                accumulated_consume,
+            </if>
+            <if test="accumulatedIncome != null" >
+                accumulated_income,
+            </if>
+            <if test="accumulatedRebateIncome != null" >
+                accumulated_rebate_income,
+            </if>
+            <if test="accumulatedRebatePay != null" >
+                accumulated_rebate_pay,
+            </if>
+            <if test="accumulatedRefund != null" >
+                accumulated_refund,
+            </if>
+            <if test="hasTakeInvoice != null" >
+                has_take_invoice,
+            </if>
+            <if test="hasTakeInvoiceInit != null" >
+                has_take_invoice_init
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="balance != null" >
+                #{balance},
+            </if>
+            <if test="creditBalance != null" >
+                #{creditBalance},
+            </if>
+            <if test="historyPayment != null" >
+            #{historyPayment},
+            </if>
+            <if test="currentCredit != null" >
+                #{currentCredit},
+            </if>
+            <if test="noBackPayment != null" >
+                #{noBackPayment},
+            </if>
+            <if test="commissionIncome != null" >
+                #{commissionIncome},
+            </if>
+            <if test="rebateIncome != null" >
+                #{rebateIncome},
+            </if>
+            <if test="deposit != null" >
+                #{deposit},
+            </if>
+            <if test="accumulatedRecharge != null" >
+                #{accumulatedRecharge},
+            </if>
+            <if test="accumulatedConsume != null" >
+                #{accumulatedConsume},
+            </if>
+            <if test="accumulatedIncome != null" >
+                #{accumulatedIncome},
+            </if>
+            <if test="accumulatedRebateIncome != null" >
+                #{accumulatedRebateIncome},
+            </if>
+            <if test="accumulatedRebatePay != null" >
+                #{accumulatedRebatePay},
+            </if>
+            <if test="accumulatedRefund != null" >
+                #{accumulatedRefund},
+            </if>
+            <if test="hasTakeInvoice != null" >
+                #{hasTakeInvoice},
+            </if>
+            <if test="hasTakeInvoiceInit != null" >
+                #{hasTakeInvoiceInit}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_agent_account (
+            agent_id,
+            balance,
+            credit_balance,
+            history_payment,
+            current_credit,
+            no_back_payment,
+            commission_income,
+            rebate_income,
+            deposit,
+            accumulated_recharge,
+            accumulated_consume,
+            accumulated_income,
+            accumulated_rebate_income,
+            accumulated_rebate_pay,
+            accumulated_refund,
+            has_take_invoice,
+            has_take_invoice_init
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.agentId},
+                #{item.balance},
+                #{item.creditBalance},
+                #{item.historyPayment},
+                #{item.currentCredit},
+                #{item.noBackPayment},
+                #{item.commissionIncome},
+                #{item.rebateIncome},
+                #{item.deposit},
+                #{item.accumulatedRecharge},
+                #{item.accumulatedConsume},
+                #{item.accumulatedIncome},
+                #{item.accumulatedRebateIncome},
+                #{item.accumulatedRebatePay},
+                #{item.accumulatedRefund},
+                #{item.hasTakeInvoice},
+                #{item.hasTakeInvoiceInit}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_agent_account WHERE agent_id = #{agentId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsAgentAccount" >
+        UPDATE t_sms_agent_account SET
+                balance=#{balance},
+                credit_balance=#{creditBalance},
+                history_payment=#{historyPayment},
+                current_credit=#{currentCredit},
+                no_back_payment=#{noBackPayment},
+                commission_income=#{commissionIncome},
+                rebate_income=#{rebateIncome},
+                deposit=#{deposit},
+                accumulated_recharge=#{accumulatedRecharge},
+                accumulated_consume=#{accumulatedConsume},
+                accumulated_income=#{accumulatedIncome},
+                accumulated_rebate_income=#{accumulatedRebateIncome},
+                accumulated_rebate_pay=#{accumulatedRebatePay},
+                accumulated_refund=#{accumulatedRefund},
+                has_take_invoice=#{hasTakeInvoice},
+                has_take_invoice_init=#{hasTakeInvoiceInit}
+        WHERE
+            agent_id = #{agentId}
+    </update>
+    
+    <update id="updateAfterConsume" parameterType="com.jsmsframework.finance.entity.JsmsAgentAccount" >
+        UPDATE t_sms_agent_account
+        <set>
+            <if test="balance != null">
+                balance = balance - #{balance},
+            </if>
+            <if test="rebateIncome != null">
+                rebate_income = rebate_income - #{rebateIncome},
+            </if>
+            <if test="accumulatedConsume != null">
+                accumulated_consume = accumulated_consume + #{accumulatedConsume},
+            </if>
+            <if test="accumulatedRebatePay != null">
+                accumulated_rebate_pay = accumulated_rebate_pay + #{accumulatedRebatePay},
+            </if>
+            <if test="currentCredit != null">
+                current_credit =current_credit - #{currentCredit},
+            </if>
+            <if test="noBackPayment != null">
+                no_back_payment = no_back_payment + #{noBackPayment},
+            </if>
+        </set>
+        WHERE
+            agent_id = #{agentId}
+    </update>
+
+
+
+    <update id="updateAccoutForRealTime" parameterType="com.jsmsframework.finance.entity.JsmsAgentAccount" >
+        UPDATE t_sms_agent_account
+        <set>
+            <if test="balance != null">
+                balance =balance +  #{balance},
+            </if>
+            <if test="creditBalance != null">
+                credit_balance =credit_balance + #{creditBalance},
+            </if>
+            <if test="historyPayment != null ">
+                history_payment =history_payment + #{historyPayment},
+            </if>
+            <if test="currentCredit != null">
+                current_credit =current_credit + #{currentCredit},
+            </if>
+            <if test="noBackPayment != null ">
+                no_back_payment =no_back_payment+ #{noBackPayment},
+            </if>
+            <if test="commissionIncome != null and commissionIncome != ''">
+                commission_income =commission_income+ #{commissionIncome},
+            </if>
+            <if test="rebateIncome != null and rebateIncome != ''">
+                rebate_income =rebate_income+ #{rebateIncome},
+            </if>
+            <if test="deposit != null and deposit != ''">
+                deposit =deposit+ #{deposit},
+            </if>
+            <if test="accumulatedRecharge != null ">
+                accumulated_recharge =accumulated_recharge+ #{accumulatedRecharge},
+            </if>
+            <if test="accumulatedConsume != null ">
+                accumulated_consume =accumulated_consume+ #{accumulatedConsume},
+            </if>
+            <if test="accumulatedIncome != null">
+                accumulated_income =accumulated_income+ #{accumulatedIncome},
+            </if>
+            <if test="accumulatedRebateIncome != null ">
+                accumulated_rebate_income =accumulated_rebate_income+ #{accumulatedRebateIncome},
+            </if>
+            <if test="accumulatedRebatePay != null ">
+                accumulated_rebate_pay =accumulated_rebate_pay+ #{accumulatedRebatePay}
+            </if>
+            <if test="accumulatedRefund != null ">
+                accumulated_refund =accumulated_refund+ #{accumulatedRefund}
+            </if>
+        </set>
+        WHERE
+        agent_id = #{agentId}
+    </update>
+
+
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsAgentAccount" >
+        UPDATE t_sms_agent_account
+        <set>
+            <if test="balance != null" >
+                balance=#{balance},
+            </if>
+            <if test="creditBalance != null" >
+                credit_balance=#{creditBalance},
+            </if>
+            <if test="historyPayment != null" >
+                history_payment=#{historyPayment},
+            </if>
+            <if test="currentCredit != null" >
+                current_credit=#{currentCredit},
+            </if>
+            <if test="noBackPayment != null" >
+                no_back_payment=#{noBackPayment},
+            </if>
+            <if test="commissionIncome != null" >
+                commission_income=#{commissionIncome},
+            </if>
+            <if test="rebateIncome != null" >
+                rebate_income=#{rebateIncome},
+            </if>
+            <if test="deposit != null" >
+                deposit=#{deposit},
+            </if>
+            <if test="accumulatedRecharge != null" >
+                accumulated_recharge=#{accumulatedRecharge},
+            </if>
+            <if test="accumulatedConsume != null" >
+                accumulated_consume=#{accumulatedConsume},
+            </if>
+            <if test="accumulatedIncome != null" >
+                accumulated_income=#{accumulatedIncome},
+            </if>
+            <if test="accumulatedRebateIncome != null" >
+                accumulated_rebate_income=#{accumulatedRebateIncome},
+            </if>
+            <if test="accumulatedRebatePay != null" >
+                accumulated_rebate_pay=#{accumulatedRebatePay},
+            </if>
+            <if test="accumulatedRefund != null" >
+                accumulated_refund=#{accumulatedRefund},
+            </if>
+            <if test="hasTakeInvoice != null" >
+                has_take_invoice=#{hasTakeInvoice},
+            </if>
+            <if test="hasTakeInvoiceInit != null" >
+                has_take_invoice_init=#{hasTakeInvoiceInit}
+            </if>
+        </set>
+        WHERE
+        agent_id = #{agentId}
+    </update>
+
+    <select id="getByAgentId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_account
+        WHERE 
+            agent_id = #{agentId}
+    </select>
+
+    <update id="reduceBalance" >
+        UPDATE
+            t_sms_agent_account
+        SET
+            balance = balance - #{reduceNum}
+        WHERE
+            agent_id = #{agentId}
+    </update>
+
+    <select id="getByAgentIds" resultMap="rowMapper" parameterType="java.util.Set">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_account
+        WHERE
+          agent_id IN
+            <foreach collection="agentIds" separator="," item="item" index="item" open="(" close=")">
+                #{item}
+            </foreach>
+    </select>
+
+    <select id="querySumBlance" resultType="map" parameterType="java.util.List">
+        SELECT
+        ROUND(SUM(balance),4) AS sumBa,
+        ROUND(SUM(credit_balance),4) AS sumCr,
+        ROUND(SUM(history_payment),4) AS sumHi,
+        ROUND(SUM(current_credit),4) AS sumCu,
+        ROUND(SUM(no_back_payment),4) AS sumNo
+        FROM t_sms_agent_account
+        WHERE
+        1=1
+        <if test="agentIds !=null and agentIds.size>0">
+          AND  agent_id IN
+            <foreach collection="agentIds" separator="," item="item" index="item" open="(" close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_account
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.agentId != null and params.agentId != ''">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.balance != null and params.balance != ''">
+                and balance = #{params.balance}
+            </if>
+            <if test="params.creditBalance != null and params.creditBalance != ''">
+                and credit_balance = #{params.creditBalance}
+            </if>
+            <if test="params.historyPayment != null">
+                and history_payment = #{params.historyPayment}
+            </if>
+            <if test="params.currentCredit != null">
+                and current_credit = #{params.currentCredit}
+            </if>
+            <if test="params.noBackPayment != null">
+                and no_back_payment = #{params.noBackPayment}
+            </if>
+            <if test="params.commissionIncome != null">
+                and commission_income = #{params.commissionIncome}
+            </if>
+            <if test="params.rebateIncome != null and params.rebateIncome != ''">
+                and rebate_income = #{params.rebateIncome}
+            </if>
+            <if test="params.deposit != null and params.deposit != ''">
+                and deposit = #{params.deposit}
+            </if>
+            <if test="params.accumulatedRecharge != null and params.accumulatedRecharge != ''">
+                and accumulated_recharge = #{params.accumulatedRecharge}
+            </if>
+            <if test="params.accumulatedConsume != null and params.accumulatedConsume != ''">
+                and accumulated_consume = #{params.accumulatedConsume}
+            </if>
+            <if test="params.accumulatedIncome != null and params.accumulatedIncome != ''">
+                and accumulated_income = #{params.accumulatedIncome}
+            </if>
+            <if test="params.accumulatedRebateIncome != null and params.accumulatedRebateIncome != ''">
+                and accumulated_rebate_income = #{params.accumulatedRebateIncome}
+            </if>
+            <if test="params.accumulatedRebatePay != null and params.accumulatedRebatePay != ''">
+                and accumulated_rebate_pay = #{params.accumulatedRebatePay}
+            </if>
+            <if test="params.accumulatedRefund != null">
+                and accumulated_refund = #{params.accumulatedRefund}
+            </if>
+            <if test="params.hasTakeInvoice != null">
+                and has_take_invoice = #{params.hasTakeInvoice}
+            </if>
+            <if test="params.hasTakeInvoiceInit != null">
+                and has_take_invoice_init = #{params.hasTakeInvoiceInit}
+            </if>
+        </trim>
+    </select>
+
+
+    <select id="querySumCreditBySale" resultType="map">
+      SELECT
+        ti.belong_sale as saleId,sum(credit_balance) as creditSum,ABS(SUM(ta.balance+ta.credit_balance)) as vailSum
+      FROM t_sms_agent_account ta
+      LEFT JOIN t_sms_agent_info ti on ti.agent_id=ta.agent_id
+      where  ti.belong_sale is not null
+      <if test="isCredit != null and isCredit != ''">
+       and  <![CDATA[ta.credit_balance >0 ]]>
+      </if>
+        <if test="isSupper != null and isSupper != ''">
+            and   <![CDATA[ ta.balance+ta.credit_balance <0 ]]>
+        </if>
+      GROUP BY ti.belong_sale
+    </select>
+    <select id="queryListByMap" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_account
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="agentId != null and agentId != ''">
+                and agent_id = #{agentId}
+            </if>
+            <if test="balance != null and balance != ''">
+                and balance = #{balance}
+            </if>
+            <if test="creditBalance != null and creditBalance != ''">
+                and credit_balance = #{creditBalance}
+            </if>
+            <if test="commissionIncome != null and commissionIncome != ''">
+                and commission_income = #{commissionIncome}
+            </if>
+            <if test="rebateIncome != null and rebateIncome != ''">
+                and rebate_income = #{rebateIncome}
+            </if>
+            <if test="deposit != null and deposit != ''">
+                and deposit = #{deposit}
+            </if>
+            <if test="agentIds !=null and agentIds.size>0">
+                AND  agent_id IN
+                <foreach collection="agentIds" separator="," item="item" index="item" open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="isCredit != null">
+                and   <![CDATA[ credit_balance >0 ]]>
+            </if>
+            <if test="accumulatedRecharge != null and accumulatedRecharge != ''">
+                and accumulated_recharge = #{accumulatedRecharge}
+            </if>
+            <if test="accumulatedConsume != null and accumulatedConsume != ''">
+                and accumulated_consume = #{accumulatedConsume}
+            </if>
+            <if test="accumulatedIncome != null and accumulatedIncome != ''">
+                and accumulated_income = #{accumulatedIncome}
+            </if>
+            <if test="accumulatedRebateIncome != null and accumulatedRebateIncome != ''">
+                and accumulated_rebate_income = #{accumulatedRebateIncome}
+            </if>
+            <if test="accumulatedRebatePay != null and accumulatedRebatePay != ''">
+                and accumulated_rebate_pay = #{accumulatedRebatePay}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_agent_account
+        WHERE
+        1 = 1
+        <if test="agentId != null">
+            and agent_id = #{agentId}
+        </if>
+        <if test="balance != null">
+            and balance = #{balance}
+        </if>
+        <if test="creditBalance != null">
+            and credit_balance = #{creditBalance}
+        </if>
+        <if test="historyPayment != null">
+            and history_payment = #{historyPayment}
+        </if>
+        <if test="currentCredit != null">
+            and current_credit = #{currentCredit}
+        </if>
+        <if test="noBackPayment != null">
+            and no_back_payment = #{noBackPayment}
+        </if>
+        <if test="commissionIncome != null">
+            and commission_income = #{commissionIncome}
+        </if>
+        <if test="rebateIncome != null">
+            and rebate_income = #{rebateIncome}
+        </if>
+        <if test="deposit != null">
+            and deposit = #{deposit}
+        </if>
+        <if test="accumulatedRecharge != null">
+            and accumulated_recharge = #{accumulatedRecharge}
+        </if>
+        <if test="accumulatedConsume != null">
+            and accumulated_consume = #{accumulatedConsume}
+        </if>
+        <if test="accumulatedIncome != null">
+            and accumulated_income = #{accumulatedIncome}
+        </if>
+        <if test="accumulatedRebateIncome != null">
+            and accumulated_rebate_income = #{accumulatedRebateIncome}
+        </if>
+        <if test="accumulatedRebatePay != null">
+            and accumulated_rebate_pay = #{accumulatedRebatePay}
+        </if>
+        <if test="accumulatedRefund != null">
+            and accumulated_refund = #{accumulatedRefund}
+        </if>
+        <if test="hasTakeInvoice != null">
+            and has_take_invoice = #{hasTakeInvoice}
+        </if>
+        <if test="hasTakeInvoiceInit != null">
+            and has_take_invoice_init = #{hasTakeInvoiceInit}
+        </if>
+    </select>
+
+    <update id="addBalance">
+        UPDATE t_sms_agent_account set
+            balance = #{balance}
+        where
+            agent_id = #{agentAccount.agentId}
+            and balance = #{agentAccount.balance}
+    </update>
+    <!--根据代理商id获取代理商账户表中的账户余额-->
+    <select id="getAgentAccountByAgentId" resultType="com.jsmsframework.finance.entity.JsmsAgentAccount">
+        SELECT
+        balance
+        FROM
+        t_sms_agent_account
+        WHERE
+        agent_id = #{agentId}
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_account
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="agentId != null">
+                and agent_id = #{agentId}
+            </if>
+            <if test="balance != null">
+                and balance = #{balance}
+            </if>
+            <if test="creditBalance != null">
+                and credit_balance = #{creditBalance}
+            </if>
+            <if test="historyPayment != null">
+                and history_payment = #{historyPayment}
+            </if>
+            <if test="currentCredit != null">
+                and current_credit = #{currentCredit}
+            </if>
+            <if test="noBackPayment != null">
+                and no_back_payment = #{noBackPayment}
+            </if>
+            <if test="commissionIncome != null">
+                and commission_income = #{commissionIncome}
+            </if>
+            <if test="rebateIncome != null">
+                and rebate_income = #{rebateIncome}
+            </if>
+            <if test="deposit != null">
+                and deposit = #{deposit}
+            </if>
+            <if test="accumulatedRecharge != null">
+                and accumulated_recharge = #{accumulatedRecharge}
+            </if>
+            <if test="accumulatedConsume != null">
+                and accumulated_consume = #{accumulatedConsume}
+            </if>
+            <if test="accumulatedIncome != null">
+                and accumulated_income = #{accumulatedIncome}
+            </if>
+            <if test="accumulatedRebateIncome != null">
+                and accumulated_rebate_income = #{accumulatedRebateIncome}
+            </if>
+            <if test="accumulatedRebatePay != null">
+                and accumulated_rebate_pay = #{accumulatedRebatePay}
+            </if>
+            <if test="accumulatedRefund != null">
+                and accumulated_refund = #{accumulatedRefund}
+            </if>
+            <if test="hasTakeInvoice != null">
+                and has_take_invoice = #{hasTakeInvoice}
+            </if>
+            <if test="hasTakeInvoiceInit != null">
+                and has_take_invoice_init = #{hasTakeInvoiceInit}
+            </if>
+        </trim>
+    </select>
+
+    <update id="updateHasTakeInvoice">
+        UPDATE t_sms_agent_account
+            <set>
+                has_take_invoice = has_take_invoice - #{hasTakeInvoice}
+                <if test="hasTakeInvoiceInit != null">
+                    , has_take_invoice_init = has_take_invoice_init - #{hasTakeInvoiceInit}
+                </if>
+            </set>
+        WHERE
+            agent_id = #{agentId}
+    </update>
+</mapper>
+

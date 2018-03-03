@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<#assign _left='#{'>
+<#assign _right='}'>
+<mapper namespace="${packageName}.${moduleName}.mapper.Jsms${table.className}Mapper">
+    <#assign filterColumns=['createTime','updateTime']>
+    <#assign updateFilterColumns=[]>
+     
+        
+    <resultMap id="rowMapper" type="${packageName}.${moduleName}.entity.Jsms${table.className}">
+    <#list table.columnMap?keys as itemKey>
+        <result property="${table.columnMap[itemKey].propertyName}" jdbcType="${table.columnMap[itemKey].jdbcType}" column="${table.columnMap[itemKey].columnName}"/>
+    </#list>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        <#list table.columnMap?keys as itemKey>
+        ${table.columnMap[itemKey].columnName}<#if itemKey_has_next>,</#if>
+        </#list>
+    </sql>
+
+    <insert id="insert" parameterType="${packageName}.${moduleName}.entity.Jsms${table.className}" >
+        INSERT INTO ${table.tableName} 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <#list table.columnMap?keys as itemKey>
+            <if test="${table.columnMap[itemKey].propertyName} != null" >
+                ${table.columnMap[itemKey].columnName}<#if itemKey_has_next>,</#if>
+            </if>
+            </#list>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <#list table.columnMap?keys as itemKey>
+            <if test="${table.columnMap[itemKey].propertyName} != null" >
+                <#if !filterColumns?seq_contains('${table.columnMap[itemKey].propertyName}') >
+                ${_left}${table.columnMap[itemKey].propertyName}${_right}<#if itemKey_has_next>,</#if>
+                <#else>
+                now()<#if itemKey_has_next>,</#if>
+            </#if>
+            </if>
+            </#list>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO ${table.tableName} (
+            <#list table.columnMap?keys as itemKey>
+            ${table.columnMap[itemKey].columnName}<#if itemKey_has_next>,</#if>
+            </#list>
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                <#list table.columnMap?keys as itemKey>
+                <#if !filterColumns?seq_contains('${table.columnMap[itemKey].propertyName}') >
+                ${_left}item.${table.columnMap[itemKey].propertyName}${_right}<#if itemKey_has_next>,</#if>
+                <#else>
+                now()<#if itemKey_has_next>,</#if>
+                </#if>
+                </#list>
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM ${table.tableName} WHERE ${table.columnMap["column0"].columnName} = ${_left}${table.objectKey}${_right}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="${packageName}.${moduleName}.entity.Jsms${table.className}" >
+        <#assign columnsName = '${table.columnMap["column0"].columnName}' >
+        UPDATE ${table.tableName} SET 
+            <#list table.columnMap?keys as itemKey>
+            <#if columnsName != '${table.columnMap[itemKey].columnName}' >
+            ${table.columnMap[itemKey].columnName}=${_left}${table.columnMap[itemKey].propertyName}${_right}<#if itemKey_has_next>,</#if>
+            </#if>
+            </#list>
+        WHERE 
+            ${table.columnMap["column0"].columnName} = ${_left}${table.columnMap["column0"].propertyName}${_right} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="${packageName}.${moduleName}.entity.Jsms${table.className}" >
+        <#assign columnsName = '${table.columnMap["column0"].columnName}' >
+        UPDATE ${table.tableName} 
+            <set>
+                <#list table.columnMap?keys as itemKey>
+                <#if columnsName != '${table.columnMap[itemKey].columnName}' >
+                <if test="${table.columnMap[itemKey].propertyName} != null">
+                    ${table.columnMap[itemKey].columnName} = ${_left}${table.columnMap[itemKey].propertyName}${_right}<#if itemKey_has_next>,</#if>
+                </if>
+                </#if>
+                </#list>
+            </set>
+        WHERE 
+            ${table.columnMap["column0"].columnName} = ${_left}${table.columnMap["column0"].propertyName}${_right} 
+    </update>
+
+    <select id="getBy${table.capitalObjectKey}" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM ${table.tableName}
+        WHERE 
+            ${table.columnMap["column0"].columnName} = ${_left}${table.objectKey}${_right}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM ${table.tableName} 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+	        <#list table.columnMap?keys as itemKey>
+            <if test="params.${table.columnMap[itemKey].propertyName} != null">
+                and ${table.columnMap[itemKey].columnName} = ${_left}params.${table.columnMap[itemKey].propertyName}${_right}
+            </if>
+	        </#list>
+	     </trim>
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM ${table.tableName}
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+	        <#list table.columnMap?keys as itemKey>
+            <if test="${table.columnMap[itemKey].propertyName} != null">
+                and ${table.columnMap[itemKey].columnName} = ${_left}${table.columnMap[itemKey].propertyName}${_right}
+            </if>
+	        </#list>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM ${table.tableName} 
+        WHERE 
+            1 = 1
+            <#list table.columnMap?keys as itemKey>
+            <#if !updateFilterColumns?seq_contains('${table.columnMap[itemKey].propertyName}') >
+            <if test="${table.columnMap[itemKey].propertyName} != null">
+                and ${table.columnMap[itemKey].columnName} = ${_left}${table.columnMap[itemKey].propertyName}${_right}
+            </if>
+            <#else>
+            <#assign flag = '2'>
+            </#if>
+	        </#list>
+    </select>
+	 
+</mapper>
+

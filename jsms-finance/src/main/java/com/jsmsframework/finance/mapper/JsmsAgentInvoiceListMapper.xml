@@ -1,0 +1,1078 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsAgentInvoiceListMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsAgentInvoiceList">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="invoiceId" jdbcType="VARCHAR" column="invoice_id"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="invoiceAmount" jdbcType="DECIMAL" column="invoice_amount"/>
+        <result property="invoiceBody" jdbcType="INTEGER" column="invoice_body"/>
+        <result property="invoiceType" jdbcType="INTEGER" column="invoice_type"/>
+        <result property="source" jdbcType="INTEGER" column="source"/>
+        <result property="email" jdbcType="VARCHAR" column="email"/>
+        <result property="invoiceHead" jdbcType="VARCHAR" column="invoice_head"/>
+        <result property="creditCode" jdbcType="VARCHAR" column="credit_code"/>
+        <result property="bank" jdbcType="VARCHAR" column="bank"/>
+        <result property="bankAccount" jdbcType="VARCHAR" column="bank_account"/>
+        <result property="companyRegAddr" jdbcType="VARCHAR" column="company_reg_addr"/>
+        <result property="telphone" jdbcType="VARCHAR" column="telphone"/>
+        <result property="toName" jdbcType="VARCHAR" column="to_name"/>
+        <result property="toPhone" jdbcType="VARCHAR" column="to_phone"/>
+        <result property="toAddr" jdbcType="VARCHAR" column="to_addr"/>
+        <result property="toAddrDetail" jdbcType="VARCHAR" column="to_addr_detail"/>
+        <result property="toQq" jdbcType="VARCHAR" column="to_qq"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="applicant" jdbcType="BIGINT" column="applicant"/>
+        <result property="auditor" jdbcType="BIGINT" column="auditor"/>
+        <result property="expressCompany" jdbcType="INTEGER" column="express_company"/>
+        <result property="expressOrder" jdbcType="VARCHAR" column="express_order"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="auditFailCause" jdbcType="VARCHAR" column="audit_fail_cause"/>
+        <result property="webId" jdbcType="INTEGER" column="web_id"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+    </resultMap>
+
+    <resultMap id="rowDtoMapper" type="com.jsmsframework.finance.dto.JsmsAgentInvoiceListDTO">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="invoiceId" jdbcType="VARCHAR" column="invoice_id"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="invoiceAmount" jdbcType="DECIMAL" column="invoice_amount"/>
+        <result property="invoiceBody" jdbcType="INTEGER" column="invoice_body"/>
+        <result property="invoiceType" jdbcType="INTEGER" column="invoice_type"/>
+        <result property="source" jdbcType="INTEGER" column="source"/>
+        <result property="email" jdbcType="VARCHAR" column="email"/>
+        <result property="invoiceHead" jdbcType="VARCHAR" column="invoice_head"/>
+        <result property="creditCode" jdbcType="VARCHAR" column="credit_code"/>
+        <result property="bank" jdbcType="VARCHAR" column="bank"/>
+        <result property="bankAccount" jdbcType="VARCHAR" column="bank_account"/>
+        <result property="companyRegAddr" jdbcType="VARCHAR" column="company_reg_addr"/>
+        <result property="telphone" jdbcType="VARCHAR" column="telphone"/>
+        <result property="toName" jdbcType="VARCHAR" column="to_name"/>
+        <result property="toPhone" jdbcType="VARCHAR" column="to_phone"/>
+        <result property="toAddr" jdbcType="VARCHAR" column="to_addr"/>
+        <result property="toAddrDetail" jdbcType="VARCHAR" column="to_addr_detail"/>
+        <result property="toQq" jdbcType="VARCHAR" column="to_qq"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="auditor" jdbcType="BIGINT" column="auditor"/>
+        <result property="expressCompany" jdbcType="INTEGER" column="express_company"/>
+        <result property="expressOrder" jdbcType="VARCHAR" column="express_order"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="auditFailCause" jdbcType="VARCHAR" column="audit_fail_cause"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+        <result property="belongSaleStr" jdbcType="TIMESTAMP" column="belongSaleStr"/>
+        <result property="name" jdbcType="TIMESTAMP" column="name"/>
+
+    </resultMap>
+
+
+
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        invoice_id,
+        agent_id,
+        invoice_amount,
+        invoice_body,
+        invoice_type,
+        source,
+        email,
+        invoice_head,
+        credit_code,
+        bank,
+        bank_account,
+        company_reg_addr,
+        telphone,
+        to_name,
+        to_phone,
+        to_addr,
+        to_addr_detail,
+        to_qq,
+        operator,
+        applicant,
+        auditor,
+        express_company,
+        express_order,
+        status,
+        audit_fail_cause,
+        web_id,
+        remark,
+        create_time,
+        update_time
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsAgentInvoiceList" >
+        INSERT INTO t_sms_agent_invoice_list
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="invoiceId != null" >
+                invoice_id,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="invoiceAmount != null" >
+                invoice_amount,
+            </if>
+            <if test="invoiceBody != null" >
+                invoice_body,
+            </if>
+            <if test="invoiceType != null" >
+                invoice_type,
+            </if>
+            <if test="source != null" >
+                source,
+            </if>
+            <if test="email != null" >
+                email,
+            </if>
+            <if test="invoiceHead != null" >
+                invoice_head,
+            </if>
+            <if test="creditCode != null" >
+                credit_code,
+            </if>
+            <if test="bank != null" >
+                bank,
+            </if>
+            <if test="bankAccount != null" >
+                bank_account,
+            </if>
+            <if test="companyRegAddr != null" >
+                company_reg_addr,
+            </if>
+            <if test="telphone != null" >
+                telphone,
+            </if>
+            <if test="toName != null" >
+                to_name,
+            </if>
+            <if test="toPhone != null" >
+                to_phone,
+            </if>
+            <if test="toAddr != null" >
+                to_addr,
+            </if>
+            <if test="toAddrDetail != null" >
+                to_addr_detail,
+            </if>
+            <if test="toQq != null" >
+                to_qq,
+            </if>
+            <if test="operator != null" >
+                operator,
+            </if>
+            <if test="applicant != null" >
+                applicant,
+            </if>
+            <if test="auditor != null" >
+                auditor,
+            </if>
+            <if test="expressCompany != null" >
+                express_company,
+            </if>
+            <if test="expressOrder != null" >
+                express_order,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="auditFailCause != null" >
+                audit_fail_cause,
+            </if>
+            <if test="webId != null" >
+                web_id,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateTime != null" >
+                update_time
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="invoiceId != null" >
+                #{invoiceId},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="invoiceAmount != null" >
+                #{invoiceAmount},
+            </if>
+            <if test="invoiceBody != null" >
+                #{invoiceBody},
+            </if>
+            <if test="invoiceType != null" >
+                #{invoiceType},
+            </if>
+            <if test="source != null" >
+                #{source},
+            </if>
+            <if test="email != null" >
+                #{email},
+            </if>
+            <if test="invoiceHead != null" >
+                #{invoiceHead},
+            </if>
+            <if test="creditCode != null" >
+                #{creditCode},
+            </if>
+            <if test="bank != null" >
+                #{bank},
+            </if>
+            <if test="bankAccount != null" >
+                #{bankAccount},
+            </if>
+            <if test="companyRegAddr != null" >
+                #{companyRegAddr},
+            </if>
+            <if test="telphone != null" >
+                #{telphone},
+            </if>
+            <if test="toName != null" >
+                #{toName},
+            </if>
+            <if test="toPhone != null" >
+                #{toPhone},
+            </if>
+            <if test="toAddr != null" >
+                #{toAddr},
+            </if>
+            <if test="toAddrDetail != null" >
+                #{toAddrDetail},
+            </if>
+            <if test="toQq != null" >
+                #{toQq},
+            </if>
+            <if test="operator != null" >
+                #{operator},
+            </if>
+            <if test="applicant != null" >
+                #{applicant},
+            </if>
+            <if test="auditor != null" >
+                #{auditor},
+            </if>
+            <if test="expressCompany != null" >
+                #{expressCompany},
+            </if>
+            <if test="expressOrder != null" >
+                #{expressOrder},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="auditFailCause != null" >
+                #{auditFailCause},
+            </if>
+            <if test="webId != null" >
+                #{webId},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="createTime != null" >
+                #{createTime},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_agent_invoice_list (
+        id,
+        invoice_id,
+        agent_id,
+        invoice_amount,
+        invoice_body,
+        invoice_type,
+        source,
+        email,
+        invoice_head,
+        credit_code,
+        bank,
+        bank_account,
+        company_reg_addr,
+        telphone,
+        to_name,
+        to_phone,
+        to_addr,
+        to_addr_detail,
+        to_qq,
+        operator,
+        applicant,
+        auditor,
+        express_company,
+        express_order,
+        status,
+        audit_fail_cause,
+        web_id,
+        remark,
+        create_time,
+        update_time
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.id},
+            #{item.invoiceId},
+            #{item.agentId},
+            #{item.invoiceAmount},
+            #{item.invoiceBody},
+            #{item.invoiceType},
+            #{item.source},
+            #{item.email},
+            #{item.invoiceHead},
+            #{item.creditCode},
+            #{item.bank},
+            #{item.bankAccount},
+            #{item.companyRegAddr},
+            #{item.telphone},
+            #{item.toName},
+            #{item.toPhone},
+            #{item.toAddr},
+            #{item.toAddrDetail},
+            #{item.toQq},
+            #{item.operator},
+            #{item.applicant},
+            #{item.auditor},
+            #{item.expressCompany},
+            #{item.expressOrder},
+            #{item.status},
+            #{item.auditFailCause},
+            #{item.webId},
+            #{item.remark},
+            #{item.createTime},
+            #{item.updateTime}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!-- 危险操作，不提供自动代码生成
+    <delete id="delete">
+        DELETE FROM t_sms_agent_invoice_list WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsAgentInvoiceList" >
+        UPDATE t_sms_agent_invoice_list SET
+                invoice_id=#{invoiceId},
+                agent_id=#{agentId},
+                invoice_amount=#{invoiceAmount},
+                invoice_body=#{invoiceBody},
+                invoice_type=#{invoiceType},
+                source=#{source},
+                email=#{email},
+                invoice_head=#{invoiceHead},
+                credit_code=#{creditCode},
+                bank=#{bank},
+                bank_account=#{bankAccount},
+                company_reg_addr=#{companyRegAddr},
+                telphone=#{telphone},
+                to_name=#{toName},
+                to_phone=#{toPhone},
+                to_addr=#{toAddr},
+                to_addr_detail=#{toAddrDetail},
+                to_qq=#{toQq},
+                operator=#{operator},
+                applicant=#{applicant},
+                auditor=#{auditor},
+                express_company=#{expressCompany},
+                express_order=#{expressOrder},
+                status=#{status},
+                audit_fail_cause=#{auditFailCause},
+                wen_id=#{wenId},
+                remark=#{remark},
+                create_time=#{createTime},
+                update_time=#{updateTime}
+        WHERE
+            id = #{id}
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsAgentInvoiceList" >
+        UPDATE t_sms_agent_invoice_list
+        <set>
+            <if test="invoiceId != null" >
+                invoice_id=#{invoiceId},
+            </if>
+            <if test="agentId != null" >
+                agent_id=#{agentId},
+            </if>
+            <if test="invoiceAmount != null" >
+                invoice_amount=#{invoiceAmount},
+            </if>
+            <if test="invoiceBody != null" >
+                invoice_body=#{invoiceBody},
+            </if>
+            <if test="invoiceType != null" >
+                invoice_type=#{invoiceType},
+            </if>
+            <if test="source != null" >
+                source=#{source},
+            </if>
+            <if test="email != null" >
+                email=#{email},
+            </if>
+            <if test="invoiceHead != null" >
+                invoice_head=#{invoiceHead},
+            </if>
+            <if test="creditCode != null" >
+                credit_code=#{creditCode},
+            </if>
+            <if test="bank != null" >
+                bank=#{bank},
+            </if>
+            <if test="bankAccount != null" >
+                bank_account=#{bankAccount},
+            </if>
+            <if test="companyRegAddr != null" >
+                company_reg_addr=#{companyRegAddr},
+            </if>
+            <if test="telphone != null" >
+                telphone=#{telphone},
+            </if>
+            <if test="toName != null" >
+                to_name=#{toName},
+            </if>
+            <if test="toPhone != null" >
+                to_phone=#{toPhone},
+            </if>
+            <if test="toAddr != null" >
+                to_addr=#{toAddr},
+            </if>
+            <if test="toAddrDetail != null" >
+                to_addr_detail=#{toAddrDetail},
+            </if>
+            <if test="toQq != null" >
+                to_qq=#{toQq},
+            </if>
+            <if test="operator != null" >
+                operator=#{operator},
+            </if>
+            <if test="applicant != null" >
+                applicant=#{applicant},
+            </if>
+            <if test="auditor != null" >
+                auditor=#{auditor},
+            </if>
+            <if test="expressCompany != null" >
+                express_company=#{expressCompany},
+            </if>
+            <if test="expressOrder != null" >
+                express_order=#{expressOrder},
+            </if>
+            <if test="status != null" >
+                status=#{status},
+            </if>
+            <if test="auditFailCause != null" >
+                audit_fail_cause=#{auditFailCause},
+            </if>
+            <if test="webId != null" >
+                web_id=#{webId},
+            </if>
+            <if test="remark != null" >
+                remark=#{remark},
+            </if>
+            <if test="createTime != null" >
+                create_time=#{createTime},
+            </if>
+            <if test="updateTime != null" >
+                update_time=#{updateTime}
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_invoice_list
+        WHERE
+        id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_invoice_list
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null">
+                and id = #{params.id}
+            </if>
+            <if test="params.invoiceId != null and params.invoiceId != ''">
+                and invoice_id = #{params.invoiceId}
+            </if>
+            <if test="params.agentId != null">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.invoiceAmount != null">
+                and invoice_amount = #{params.invoiceAmount}
+            </if>
+            <if test="params.invoiceBody != null">
+                and invoice_body = #{params.invoiceBody}
+            </if>
+            <if test="params.invoiceType != null">
+                and invoice_type = #{params.invoiceType}
+            </if>
+            <if test="params.source != null">
+                and source = #{params.source}
+            </if>
+            <if test="params.email != null and params.email != ''">
+                and email = #{params.email}
+            </if>
+            <if test="params.invoiceHead != null and params.invoiceHead != ''">
+                and invoice_head = #{params.invoiceHead}
+            </if>
+            <if test="params.creditCode != null and params.creditCode != ''">
+                and credit_code = #{params.creditCode}
+            </if>
+            <if test="params.bank != null and params.bank != ''">
+                and bank = #{params.bank}
+            </if>
+            <if test="params.bankAccount != null and params.bankAccount != ''">
+                and bank_account = #{params.bankAccount}
+            </if>
+            <if test="params.companyRegAddr != null and params.companyRegAddr != ''">
+                and company_reg_addr = #{params.companyRegAddr}
+            </if>
+            <if test="params.telphone != null and params.telphone != ''">
+                and telphone = #{params.telphone}
+            </if>
+            <if test="params.toName != null and params.toName != ''">
+                and to_name = #{params.toName}
+            </if>
+            <if test="params.toPhone != null and params.toPhone != ''">
+                and to_phone = #{params.toPhone}
+            </if>
+            <if test="params.toAddr != null and params.toAddr != ''">
+                and to_addr = #{params.toAddr}
+            </if>
+            <if test="params.toAddrDetail != null and params.toAddrDetail != ''">
+                and to_addr_detail = #{params.toAddrDetail}
+            </if>
+            <if test="params.toQq != null and params.toQq != ''">
+                and to_qq = #{params.toQq}
+            </if>
+            <if test="params.operator != null">
+                and operator = #{params.operator}
+            </if>
+            <if test="params.applicant != null">
+                and applicant = #{params.applicant}
+            </if>
+            <if test="params.auditor != null">
+                and auditor = #{params.auditor}
+            </if>
+            <if test="params.expressCompany != null">
+                and express_company = #{params.expressCompany}
+            </if>
+            <if test="params.expressOrder != null and params.expressOrder != ''">
+                and express_order = #{params.expressOrder}
+            </if>
+            <if test="params.status != null">
+                and status = #{params.status}
+            </if>
+            <if test="params.auditFailCause != null and params.auditFailCause != ''">
+                and audit_fail_cause = #{params.auditFailCause}
+            </if>
+            <if test="params.webId != null and params.webId != ''">
+                and web_id = #{params.webId}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.createTime != null">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.updateTime != null">
+                and update_time = #{params.updateTime}
+            </if>
+            <if test="params.agentIds != null and params.agentIds.size > 0">
+                AND agent_id IN
+                <foreach collection="params.agentIds" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.condition != null and params.condition!='' ">
+                and (
+                invoice_head like CONCAT('%',#{params.condition},'%' )
+                OR invoice_id like CONCAT('%',#{params.condition},'%' )
+                OR agent_id like CONCAT('%',#{params.condition},'%' )
+                )
+            </if>
+            <if test="params.startTime != null and params.endTime != null">
+                and create_time between #{params.startTime} and #{params.endTime}
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryListForInvoice" resultMap="rowDtoMapper">
+        SELECT
+        invoice.id,
+        invoice.invoice_id,
+        invoice.agent_id,
+        invoice.invoice_amount,
+        invoice.invoice_body,
+        invoice.invoice_type,
+        invoice.source,
+        invoice.email,
+        invoice.invoice_head,
+        invoice.credit_code,
+        invoice.bank,
+        invoice.bank_account,
+        invoice.company_reg_addr,
+        invoice.telphone,
+        invoice.to_name,
+        invoice.to_phone,
+        invoice.to_addr,
+        invoice.to_addr_detail,
+        invoice.to_qq,
+        invoice.operator,
+        invoice.auditor,
+        invoice.express_company,
+        invoice.express_order,
+        invoice.status,
+        invoice.audit_fail_cause,
+        invoice.remark,
+        invoice.create_time,
+        invoice.update_time,
+        agent.agent_name as name,
+        user2.realname as belongSaleStr,
+        user3.realname as operatorName
+        FROM
+        t_sms_agent_invoice_list invoice
+        LEFT JOIN t_sms_agent_info agent ON invoice.agent_id = agent.agent_id
+        LEFT JOIN t_sms_user user1 ON user1.id=agent.agent_id
+        left join t_sms_user user2 on user2.id=agent.belong_sale
+        left join t_sms_user user3 on user3.id=invoice.operator
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.fourItem != null">
+                and  (agent.agent_id LIKE CONCAT('%',#{params.fourItem},'%') OR agent.agent_name LIKE CONCAT('%',#{params.fourItem},'%') OR invoice.invoice_head LIKE CONCAT('%',#{params.fourItem},'%') OR invoice.credit_code LIKE CONCAT('%',#{params.fourItem},'%') )
+            </if>
+            <if test="params.belongSaleId != null">
+                AND agent.belong_sale = #{params.belongSaleId}
+            </if>
+            <if test="params.invoiceType != null">
+                AND invoice.invoice_type = #{params.invoiceType}
+            </if>
+            <if test="params.updateTimeStart != null">
+                <![CDATA[ AND ( invoice.update_time >#{params.updateTimeStart} AND invoice.update_time < #{params.updateTimeEnd}) ]]>
+            </if>
+
+        </trim>
+
+
+
+
+
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_agent_invoice_list
+        WHERE
+        1 = 1
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="invoiceId != null and invoiceId != ''">
+            and invoice_id = #{invoiceId}
+        </if>
+        <if test="agentId != null">
+            and agent_id = #{agentId}
+        </if>
+        <if test="invoiceAmount != null">
+            and invoice_amount = #{invoiceAmount}
+        </if>
+        <if test="invoiceBody != null">
+            and invoice_body = #{invoiceBody}
+        </if>
+        <if test="invoiceType != null">
+            and invoice_type = #{invoiceType}
+        </if>
+        <if test="source != null">
+            and source = #{source}
+        </if>
+        <if test="email != null and email != ''">
+            and email = #{email}
+        </if>
+        <if test="invoiceHead != null and invoiceHead != ''">
+            and invoice_head = #{invoiceHead}
+        </if>
+        <if test="creditCode != null and creditCode != ''">
+            and credit_code = #{creditCode}
+        </if>
+        <if test="bank != null and bank != ''">
+            and bank = #{bank}
+        </if>
+        <if test="bankAccount != null and bankAccount != ''">
+            and bank_account = #{bankAccount}
+        </if>
+        <if test="companyRegAddr != null and companyRegAddr != ''">
+            and company_reg_addr = #{companyRegAddr}
+        </if>
+        <if test="telphone != null and telphone != ''">
+            and telphone = #{telphone}
+        </if>
+        <if test="toName != null and toName != ''">
+            and to_name = #{toName}
+        </if>
+        <if test="toPhone != null and toPhone != ''">
+            and to_phone = #{toPhone}
+        </if>
+        <if test="toAddr != null and toAddr != ''">
+            and to_addr = #{toAddr}
+        </if>
+        <if test="toAddrDetail != null and toAddrDetail != ''">
+            and to_addr_detail = #{toAddrDetail}
+        </if>
+        <if test="toQq != null and toQq != ''">
+            and to_qq = #{toQq}
+        </if>
+        <if test="operator != null">
+            and operator = #{operator}
+        </if>
+        <if test="applicant != null">
+            and applicant = #{applicant}
+        </if>
+        <if test="auditor != null">
+            and auditor = #{auditor}
+        </if>
+        <if test="expressCompany != null">
+            and express_company = #{expressCompany}
+        </if>
+        <if test="expressOrder != null and expressOrder != ''">
+            and express_order = #{expressOrder}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="auditFailCause != null and auditFailCause != ''">
+            and audit_fail_cause = #{auditFailCause}
+        </if>
+        <if test="webId != null and webId != ''">
+            and web_id = #{webId}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+        <if test="createTime != null">
+            and create_time = #{createTime}
+        </if>
+        <if test="updateTime != null">
+            and update_time = #{updateTime}
+        </if>
+    </select>
+
+
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_invoice_list
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="invoiceId != null and invoiceId != ''">
+                and invoice_id = #{invoiceId}
+            </if>
+            <if test="agentId != null">
+                and agent_id = #{agentId}
+            </if>
+            <if test="invoiceAmount != null">
+                and invoice_amount = #{invoiceAmount}
+            </if>
+            <if test="invoiceBody != null">
+                and invoice_body = #{invoiceBody}
+            </if>
+            <if test="invoiceType != null">
+                and invoice_type = #{invoiceType}
+            </if>
+            <if test="source != null">
+                and source = #{source}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="invoiceHead != null and invoiceHead != ''">
+                and invoice_head = #{invoiceHead}
+            </if>
+            <if test="creditCode != null and creditCode != ''">
+                and credit_code = #{creditCode}
+            </if>
+            <if test="bank != null and bank != ''">
+                and bank = #{bank}
+            </if>
+            <if test="bankAccount != null and bankAccount != ''">
+                and bank_account = #{bankAccount}
+            </if>
+            <if test="companyRegAddr != null and companyRegAddr != ''">
+                and company_reg_addr = #{companyRegAddr}
+            </if>
+            <if test="telphone != null and telphone != ''">
+                and telphone = #{telphone}
+            </if>
+            <if test="toName != null and toName != ''">
+                and to_name = #{toName}
+            </if>
+            <if test="toPhone != null and toPhone != ''">
+                and to_phone = #{toPhone}
+            </if>
+            <if test="toAddr != null and toAddr != ''">
+                and to_addr = #{toAddr}
+            </if>
+            <if test="toAddrDetail != null and toAddrDetail != ''">
+                and to_addr_detail = #{toAddrDetail}
+            </if>
+            <if test="toQq != null and toQq != ''">
+                and to_qq = #{toQq}
+            </if>
+            <if test="operator != null">
+                and operator = #{operator}
+            </if>
+            <if test="applicant != null">
+                and applicant = #{applicant}
+            </if>
+            <if test="auditor != null">
+                and auditor = #{auditor}
+            </if>
+            <if test="expressCompany != null">
+                and express_company = #{expressCompany}
+            </if>
+            <if test="expressOrder != null and expressOrder != ''">
+                and express_order = #{expressOrder}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="auditFailCause != null and auditFailCause != ''">
+                and audit_fail_cause = #{auditFailCause}
+            </if>
+            <if test="webId != null and webId != ''">
+                and web_id = #{webId}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+
+            <if test="startTime != null and startTime != ''" >
+                and create_time <![CDATA[ >= ]]> #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''" >
+                and create_time <![CDATA[ <= ]]> #{endTime}
+            </if>
+            <if test="condition != null and condition!='' ">
+                and (
+                invoice_head like CONCAT('%',#{condition},'%' )
+                or invoice_id like CONCAT('%',#{condition},'%' )
+                )
+            </if>
+        </trim>
+    </select>
+
+    <select id="getWaitInvoiceListAmount" resultType="Decimal">
+        SELECT
+        IFNULL(SUM(invoice_amount), 0) as invoice_amount
+        FROM t_sms_agent_invoice_list
+        WHERE
+        agent_id = #{agentId}
+        and `status` in
+        <foreach item="item" index="index" collection="statusList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and `source` = #{source}
+    </select>
+
+    <select id="queryPageList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_invoice_list
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            1=1
+            <choose>
+                <when test="params.system != null and params.system==4">
+                    <if test="params.applicationOEM != null and params.applicationOEM != ''">
+                        AND
+                        (
+                        invoice_id like CONCAT('%',#{params.applicationOEM},'%' )
+                        OR invoice_amount like CONCAT('%',#{params.applicationOEM},'%' )
+                        OR invoice_head like CONCAT('%',#{params.applicationOEM},'%' )
+                        )
+                    </if>
+                </when>
+                <when test="params.system != null and params.system==3">
+                    <if test="params.applicationOperation != null and params.applicationOperation != ''">
+                        <!--客户ID/客户名称/发票抬头/申请ID-->
+                        AND
+                        (
+                        invoice_id like CONCAT('%',#{params.applicationOperation},'%' )
+                        OR invoice_head like CONCAT('%',#{params.applicationOperation},'%' )
+                        OR agent_id like CONCAT('%',#{params.applicationOperation},'%' )
+                        <if test="params.agentIds != null and params.agentIds.size > 0">
+                            OR agent_id IN
+                            <foreach collection="params.agentIds" index="index" item="item" open="(" separator="," close=")">
+                                #{item}
+                            </foreach>
+                        </if>
+                        )
+                    </if>
+                    <if test="params.belongSales != null and params.belongSales.size > 0">
+                        AND agent_id IN
+                        <foreach collection="params.belongSales" index="index" item="item" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </if>
+                </when>
+            </choose>
+            <if test="params.invoiceType != null">
+                and invoice_type = #{params.invoiceType}
+            </if>
+            <if test="params.status != null">
+                and status = #{params.status}
+            </if>
+            <if test="params.createTimeStart != null and params.createTimeStart != ''">
+                and create_time &gt;=#{params.createTimeStart}
+            </if>
+            <if test="params.createTimeEnd != null and params.createTimeEnd != ''">
+                and create_time &lt;=#{params.createTimeEnd}
+            </if>
+            <if test="params.agentIdPermission != null and params.agentIdPermission.size > 0">
+                AND agent_id IN
+                <foreach collection="params.agentIdPermission" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </trim>
+    </select>
+
+    <select id="getByIdAndInvoiceType" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_invoice_list
+        WHERE
+        id = #{id} and invoice_type = #{invoiceType}
+    </select>
+
+    <update id="cancelApply" parameterType="com.jsmsframework.finance.entity.JsmsAgentInvoiceList" >
+        UPDATE t_sms_agent_invoice_list SET
+        status = 1,update_time = now(),operator =#{operator}
+        WHERE
+        id = #{id} and invoice_id =#{invoiceId} and source = 1 and status =#{status} and update_time =#{updateTime}
+    </update>
+
+    <select id="getAgentInvoiceLists" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_invoice_list
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">1=1
+            <if test="applicationOperation != null and applicationOperation != ''">
+                 AND
+                 (
+                  invoice_id like CONCAT('%',#{applicationOperation},'%' )
+                  OR invoice_head like CONCAT('%',#{applicationOperation},'%' )
+                  OR agent_id like CONCAT('%',#{applicationOperation},'%' )
+                <if test="agentIds != null and agentIds.size > 0">
+                    OR agent_id IN
+                    <foreach collection="agentIds" index="index" item="item" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                )
+            </if>
+            <if test="belongSales != null and belongSales.size > 0">
+                AND agent_id IN
+                <foreach collection="belongSales" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="invoiceType != null">
+                and invoice_type = #{invoiceType}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTimeStart != null and createTimeStart != ''">
+                and create_time &gt;=#{createTimeStart}
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd != ''">
+                and create_time &lt;=#{createTimeEnd}
+            </if>
+            <if test="agentIdPermission != null and agentIdPermission.size > 0">
+                AND agent_id IN
+                <foreach collection="agentIdPermission" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </trim>
+        <if test="orderBy != null">
+            ORDER BY update_time DESC
+        </if>
+    </select>
+
+    <select id="getByInvoiceId" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_invoice_list
+        WHERE
+        invoice_id = #{invoiceId}
+    </select>
+
+    <update id="updateStatus">
+        UPDATE t_sms_agent_invoice_list
+        <set>
+            status = #{newModel.status},
+            update_time = #{newModel.updateTime},
+            <if test="newModel.auditFailCause != null and newModel.auditFailCause != ''">
+                audit_fail_cause = #{newModel.auditFailCause},
+            </if>
+            <if test="newModel.operator != null">
+                operator = #{newModel.operator},
+            </if>
+            <if test="newModel.auditor != null">
+                auditor = #{newModel.auditor},
+            </if>
+            <if test="newModel.expressCompany != null" >
+                express_company=#{newModel.expressCompany},
+            </if>
+            <if test="newModel.expressOrder != null and newModel.expressOrder !=''" >
+                express_order=#{newModel.expressOrder}
+            </if>
+        </set>
+        WHERE
+        source = #{oldModel.source}
+        AND id = #{oldModel.id}
+        AND invoice_id = #{oldModel.invoiceId}
+        AND status = #{oldModel.status}
+        AND update_time = #{oldModel.updateTime}
+    </update>
+
+</mapper>
+

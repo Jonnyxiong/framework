@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.audit.mapper.JsmsAuditkeywordRecord0Mapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.audit.entity.JsmsAuditkeywordRecord0">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="auditid" jdbcType="BIGINT" column="auditid"/>
+        <result property="keyword" jdbcType="VARCHAR" column="keyword"/>
+        <result property="auditStatus" jdbcType="INTEGER" column="audit_status"/>
+        <result property="auditCreateTime" jdbcType="TIMESTAMP" column="audit_create_time"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="categoryId" jdbcType="INTEGER" column="category_id"/>
+        <result property="sort" jdbcType="INTEGER" column="sort"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        auditid,
+        keyword,
+        audit_status,
+        audit_create_time,
+        create_time,
+        category_id,
+        sort
+    </sql>
+
+
+
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_auditkeyword_record_#{tableDate}
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_auditkeyword_record_#{tableDate}
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.auditid != null and params.auditid != ''">
+                and auditid = #{params.auditid}
+            </if>
+            <if test="params.keyword != null and params.keyword != ''">
+                and keyword = #{params.keyword}
+            </if>
+            <if test="params.auditStatus != null and params.auditStatus != ''">
+                and audit_status = #{params.auditStatus}
+            </if>
+            <if test="params.auditCreateTime != null and params.auditCreateTime != ''">
+                and audit_create_time = #{params.auditCreateTime}
+            </if>
+            <if test="params.createTime != null and params.createTime != ''">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.categoryId != null and params.categoryId != ''">
+                and category_id = #{params.categoryId}
+            </if>
+            <if test="params.sort != null and params.sort != ''">
+                and sort = #{params.sort}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_auditkeyword_record_#{tableDate}
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="auditid != null and auditid != ''">
+                and auditid = #{auditid}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                and keyword = #{keyword}
+            </if>
+            <if test="auditStatus != null and auditStatus != ''">
+                and audit_status = #{auditStatus}
+            </if>
+            <if test="auditCreateTime != null and auditCreateTime != ''">
+                and audit_create_time = #{auditCreateTime}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                and category_id = #{categoryId}
+            </if>
+            <if test="sort != null and sort != ''">
+                and sort = #{sort}
+            </if>
+    </select>
+
+
+    <select id="queryAll"  resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_auditkeyword_record_#{tableDate}
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="auditid != null and auditid != ''">
+            and auditid = #{auditid}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            and keyword = #{keyword}
+        </if>
+        <if test="auditStatus != null and auditStatus != ''">
+            and audit_status = #{auditStatus}
+        </if>
+        <if test="auditCreateTime != null and auditCreateTime != ''">
+            and audit_create_time = #{auditCreateTime}
+        </if>
+        <if test="createTime != null">
+            and create_time = #{createTime}
+        </if>
+        <if test="categoryId != null">
+            and category_id = #{categoryId}
+        </if>
+        <if test="sort != null">
+            and sort = #{sort}
+        </if>
+    </select>
+</mapper>
+

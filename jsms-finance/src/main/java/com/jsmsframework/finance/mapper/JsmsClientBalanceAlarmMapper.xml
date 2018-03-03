@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsClientBalanceAlarmMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsClientBalanceAlarm">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="alarmPhone" jdbcType="VARCHAR" column="alarm_phone"/>
+        <result property="alarmNumber" jdbcType="INTEGER" column="alarm_number"/>
+        <result property="reminderNumber" jdbcType="INTEGER" column="reminder_number"/>
+        <result property="alarmEmail" jdbcType="VARCHAR" column="alarm_email"/>
+        <result property="alarmType" jdbcType="INTEGER" column="alarm_type"/>
+        <result property="alarmAmount" jdbcType="DECIMAL" column="alarm_amount"/>
+        <result property="resetTime" jdbcType="TIMESTAMP" column="reset_time"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        clientid,
+        alarm_phone,
+        alarm_number,
+        reminder_number,
+        alarm_email,
+        alarm_type,
+        alarm_amount,
+        reset_time,
+        create_time,
+        update_time
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsClientBalanceAlarm" >
+        INSERT INTO t_sms_client_balance_alarm 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="clientid != null" >
+                clientid,
+            </if>
+            <if test="alarmPhone != null" >
+                alarm_phone,
+            </if>
+            <if test="alarmNumber != null" >
+                alarm_number,
+            </if>
+            <if test="reminderNumber != null" >
+                reminder_number,
+            </if>
+            <if test="alarmEmail != null and alarmEmail != ''">
+                alarm_email,
+            </if>
+            <if test="alarmType != null">
+                alarm_type,
+            </if>
+            <if test="alarmAmount != null">
+                alarm_amount,
+            </if>
+            <if test="resetTime != null" >
+                reset_time,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateTime != null" >
+                update_time
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="clientid != null" >
+                #{clientid},
+            </if>
+            <if test="alarmPhone != null" >
+                #{alarmPhone},
+            </if>
+            <if test="alarmNumber != null" >
+                #{alarmNumber},
+            </if>
+            <if test="reminderNumber != null" >
+                #{reminderNumber},
+            </if>
+            <if test="alarmEmail != null and alarmEmail != ''">
+                #{alarmEmail},
+            </if>
+            <if test="alarmType != null">
+                #{alarmType},
+            </if>
+            <if test="alarmAmount != null">
+                #{alarmAmount},
+            </if>
+            <if test="resetTime != null" >
+                #{resetTime},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="updateTime != null" >
+                now()
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_client_balance_alarm (
+            id,
+            clientid,
+            alarm_phone,
+            alarm_number,
+            reminder_number,
+            alarm_email,
+            alarm_type,
+            alarm_amount,
+            reset_time,
+            create_time,
+            update_time
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.clientid},
+                #{item.alarmPhone},
+                #{item.alarmNumber},
+                #{item.reminderNumber},
+                #{item.alarmEmail},
+                #{item.alarmType},
+                #{item.alarmAmount},
+                #{item.resetTime},
+                now(),
+                now()
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_client_balance_alarm WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsClientBalanceAlarm" >
+        UPDATE t_sms_client_balance_alarm SET 
+            clientid=#{clientid},
+            alarm_phone=#{alarmPhone},
+            alarm_number=#{alarmNumber},
+            reminder_number=#{reminderNumber},
+            alarm_email = #{alarmEmail},
+            alarm_type = #{alarmType},
+            alarm_amount = #{alarmAmount},
+            reset_time=#{resetTime},
+            create_time=#{createTime},
+            update_time=#{updateTime}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsClientBalanceAlarm" >
+        UPDATE t_sms_client_balance_alarm 
+            <set>
+                <if test="clientid != null and clientid != ''">
+                    clientid = #{clientid},
+                </if>
+                <if test="alarmPhone != null and alarmPhone != ''">
+                    alarm_phone = #{alarmPhone},
+                </if>
+                <if test="alarmNumber != null">
+                    alarm_number = #{alarmNumber},
+                </if>
+                <if test="reminderNumber != null">
+                    reminder_number = #{reminderNumber},
+                </if>
+                <if test="alarmEmail != null and alarmEmail != ''">
+                    alarm_email = #{alarmEmail},
+                </if>
+                <if test="alarmType != null">
+                    alarm_type = #{alarmType},
+                </if>
+                <if test="alarmAmount != null">
+                    alarm_amount = #{alarmAmount},
+                </if>
+                <if test="resetTime != null">
+                    reset_time = #{resetTime},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_client_balance_alarm
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_client_balance_alarm 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.clientid != null and params.clientid != ''">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.alarmPhone != null and params.alarmPhone != ''">
+                and alarm_phone = #{params.alarmPhone}
+            </if>
+            <if test="params.alarmNumber != null and params.alarmNumber != ''">
+                and alarm_number = #{params.alarmNumber}
+            </if>
+            <if test="params.reminderNumber != null and params.reminderNumber != ''">
+                and reminder_number = #{params.reminderNumber}
+            </if>
+            <if test="params.alarmEmail != null and params.alarmEmail != ''">
+                and alarm_email = #{alarmEmail}
+            </if>
+            <if test="params.alarmType != null">
+                and alarm_type = #{params.alarmType}
+            </if>
+            <if test="params.alarmAmount != null">
+                and alarm_amount = #{params.alarmAmount}
+            </if>
+            <if test="params.resetTime != null">
+                and reset_time = #{params.resetTime}
+            </if>
+            <if test="params.createTime != null">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.updateTime != null">
+                and update_time = #{params.updateTime}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_client_balance_alarm
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="clientid != null and clientid != ''">
+                and clientid = #{clientid}
+            </if>
+            <if test="alarmPhone != null and alarmPhone != ''">
+                and alarm_phone = #{alarmPhone}
+            </if>
+            <if test="alarmNumber != null and alarmNumber != ''">
+                and alarm_number = #{alarmNumber}
+            </if>
+            <if test="reminderNumber != null and reminderNumber != ''">
+                and reminder_number = #{reminderNumber}
+            </if>
+            <if test="alarmEmail != null and alarmEmail != ''">
+                and alarm_email = #{alarmEmail}
+            </if>
+            <if test="alarmType != null">
+                and alarm_type = #{alarmType}
+            </if>
+            <if test="alarmAmount != null">
+                and alarm_amount = #{alarmAmount}
+            </if>
+            <if test="resetTime != null">
+                and reset_time = #{resetTime}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+    </select>
+
+    <select id="isAlarm" resultType="int">
+        SELECT
+        count(0)
+        FROM t_sms_client_balance_alarm,(
+        SELECT
+         case alarm_type
+		when 1 THEN alarm_number
+		END  as "yzm_alarm_number",
+		case alarm_type
+		when 2 THEN alarm_number
+		END  as "tz_alarm_number",
+		case alarm_type
+		when 3 THEN alarm_number
+		END  as "yx_alarm_number",
+		case alarm_type
+		when 4 THEN alarm_amount
+		END  as "gj_alarm_amount"
+		from t_sms_client_balance_alarm
+		WHERE
+        clientid = #{clientid}
+        )t2
+        WHERE
+        clientid = #{clientid} and (
+        t2.yzm_alarm_number &gt;= #{yzmAlarmNumber}
+    or t2.tz_alarm_number  &gt;= #{tzAlarmNumber} or t2.yx_alarm_number  &gt;= #{yxAlarmNumber} or
+     t2.gj_alarm_amount  &gt;= #{gjAlarmAmount})
+    </select>
+    
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_client_balance_alarm
+        WHERE
+          1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="clientid != null and clientid != ''">
+            and clientid = #{clientid}
+        </if>
+        <if test="alarmPhone != null and alarmPhone != ''">
+            and alarm_phone = #{alarmPhone}
+        </if>
+        <if test="alarmNumber != null and alarmNumber != ''">
+            and alarm_number = #{alarmNumber}
+        </if>
+        <if test="reminderNumber != null and reminderNumber != ''">
+            and reminder_number = #{reminderNumber}
+        </if>
+        <if test="alarmEmail != null and alarmEmail != ''">
+            and alarm_email = #{alarmEmail}
+        </if>
+        <if test="alarmType != null">
+            and alarm_type = #{alarmType}
+        </if>
+        <if test="alarmAmount != null">
+            and alarm_amount = #{alarmAmount}
+        </if>
+        <if test="resetTime != null">
+            and reset_time = #{resetTime}
+        </if>
+        <if test="createTime != null">
+            and create_time = #{createTime}
+        </if>
+        <if test="updateTime != null">
+            and update_time = #{updateTime}
+        </if>
+    </select>
+
+    <select id="findListAlarm" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_client_balance_alarm
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.clientid != null and params.clientid != ''">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.alarmPhone != null and params.alarmPhone != ''">
+                and alarm_phone = #{params.alarmPhone}
+            </if>
+            <if test="params.alarmNumber != null and params.alarmNumber != ''">
+                and alarm_number = #{params.alarmNumber}
+            </if>
+            <if test="params.reminderNumber != null and params.reminderNumber != ''">
+                and reminder_number = #{params.reminderNumber}
+            </if>
+            <if test="params.alarmEmail != null and params.alarmEmail != ''">
+                and alarm_email = #{alarmEmail}
+            </if>
+            <if test="params.alarmType != null">
+                and alarm_type = #{params.alarmType}
+            </if>
+            <if test="params.alarmAmount != null">
+                and alarm_amount = #{params.alarmAmount}
+            </if>
+            <if test="params.resetTime != null">
+                and reset_time = #{params.resetTime}
+            </if>
+            <if test="params.createTime != null">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.updateTime != null">
+                and update_time = #{params.updateTime}
+            </if>
+            <if test="clientIds != null and clientIds.size > 0">
+                and clientid IN
+                <foreach collection="clientIds" index="item" item="item" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </trim>
+    </select>
+</mapper>
+

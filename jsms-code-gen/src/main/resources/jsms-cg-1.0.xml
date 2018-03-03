@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 参考 maven的规则  -->
+<group xmlns="http://www.jsms.com/schema/cg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.jsms.com/schema/cg http://www.jsms.com/schema/cg/jsms-cg-1.0.xsd"
+		id="com.jsmsframework" author="huangwenjie"
+		 company="云之讯" projectDir="/home/nescafe/IdeaProjects/jsms-framework" multiModule="true" defaultPageClass="com.jsmsframework.common.dto.JsmsPage" fileNamePrefix="Jsms">
+
+	<!-- 模块名字  -->
+	<artifact id="finance" description="财务相关模块" prefix="jsms">
+		<entity tableName="t_sms_agent_account" description="代理商帐户表" primaryKey="agent_id" prefix="t_sms" overwrite="false"></entity>
+	</artifact>
+
+</group>
+
+
+

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.sysKeyword.mapper.JsmsSysKeywordCategoryMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.sysKeyword.entity.JsmsSysKeywordCategory">
+        <result property="categoryId" jdbcType="INTEGER" column="category_id"/>
+        <result property="categoryName" jdbcType="VARCHAR" column="category_name"/>
+        <result property="categoryDesc" jdbcType="VARCHAR" column="category_desc"/>
+        <result property="categoryColor" jdbcType="VARCHAR" column="category_color"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        category_id,
+        category_name,
+        category_desc,
+        category_color,
+        operator,
+        update_date,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.sysKeyword.entity.JsmsSysKeywordCategory" >
+        INSERT INTO t_sms_sys_keyword_category 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="categoryId != null" >
+                category_id,
+            </if>
+            <if test="categoryName != null" >
+                category_name,
+            </if>
+            <if test="categoryDesc != null" >
+                category_desc,
+            </if>
+            <if test="categoryColor != null" >
+                category_color,
+            </if>
+            <if test="operator != null" >
+                operator,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="categoryId != null" >
+                #{categoryId},
+            </if>
+            <if test="categoryName != null" >
+                #{categoryName},
+            </if>
+            <if test="categoryDesc != null" >
+                #{categoryDesc},
+            </if>
+            <if test="categoryColor != null" >
+                #{categoryColor},
+            </if>
+            <if test="operator != null" >
+                #{operator},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_sys_keyword_category (
+            category_id,
+            category_name,
+            category_desc,
+            category_color,
+            operator,
+            update_date,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.categoryId},
+                #{item.categoryName},
+                #{item.categoryDesc},
+                #{item.categoryColor},
+                #{item.operator},
+                #{item.updateDate},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_sys_keyword_category WHERE category_id = #{categoryId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.sysKeyword.entity.JsmsSysKeywordCategory" >
+        UPDATE t_sms_sys_keyword_category SET 
+            category_name=#{categoryName},
+            category_desc=#{categoryDesc},
+            category_color=#{categoryColor},
+            operator=#{operator},
+            update_date=#{updateDate},
+            remark=#{remark}
+        WHERE 
+            category_id = #{categoryId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.sysKeyword.entity.JsmsSysKeywordCategory" >
+        UPDATE t_sms_sys_keyword_category 
+            <set>
+                <if test="categoryName != null">
+                    category_name = #{categoryName},
+                </if>
+                <if test="categoryDesc != null">
+                    category_desc = #{categoryDesc},
+                </if>
+                <if test="categoryColor != null">
+                    category_color = #{categoryColor},
+                </if>
+                <if test="operator != null">
+                    operator = #{operator},
+                </if>
+                <if test="updateDate != null">
+                    update_date = #{updateDate},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            category_id = #{categoryId} 
+    </update>
+
+    <select id="getByCategoryId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sys_keyword_category
+        WHERE 
+            category_id = #{categoryId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_sys_keyword_category 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.categoryId != null">
+                and category_id = #{params.categoryId}
+            </if>
+            <if test="params.categoryName != null">
+                and category_name = #{params.categoryName}
+            </if>
+            <if test="params.categoryDesc != null">
+                and category_desc = #{params.categoryDesc}
+            </if>
+            <if test="params.categoryColor != null">
+                and category_color = #{params.categoryColor}
+            </if>
+            <if test="params.operator != null">
+                and operator = #{params.operator}
+            </if>
+            <if test="params.updateDate != null">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.remark != null">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.categoryNameInput != null">
+                and category_name like concat('%',#{params.categoryNameInput},'%')
+            </if>
+	     </trim>
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sys_keyword_category
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="categoryName != null">
+                and category_name = #{categoryName}
+            </if>
+            <if test="categoryDesc != null">
+                and category_desc = #{categoryDesc}
+            </if>
+            <if test="categoryColor != null">
+                and category_color = #{categoryColor}
+            </if>
+            <if test="operator != null">
+                and operator = #{operator}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_sys_keyword_category 
+        WHERE 
+            1 = 1
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="categoryName != null">
+                and category_name = #{categoryName}
+            </if>
+            <if test="categoryDesc != null">
+                and category_desc = #{categoryDesc}
+            </if>
+            <if test="categoryColor != null">
+                and category_color = #{categoryColor}
+            </if>
+            <if test="operator != null">
+                and operator = #{operator}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+    </select>
+
+
+    <select id="getByCategoryName" resultMap="rowMapper">
+        SELECT
+          <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sys_keyword_category
+        WHERE
+        category_name = #{categoryName}
+    </select>
+
+    <delete id="deleteByCategoryId">
+        DELETE FROM t_sms_sys_keyword_category
+        WHERE category_id = ${categoryId}
+    </delete>
+
+    <select id="getByCategoryIds" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM
+          t_sms_sys_keyword_category
+        WHERE  category_id IN
+        <foreach collection="categoryIds" item="categoryId" open="(" close=")" separator=",">
+            ${categoryId}
+        </foreach>
+    </select>
+
+    <select id="findByCategoryName" resultMap="rowMapper">
+        SELECT <include refid="BASE_COLUMN_LIST"/>
+        FROM
+        t_sms_sys_keyword_category
+        WHERE 1=1
+        <if test="categoryName != null and categoryName != ''">
+            and (category_name LIKE CONCAT('%',#{simplifredChineseCondition},'%') or category_name LIKE CONCAT('%',#{traditionalChineseCondition},'%') )
+        </if>
+    </select>
+</mapper>
+

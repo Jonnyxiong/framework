@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.common.mapper.JsmsSendEmailListMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.common.entity.JsmsSendEmailList">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="alarmName" jdbcType="VARCHAR" column="alarm_name"/>
+        <result property="mailboxType" jdbcType="INTEGER" column="mailbox_type"/>
+        <result property="incomingMailServer" jdbcType="VARCHAR" column="incoming_mail_server"/>
+        <result property="outgoingMailServer" jdbcType="VARCHAR" column="outgoing_mail_server"/>
+        <result property="emailAddress" jdbcType="VARCHAR" column="email_address"/>
+        <result property="emailUsername" jdbcType="VARCHAR" column="email_username"/>
+        <result property="emailPassword" jdbcType="VARCHAR" column="email_password"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="webId" jdbcType="INTEGER" column="web_id"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        alarm_name,
+        mailbox_type,
+        incoming_mail_server,
+        outgoing_mail_server,
+        email_address,
+        email_username,
+        email_password,
+        status,
+        web_id,
+        create_time,
+        update_time
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.common.entity.JsmsSendEmailList" >
+        INSERT INTO t_sms_send_email_list 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="alarmName != null" >
+                alarm_name,
+            </if>
+            <if test="mailboxType != null" >
+                mailbox_type,
+            </if>
+            <if test="incomingMailServer != null" >
+                incoming_mail_server,
+            </if>
+            <if test="outgoingMailServer != null" >
+                outgoing_mail_server,
+            </if>
+            <if test="emailAddress != null" >
+                email_address,
+            </if>
+            <if test="emailUsername != null" >
+                email_username,
+            </if>
+            <if test="emailPassword != null" >
+                email_password,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="webId != null" >
+                web_id,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateTime != null" >
+                update_time
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="alarmName != null" >
+                #{alarmName},
+            </if>
+            <if test="mailboxType != null" >
+                #{mailboxType},
+            </if>
+            <if test="incomingMailServer != null" >
+                #{incomingMailServer},
+            </if>
+            <if test="outgoingMailServer != null" >
+                #{outgoingMailServer},
+            </if>
+            <if test="emailAddress != null" >
+                #{emailAddress},
+            </if>
+            <if test="emailUsername != null" >
+                #{emailUsername},
+            </if>
+            <if test="emailPassword != null" >
+                #{emailPassword},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="webId != null" >
+                #{webId},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="updateTime != null" >
+                now()
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_send_email_list (
+            id,
+            alarm_name,
+            mailbox_type,
+            incoming_mail_server,
+            outgoing_mail_server,
+            email_address,
+            email_username,
+            email_password,
+            status,
+            web_id,
+            create_time,
+            update_time
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.alarmName},
+                #{item.mailboxType},
+                #{item.incomingMailServer},
+                #{item.outgoingMailServer},
+                #{item.emailAddress},
+                #{item.emailUsername},
+                #{item.emailPassword},
+                #{item.status},
+                #{item.webId},
+                now(),
+                now()
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_send_email_list WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.common.entity.JsmsSendEmailList" >
+        UPDATE t_sms_send_email_list SET 
+            alarm_name=#{alarmName},
+            mailbox_type=#{mailboxType},
+            incoming_mail_server=#{incomingMailServer},
+            outgoing_mail_server=#{outgoingMailServer},
+            email_address=#{emailAddress},
+            email_username=#{emailUsername},
+            email_password=#{emailPassword},
+            status=#{status},
+            web_id=#{webId},
+            create_time=#{createTime},
+            update_time=#{updateTime}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.common.entity.JsmsSendEmailList" >
+        UPDATE t_sms_send_email_list 
+            <set>
+                <if test="alarmName != null and alarmName != ''">
+                    alarm_name = #{alarmName},
+                </if>
+                <if test="mailboxType != null and mailboxType != ''">
+                    mailbox_type = #{mailboxType},
+                </if>
+                <if test="incomingMailServer != null and incomingMailServer != ''">
+                    incoming_mail_server = #{incomingMailServer},
+                </if>
+                <if test="outgoingMailServer != null and outgoingMailServer != ''">
+                    outgoing_mail_server = #{outgoingMailServer},
+                </if>
+                <if test="emailAddress != null and emailAddress != ''">
+                    email_address = #{emailAddress},
+                </if>
+                <if test="emailUsername != null and emailUsername != ''">
+                    email_username = #{emailUsername},
+                </if>
+                <if test="emailPassword != null and emailPassword != ''">
+                    email_password = #{emailPassword},
+                </if>
+                <if test="status != null">
+                    status = #{status},
+                </if>
+                <if test="webId != null and webId != ''">
+                    web_id = #{webId},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_send_email_list
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_send_email_list 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.alarmName != null and params.alarmName != ''">
+                and alarm_name = #{params.alarmName}
+            </if>
+            <if test="params.mailboxType != null and params.mailboxType != ''">
+                and mailbox_type = #{params.mailboxType}
+            </if>
+            <if test="params.incomingMailServer != null and params.incomingMailServer != ''">
+                and incoming_mail_server = #{params.incomingMailServer}
+            </if>
+            <if test="params.outgoingMailServer != null and params.outgoingMailServer != ''">
+                and outgoing_mail_server = #{params.outgoingMailServer}
+            </if>
+            <if test="params.emailAddress != null and params.emailAddress != ''">
+                and email_address = #{params.emailAddress}
+            </if>
+            <if test="params.emailUsername != null and params.emailUsername != ''">
+                and email_username = #{params.emailUsername}
+            </if>
+            <if test="params.emailPassword != null and params.emailPassword != ''">
+                and email_password = #{params.emailPassword}
+            </if>
+            <if test="params.status != null and params.status != ''">
+                and status = #{params.status}
+            </if>
+            <if test="params.webId != null and params.webId != ''">
+                and web_id = #{params.webId}
+            </if>
+            <if test="params.createTime != null and params.createTime != ''">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.updateTime != null and params.updateTime != ''">
+                and update_time = #{params.updateTime}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_send_email_list 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="alarmName != null and alarmName != ''">
+                and alarm_name = #{alarmName}
+            </if>
+            <if test="mailboxType != null and mailboxType != ''">
+                and mailbox_type = #{mailboxType}
+            </if>
+            <if test="incomingMailServer != null and incomingMailServer != ''">
+                and incoming_mail_server = #{incomingMailServer}
+            </if>
+            <if test="outgoingMailServer != null and outgoingMailServer != ''">
+                and outgoing_mail_server = #{outgoingMailServer}
+            </if>
+            <if test="emailAddress != null and emailAddress != ''">
+                and email_address = #{emailAddress}
+            </if>
+            <if test="emailUsername != null and emailUsername != ''">
+                and email_username = #{emailUsername}
+            </if>
+            <if test="emailPassword != null and emailPassword != ''">
+                and email_password = #{emailPassword}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="webId != null and webId != ''">
+                and web_id = #{webId}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+    </select>
+
+    <select id="countForEdit" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_send_email_list
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            and id != #{id}
+        </if>
+        <if test="alarmName != null and alarmName != ''">
+            and alarm_name = #{alarmName}
+        </if>
+        <if test="mailboxType != null and mailboxType != ''">
+            and mailbox_type = #{mailboxType}
+        </if>
+        <if test="incomingMailServer != null and incomingMailServer != ''">
+            and incoming_mail_server = #{incomingMailServer}
+        </if>
+        <if test="outgoingMailServer != null and outgoingMailServer != ''">
+            and outgoing_mail_server = #{outgoingMailServer}
+        </if>
+        <if test="emailAddress != null and emailAddress != ''">
+            and email_address = #{emailAddress}
+        </if>
+        <if test="emailUsername != null and emailUsername != ''">
+            and email_username = #{emailUsername}
+        </if>
+        <if test="emailPassword != null and emailPassword != ''">
+            and email_password = #{emailPassword}
+        </if>
+        <if test="status != null and status != ''">
+            and status = #{status}
+        </if>
+        <if test="webId != null and webId != ''">
+            and web_id = #{webId}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and create_time = #{createTime}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and update_time = #{updateTime}
+        </if>
+    </select>
+</mapper>
+

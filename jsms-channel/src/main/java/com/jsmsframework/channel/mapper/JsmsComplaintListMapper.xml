@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.channel.mapper.JsmsComplaintListMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.channel.entity.JsmsComplaintList">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="channelId" jdbcType="INTEGER" column="channel_id"/>
+        <result property="clientId" jdbcType="VARCHAR" column="client_id"/>
+        <result property="operatorstype" jdbcType="INTEGER" column="operatorstype"/>
+        <result property="smstype" jdbcType="INTEGER" column="smstype"/>
+        <result property="sendTime" jdbcType="DATE" column="send_time"/>
+        <result property="phone" jdbcType="VARCHAR" column="phone"/>
+        <result property="sign" jdbcType="VARCHAR" column="sign"/>
+        <result property="content" jdbcType="VARCHAR" column="content"/>
+        <result property="belongBusiness" jdbcType="BIGINT" column="belong_business"/>
+        <result property="belongSale" jdbcType="BIGINT" column="belong_sale"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        channel_id,
+        client_id,
+        operatorstype,
+        smstype,
+        send_time,
+        phone,
+        sign,
+        content,
+        belong_business,
+        belong_sale,
+        operator,
+        status,
+        create_time,
+        update_time,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.channel.entity.JsmsComplaintList" >
+        INSERT INTO t_sms_complaint_list 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="channelId != null" >
+                channel_id,
+            </if>
+            <if test="clientId != null" >
+                client_id,
+            </if>
+            <if test="operatorstype != null" >
+                operatorstype,
+            </if>
+            <if test="smstype != null" >
+                smstype,
+            </if>
+            <if test="sendTime != null" >
+                send_time,
+            </if>
+            <if test="phone != null" >
+                phone,
+            </if>
+            <if test="sign != null" >
+                sign,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="belongBusiness != null" >
+                belong_business,
+            </if>
+            <if test="belongSale != null" >
+                belong_sale,
+            </if>
+            <if test="operator != null" >
+                operator,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="channelId != null" >
+                #{channelId},
+            </if>
+            <if test="clientId != null" >
+                #{clientId},
+            </if>
+            <if test="operatorstype != null" >
+                #{operatorstype},
+            </if>
+            <if test="smstype != null" >
+                #{smstype},
+            </if>
+            <if test="sendTime != null" >
+                #{sendTime},
+            </if>
+            <if test="phone != null" >
+                #{phone},
+            </if>
+            <if test="sign != null" >
+                #{sign},
+            </if>
+            <if test="content != null" >
+                #{content},
+            </if>
+            <if test="belongBusiness != null" >
+                #{belongBusiness},
+            </if>
+            <if test="belongSale != null" >
+                #{belongSale},
+            </if>
+            <if test="operator != null" >
+                #{operator},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="updateTime != null" >
+                now(),
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_complaint_list (
+            id,
+            channel_id,
+            client_id,
+            operatorstype,
+            smstype,
+            send_time,
+            phone,
+            sign,
+            content,
+            belong_business,
+            belong_sale,
+            operator,
+            status,
+            create_time,
+            update_time,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.channelId},
+                #{item.clientId},
+                #{item.operatorstype},
+                #{item.smstype},
+                #{item.sendTime},
+                #{item.phone},
+                #{item.sign},
+                #{item.content},
+                #{item.belongBusiness},
+                #{item.belongSale},
+                #{item.operator},
+                #{item.status},
+                now(),
+                now(),
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_complaint_list WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.channel.entity.JsmsComplaintList" >
+        UPDATE t_sms_complaint_list SET 
+            channel_id=#{channelId},
+            client_id=#{clientId},
+            operatorstype=#{operatorstype},
+            smstype=#{smstype},
+            send_time=#{sendTime},
+            phone=#{phone},
+            sign=#{sign},
+            content=#{content},
+            belong_business=#{belongBusiness},
+            belong_sale=#{belongSale},
+            operator=#{operator},
+            status=#{status},
+            create_time=#{createTime},
+            update_time=#{updateTime},
+            remark=#{remark}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.channel.entity.JsmsComplaintList" >
+        UPDATE t_sms_complaint_list 
+            <set>
+                <if test="channelId != null">
+                    channel_id = #{channelId},
+                </if>
+                <if test="clientId != null">
+                    client_id = #{clientId},
+                </if>
+                <if test="operatorstype != null">
+                    operatorstype = #{operatorstype},
+                </if>
+                <if test="smstype != null">
+                    smstype = #{smstype},
+                </if>
+                <if test="sendTime != null">
+                    send_time = #{sendTime},
+                </if>
+                <if test="phone != null">
+                    phone = #{phone},
+                </if>
+                <if test="sign != null">
+                    sign = #{sign},
+                </if>
+                <if test="content != null">
+                    content = #{content},
+                </if>
+                <if test="belongBusiness != null">
+                    belong_business = #{belongBusiness},
+                </if>
+                <if test="belongSale != null">
+                    belong_sale = #{belongSale},
+                </if>
+                <if test="operator != null">
+                    operator = #{operator},
+                </if>
+                <if test="status != null">
+                    status = #{status},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_complaint_list
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_complaint_list 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null">
+                and id = #{params.id}
+            </if>
+            <if test="params.channelId != null">
+                and channel_id = #{params.channelId}
+            </if>
+            <if test="params.clientId != null and params.clientId!=''">
+                and client_id = #{params.clientId}
+            </if>
+            <if test="params.operatorstype != null">
+                and operatorstype = #{params.operatorstype}
+            </if>
+            <if test="params.smstype != null">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.sendTime != null">
+                and send_time = #{params.sendTime}
+            </if>
+            <if test="params.sendTimeStart != null and params.sendTimeStart !=''">
+                AND send_time &gt;=#{params.sendTimeStart}
+            </if>
+            <if test="params.sendTimeEnd !=null and params.sendTimeEnd !=''">
+                AND send_time &lt;=#{params.sendTimeEnd}
+            </if>
+            <if test="params.phone != null">
+                and phone = #{params.phone}
+            </if>
+            <if test="params.sign != null">
+                and sign = #{params.sign}
+            </if>
+            <if test="params.signExt !=null and params.signExt !=''">
+                AND sign LIKE '%${params.signExt}%'
+            </if>
+            <if test="params.content != null">
+            and content = #{params.content}
+            </if>
+            <if test="params.contentExt !=null and params.contentExt !=''">
+                AND content LIKE '%${params.contentExt}%'
+            </if>
+            <if test="params.belongBusiness != null">
+                and belong_business = #{params.belongBusiness}
+            </if>
+            <if test="params.belongSale != null">
+                and belong_sale = #{params.belongSale}
+            </if>
+            <if test="params.operator != null">
+                and operator = #{params.operator}
+            </if>
+            <if test="params.userIds != null">
+                and operator IN
+                <foreach collection="params.userIds" item="item" open="(" close=")" separator="," index="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.status != null">
+                and status = #{params.status}
+            </if>
+            <if test="params.createTime != null">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.createTimeStart !=null and params.createTimeStart !=''">
+                AND create_time &gt;=#{params.createTimeStart}
+            </if>
+            <if test="params.createTimeEnd !=null and params.createTimeEnd !=''">
+                AND create_time &lt;=#{params.createTimeEnd}
+            </if>
+            <if test="params.updateTime != null">
+                and update_time = #{params.updateTime}
+            </if>
+            <if test="params.remark != null">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+        <if test="params.group != null">
+            GROUP BY channel_id,send_time,phone,sign,content,client_id,smstype
+        </if>
+    </select>
+
+    <select id="queryListExt" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_complaint_list
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null">
+                and id = #{params.id}
+            </if>
+            <if test="params.channelId != null">
+                and channel_id = #{params.channelId}
+            </if>
+            <if test="params.clientId != null and params.clientId!=''">
+                and client_id = #{params.clientId}
+            </if>
+            <if test="params.operatorstype != null">
+                and operatorstype = #{params.operatorstype}
+            </if>
+            <if test="params.smstype != null">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.sendTime != null">
+                and send_time = #{params.sendTime}
+            </if>
+            <if test="params.sendTimeStart != null and params.sendTimeStart !=''">
+                AND send_time &gt;=#{params.sendTimeStart}
+            </if>
+            <if test="params.sendTimeEnd !=null and params.sendTimeEnd !=''">
+                AND send_time &lt;=#{params.sendTimeEnd}
+            </if>
+            <if test="params.phone != null">
+                and phone = #{params.phone}
+            </if>
+            <if test="params.sign != null">
+                and sign = #{params.sign}
+            </if>
+            <if test="params.signExt !=null and params.signExt !=''">
+                AND sign LIKE '%${params.signExt}%'
+            </if>
+            <if test="params.content != null">
+                and content = #{params.content}
+            </if>
+            <if test="params.contentExt !=null and params.contentExt !=''">
+                AND content LIKE '%${params.contentExt}%'
+            </if>
+            <if test="params.belongBusiness != null">
+                and belong_business = #{params.belongBusiness}
+            </if>
+            <if test="params.belongSale != null">
+                and belong_sale = #{params.belongSale}
+            </if>
+            <if test="params.operator != null">
+                and operator = #{params.operator}
+            </if>
+            <if test="params.userIds != null">
+                and operator IN
+                <foreach collection="params.userIds" item="item" open="(" close=")" separator="," index="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.status != null">
+                and status = #{params.status}
+            </if>
+            <if test="params.createTime != null">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.createTimeStart !=null and params.createTimeStart !=''">
+                AND create_time &gt;=#{params.createTimeStart}
+            </if>
+            <if test="params.createTimeEnd !=null and params.createTimeEnd !=''">
+                AND create_time &lt;=#{params.createTimeEnd}
+            </if>
+            <if test="params.updateTime != null">
+                and update_time = #{params.updateTime}
+            </if>
+            <if test="params.remark != null">
+                and remark = #{params.remark}
+            </if>
+        </trim>
+        <if test="params.group != null">
+            GROUP BY channel_id,send_time,phone,sign,content,client_id,smstype
+        </if>
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_complaint_list
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="channelId != null">
+                and channel_id = #{channelId}
+            </if>
+            <if test="clientId != null and clientId!=''">
+                and client_id = #{clientId}
+            </if>
+            <if test="operatorstype != null">
+                and operatorstype = #{operatorstype}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="sendTime != null">
+                and send_time = #{sendTime}
+            </if>
+            <if test="sendTimeStart != null and sendTimeStart !=''">
+                AND send_time &gt;=#{sendTimeStart}
+            </if>
+            <if test="sendTimeEnd !=null and sendTimeEnd !=''">
+                AND send_time &lt;=#{sendTimeEnd}
+            </if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="sign != null">
+                and sign = #{sign}
+            </if>
+            <if test="signExt !=null and signExt !=''">
+                AND sign LIKE '%${signExt}%'
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="contentExt !=null and contentExt !=''">
+                AND content LIKE '%${contentExt}%'
+            </if>
+            <if test="belongBusiness != null">
+                and belong_business = #{belongBusiness}
+            </if>
+            <if test="belongSale != null">
+                and belong_sale = #{belongSale}
+            </if>
+            <if test="operator != null">
+                and operator = #{operator}
+            </if>
+            <if test="userIds != null">
+                and operator IN
+                <foreach collection="userIds" item="item" open="(" close=")" separator="," index="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createTimeStart !=null and createTimeStart !=''">
+                AND create_time &gt;=#{createTimeStart}
+            </if>
+            <if test="createTimeEnd !=null and createTimeEnd !=''">
+                AND create_time &lt;=#{createTimeEnd}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+	     </trim>
+        <if test="group != null">
+            GROUP BY channel_id,send_time,phone,sign,content,client_id,smstype
+        </if>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy},id
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_complaint_list 
+        WHERE 
+            1 = 1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="channelId != null">
+                and channel_id = #{channelId}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="operatorstype != null">
+                and operatorstype = #{operatorstype}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="sendTimeStart != null and sendTimeStart !=''">
+                AND `send_time` >=#{sendTimeStart}
+            </if>
+            <if test="sendTimeEnd !=null and sendTimeEnd !=''">
+                AND `send_time` &lt;=#{sendTimeEnd}
+            </if>
+            <if test="sendTime != null">
+                and send_time = #{sendTime}
+            </if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="sign != null">
+                and sign = #{sign}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="belongBusiness != null">
+                and belong_business = #{belongBusiness}
+            </if>
+            <if test="belongSale != null">
+                and belong_sale = #{belongSale}
+            </if>
+            <if test="operator != null">
+                and operator = #{operator}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+    </select>
+    <!--渠道投诉率个数统计-->
+    <select id="count4Channel" resultType="int">
+        SELECT count(1) FROM (SELECT channel_id
+        FROM t_sms_complaint_list
+        WHERE
+        1 = 1
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="channelId != null">
+            and channel_id = #{channelId}
+        </if>
+        <if test="operatorstype != null">
+            and operatorstype = #{operatorstype}
+        </if>
+        <if test="smstype != null">
+            and smstype = #{smstype}
+        </if>
+        <if test="sendTimeStart != null and sendTimeStart !=''">
+            AND `send_time` >=#{sendTimeStart}
+        </if>
+        <if test="sendTimeEnd !=null and sendTimeEnd !=''">
+            AND `send_time` &lt;=#{sendTimeEnd}
+        </if>
+        <if test="sendTime != null">
+            and send_time = #{sendTime}
+        </if>
+        <if test="phone != null">
+            and phone = #{phone}
+        </if>
+        <if test="sign != null">
+            and sign = #{sign}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="content != null">
+            and content = #{content}
+        </if> group by channel_id, send_time, phone, sign, content) t
+
+    </select>
+
+    <!--根据id删除投诉-->
+    <delete id="deleteById">
+        DELETE FROM t_sms_complaint_list WHERE id=#{id}
+    </delete>
+    <!--分页搜索投诉-->
+    <select id="searchComplaint" resultType="com.jsmsframework.channel.entity.JsmsComplaintListExt">
+        SELECT
+        c.id,
+        c.send_time AS sendTime,
+        c.phone,
+        c.sign,
+        c.content,
+        c.remark,
+        c.client_id clientId,
+        a.`name`,
+        c.`smstype`,
+        t.`realname`,
+        c.`channel_id` channelId,
+        ch.`channelname`,
+        c.`operatorstype`,
+        tt.`realname` as operatorStr,
+        c.`create_time` createTime
+        FROM
+        t_sms_complaint_list c
+        INNER JOIN t_sms_account a
+        ON c.`client_id` = a.`clientid`
+        INNER JOIN t_sms_user t
+        ON c.`belong_sale` = t.`id`
+        INNER JOIN t_sms_user tt
+        ON c.`operator` = tt.`id`
+        INNER JOIN t_sms_channel ch
+        ON c.`channel_id` = ch.`cid`
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.sendTimeStart != null and params.sendTimeStart !=''">
+                AND c.`send_time` &gt;=#{params.sendTimeStart}
+            </if>
+            <if test="params.sendTimeEnd !=null and params.sendTimeEnd !=''">
+                AND c.`send_time` &lt;=#{params.sendTimeEnd}
+            </if>
+            <if test="params.sign !=null and params.sign !=''">
+                AND c.`sign` LIKE '%${params.sign}%'
+            </if>
+            <if test="params.content !=null and params.content !=''">
+                AND c.`content` LIKE '%${params.content}%'
+            </if>
+            <if test="params.clientId !=null and params.clientId !=''">
+                AND c.`client_id` =#{params.clientId}
+            </if>
+            <if test="params.belongSale !=null">
+                AND c.`belong_sale` =#{params.belongSale}
+            </if>
+            <if test="params.channelId !=null">
+                AND c.`channel_id` =#{params.channelId}
+            </if>
+            <if test="params.operatorstype !=null">
+                AND c.`operatorstype` =#{params.operatorstype}
+            </if>
+            <if test="params.realname !=null and params.realname !=''">
+                AND t.`realname` LIKE '%${params.realname}%'
+            </if>
+            <if test="params.operatorStr !=null and params.operatorStr !=''">
+                AND tt.`realname` LIKE '%${params.operatorStr}%'
+            </if>
+            <if test="params.createTimeStart !=null and params.createTimeStart !=''">
+                AND c.`create_time` &gt;=#{params.createTimeStart}
+            </if>
+            <if test="params.createTimeEnd !=null and params.createTimeEnd !=''">
+                AND c.`create_time` &lt;=#{params.createTimeEnd}
+            </if>
+            <if test="params.status !=null">
+                AND c.`status`=#{params.status}
+            </if>
+        </trim>
+        GROUP BY c.`channel_id`,c.`send_time`,c.`phone`,c.`sign`,c.`content`,c.`client_id`,c.`smstype`
+        ORDER BY c.`create_time` DESC,c.`id`
+    </select>
+
+    <select id="getDuplicateData" resultType="com.jsmsframework.channel.entity.JsmsComplaintListExt">
+        SELECT count(*) as countNum,
+        c.id,
+        c.send_time AS sendTime,
+        c.phone,
+        c.sign,
+        c.content,
+        c.remark,
+				c.status
+        FROM
+        t_sms_complaint_list c
+				where c.status!=1
+        group by channel_id,smstype,client_id,content,sign,phone,send_time having countNum>1
+    </select>
+
+    <select id="countComplaint" resultType="int">
+        SELECT
+        COUNT(1) FROM (
+        SELECT channel_id
+        FROM t_sms_complaint_list where 1=1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="channelId != null">
+                and channel_id = #{channelId}
+            </if>
+            <if test="clientId != null and clientId!=''">
+                and client_id = #{clientId}
+            </if>
+            <if test="operatorstype != null">
+                and operatorstype = #{operatorstype}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="sendTime != null">
+                and send_time = #{sendTime}
+            </if>
+            <if test="sendTimeStart != null and sendTimeStart !=''">
+                AND send_time &gt;=#{sendTimeStart}
+            </if>
+            <if test="sendTimeEnd !=null and sendTimeEnd !=''">
+                AND send_time &lt;=#{sendTimeEnd}
+            </if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="sign != null">
+                and sign = #{sign}
+            </if>
+            <if test="signExt !=null and signExt !=''">
+                AND sign LIKE '%${signExt}%'
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="contentExt !=null and contentExt !=''">
+                AND content LIKE '%${contentExt}%'
+            </if>
+            <if test="belongBusiness != null">
+                and belong_business = #{belongBusiness}
+            </if>
+            <if test="belongSale != null">
+                and belong_sale = #{belongSale}
+            </if>
+            <if test="operator != null">
+                and operator = #{operator}
+            </if>
+            <if test="userIds != null">
+                and operator IN
+                <foreach collection="userIds" item="item" open="(" close=")" separator="," index="item">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="createTimeStart !=null and createTimeStart !=''">
+                AND create_time &gt;=#{createTimeStart}
+            </if>
+            <if test="createTimeEnd !=null and createTimeEnd !=''">
+                AND create_time &lt;=#{createTimeEnd}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+            <if test="group != null">
+              GROUP BY channel_id,send_time,phone,sign,content,client_id,smstype
+            </if>
+        )t
+    </select>
+</mapper>
+

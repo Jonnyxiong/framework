@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.common.mapper.JsmsEmailAlarmSettingMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.common.entity.JsmsEmailAlarmSetting">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="alarmName" jdbcType="VARCHAR" column="alarm_name"/>
+        <result property="alarmEmail" jdbcType="VARCHAR" column="alarm_email"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="webId" jdbcType="INTEGER" column="web_id"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        alarm_name,
+        alarm_email,
+        status,
+        web_id,
+        create_time,
+        update_time
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.common.entity.JsmsEmailAlarmSetting" >
+        INSERT INTO t_sms_email_alarm_setting 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="alarmName != null" >
+                alarm_name,
+            </if>
+            <if test="alarmEmail != null" >
+                alarm_email,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="webId != null" >
+                web_id,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateTime != null" >
+                update_time
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="alarmName != null" >
+                #{alarmName},
+            </if>
+            <if test="alarmEmail != null" >
+                #{alarmEmail},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="webId != null" >
+                #{webId},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="updateTime != null" >
+                now()
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_email_alarm_setting (
+            id,
+            alarm_name,
+            alarm_email,
+            status,
+            web_id,
+            create_time,
+            update_time
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.alarmName},
+                #{item.alarmEmail},
+                #{item.status},
+                #{item.webId},
+                now(),
+                now()
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_email_alarm_setting WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.common.entity.JsmsEmailAlarmSetting" >
+        UPDATE t_sms_email_alarm_setting SET 
+            alarm_name=#{alarmName},
+            alarm_email=#{alarmEmail},
+            status=#{status},
+            web_id=#{webId},
+            create_time=#{createTime},
+            update_time=#{updateTime}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.common.entity.JsmsEmailAlarmSetting" >
+        UPDATE t_sms_email_alarm_setting 
+            <set>
+                <if test="alarmName != null and alarmName != ''">
+                    alarm_name = #{alarmName},
+                </if>
+                <if test="alarmEmail != null and alarmEmail != ''">
+                    alarm_email = #{alarmEmail},
+                </if>
+                <if test="status != null">
+                    status = #{status},
+                </if>
+                <if test="webId != null and webId != ''">
+                    web_id = #{webId},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="updateTime != null">
+                    update_time = #{updateTime}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_email_alarm_setting
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_email_alarm_setting 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.alarmName != null and params.alarmName != ''">
+                and alarm_name = #{params.alarmName}
+            </if>
+            <if test="params.alarmEmail != null and params.alarmEmail != ''">
+                and alarm_email = #{params.alarmEmail}
+            </if>
+            <if test="params.status != null and params.status != ''">
+                and status = #{params.status}
+            </if>
+            <if test="params.webId != null and params.webId != ''">
+                and web_id = #{params.webId}
+            </if>
+            <if test="params.createTime != null and params.createTime != ''">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.updateTime != null and params.updateTime != ''">
+                and update_time = #{params.updateTime}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_email_alarm_setting 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="alarmName != null and alarmName != ''">
+                and alarm_name = #{alarmName}
+            </if>
+            <if test="alarmEmail != null and alarmEmail != ''">
+                and alarm_email = #{alarmEmail}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="webId != null and webId != ''">
+                and web_id = #{webId}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                and update_time = #{updateTime}
+            </if>
+    </select>
+
+    <select id="countForEdit" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_email_alarm_setting
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            and id != #{id}
+        </if>
+        <if test="alarmName != null and alarmName != ''">
+            and alarm_name = #{alarmName}
+        </if>
+        <if test="alarmEmail != null and alarmEmail != ''">
+            and alarm_email = #{alarmEmail}
+        </if>
+        <if test="status != null and status != ''">
+            and status = #{status}
+        </if>
+        <if test="webId != null and webId != ''">
+            and web_id = #{webId}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and create_time = #{createTime}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+            and update_time = #{updateTime}
+        </if>
+    </select>
+</mapper>
+

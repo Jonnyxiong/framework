@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.user.mapper.JsmsOauthAuditLogMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.user.entity.JsmsOauthAuditLog">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="clientId" jdbcType="VARCHAR" column="client_id"/>
+        <result property="adminId" jdbcType="BIGINT" column="admin_id"/>
+        <result property="auditType" jdbcType="INTEGER" column="audit_type"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="createDate" jdbcType="TIMESTAMP" column="create_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        agent_id,
+        client_id,
+        admin_id,
+        audit_type,
+        status,
+        create_date,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.user.entity.JsmsOauthAuditLog" >
+        INSERT INTO t_sms_oauth_audit_log 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="clientId != null" >
+                client_id,
+            </if>
+            <if test="adminId != null" >
+                admin_id,
+            </if>
+            <if test="auditType != null" >
+                audit_type,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="clientId != null" >
+                #{clientId},
+            </if>
+            <if test="adminId != null" >
+                #{adminId},
+            </if>
+            <if test="auditType != null" >
+                #{auditType},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="createDate != null" >
+                #{createDate},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_oauth_audit_log (
+            id,
+            agent_id,
+            client_id,
+            admin_id,
+            audit_type,
+            status,
+            create_date,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.agentId},
+                #{item.clientId},
+                #{item.adminId},
+                #{item.auditType},
+                #{item.status},
+                #{item.createDate},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_oauth_audit_log WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.user.entity.JsmsOauthAuditLog" >
+        UPDATE t_sms_oauth_audit_log SET 
+            agent_id=#{agentId},
+            client_id=#{clientId},
+            admin_id=#{adminId},
+            audit_type=#{auditType},
+            status=#{status},
+            create_date=#{createDate},
+            remark=#{remark}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.user.entity.JsmsOauthAuditLog" >
+        UPDATE t_sms_oauth_audit_log 
+            <set>
+                <if test="agentId != null and agentId != ''">
+                    agent_id = #{agentId},
+                </if>
+                <if test="clientId != null and clientId != ''">
+                    client_id = #{clientId},
+                </if>
+                <if test="adminId != null and adminId != ''">
+                    admin_id = #{adminId},
+                </if>
+                <if test="auditType != null and auditType != ''">
+                    audit_type = #{auditType},
+                </if>
+                <if test="status != null and status != ''">
+                    status = #{status},
+                </if>
+                <if test="createDate != null and createDate != ''">
+                    create_date = #{createDate},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_oauth_audit_log
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_oauth_audit_log 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.agentId != null and params.agentId != ''">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.clientId != null and params.clientId != ''">
+                and client_id = #{params.clientId}
+            </if>
+            <if test="params.adminId != null and params.adminId != ''">
+                and admin_id = #{params.adminId}
+            </if>
+            <if test="params.auditType != null and params.auditType != ''">
+                and audit_type = #{params.auditType}
+            </if>
+            <if test="params.status != null and params.status != ''">
+                and status = #{params.status}
+            </if>
+            <if test="params.createDate != null and params.createDate != ''">
+                and create_date = #{params.createDate}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_oauth_audit_log 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="agentId != null and agentId != ''">
+                and agent_id = #{agentId}
+            </if>
+            <if test="clientId != null and clientId != ''">
+                and client_id = #{clientId}
+            </if>
+            <if test="adminId != null and adminId != ''">
+                and admin_id = #{adminId}
+            </if>
+            <if test="auditType != null and auditType != ''">
+                and audit_type = #{auditType}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="createDate != null and createDate != ''">
+                and create_date = #{createDate}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+	 
+</mapper>
+

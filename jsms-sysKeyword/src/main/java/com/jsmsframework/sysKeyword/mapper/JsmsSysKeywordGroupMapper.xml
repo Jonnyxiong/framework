@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.sysKeyword.mapper.JsmsSysKeywordGroupMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.sysKeyword.entity.JsmsSysKeywordGroup">
+        <result property="kgroupId" jdbcType="INTEGER" column="kgroup_id"/>
+        <result property="kgroupName" jdbcType="VARCHAR" column="kgroup_name"/>
+        <result property="isDefault" jdbcType="INTEGER" column="is_default"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap>
+
+    <resultMap id="dtoMapper" type="com.jsmsframework.sysKeyword.dto.JsmsSysKeywordGroupDTO">
+        <result property="kgroupId" jdbcType="INTEGER" column="kgroup_id"/>
+        <result property="kgroupName" jdbcType="VARCHAR" column="kgroup_name"/>
+        <result property="isDefault" jdbcType="INTEGER" column="is_default"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="categoryNames" jdbcType="VARCHAR" column="categoryNames"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN_LIST">
+        kgroup_id,
+        kgroup_name,
+        is_default,
+        operator,
+        update_date,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.sysKeyword.entity.JsmsSysKeywordGroup" >
+        INSERT INTO t_sms_sys_keyword_group 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="kgroupId != null" >
+                kgroup_id,
+            </if>
+            <if test="kgroupName != null" >
+                kgroup_name,
+            </if>
+            <if test="isDefault != null" >
+                is_default,
+            </if>
+            <if test="operator != null" >
+                operator,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="kgroupId != null" >
+                #{kgroupId},
+            </if>
+            <if test="kgroupName != null" >
+                #{kgroupName},
+            </if>
+            <if test="isDefault != null" >
+                #{isDefault},
+            </if>
+            <if test="operator != null" >
+                #{operator},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_sys_keyword_group (
+            kgroup_id,
+            kgroup_name,
+            is_default,
+            operator,
+            update_date,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.kgroupId},
+                #{item.kgroupName},
+                #{item.isDefault},
+                #{item.operator},
+                #{item.updateDate},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_sys_keyword_group WHERE kgroup_id = #{kgroupId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.sysKeyword.entity.JsmsSysKeywordGroup" >
+        UPDATE t_sms_sys_keyword_group SET 
+            kgroup_name=#{kgroupName},
+            is_default=#{isDefault},
+            operator=#{operator},
+            update_date=#{updateDate},
+            remark=#{remark}
+        WHERE 
+            kgroup_id = #{kgroupId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.sysKeyword.entity.JsmsSysKeywordGroup" >
+        UPDATE t_sms_sys_keyword_group 
+            <set>
+                <if test="kgroupName != null">
+                    kgroup_name = #{kgroupName},
+                </if>
+                <if test="isDefault != null">
+                    is_default = #{isDefault},
+                </if>
+                <if test="operator != null">
+                    operator = #{operator},
+                </if>
+                <if test="updateDate != null">
+                    update_date = #{updateDate},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            kgroup_id = #{kgroupId} 
+    </update>
+
+    <select id="getByKgroupId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sys_keyword_group
+        WHERE 
+            kgroup_id = #{kgroupId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_sys_keyword_group 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.kgroupId != null">
+                and kgroup_id = #{params.kgroupId}
+            </if>
+            <if test="params.kgroupName != null">
+                and kgroup_name = #{params.kgroupName}
+            </if>
+            <if test="params.isDefault != null">
+                and is_default = #{params.isDefault}
+            </if>
+            <if test="params.operator != null">
+                and operator = #{params.operator}
+            </if>
+            <if test="params.updateDate != null">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.remark != null">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.kgroupIds!=null">
+                and kgroup_id in
+                <foreach collection="params.kgroupIds" item="item" open="(" close=")" separator=",">
+                    ${item}
+                </foreach>
+            </if>
+	     </trim>
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sys_keyword_group
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="kgroupId != null">
+                and kgroup_id = #{kgroupId}
+            </if>
+            <if test="kgroupName != null">
+                and kgroup_name = #{kgroupName}
+            </if>
+            <if test="isDefault != null">
+                and is_default = #{isDefault}
+            </if>
+            <if test="operator != null">
+                and operator = #{operator}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_sys_keyword_group 
+        WHERE 
+            1 = 1
+            <if test="kgroupId != null">
+                and kgroup_id = #{kgroupId}
+            </if>
+            <if test="kgroupName != null">
+                and kgroup_name = #{kgroupName}
+            </if>
+            <if test="isDefault != null">
+                and is_default = #{isDefault}
+            </if>
+            <if test="operator != null">
+                and operator = #{operator}
+            </if>
+            <if test="updateDate != null">
+                and update_date = #{updateDate}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+    </select>
+
+
+    <select id="queryListForDTO" resultMap="dtoMapper">
+        SELECT
+          g.*,
+          GROUP_CONCAT(c.category_name ORDER BY krc.sort ASC ) as categoryNames
+        FROM t_sms_sys_keyword_group g
+          LEFT JOIN t_sms_sys_kgroup_ref_category krc on g.kgroup_id = krc.kgroup_id
+          LEFT JOIN t_sms_sys_keyword_category c on c.category_id=krc.category_id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.kgroupId != null and params.kgroupId != ''">
+                and g.kgroup_id = #{params.kgroupId}
+            </if>
+            <if test="params.categoryName != null and params.categoryName !=''">
+                and c.category_name like CONCAT('%',#{params.categoryName},'%' )
+            </if>
+        </trim>
+        GROUP BY g.kgroup_id
+    </select>
+
+    <select id="checkKgroupName" resultType="int">
+        SELECT count(0)
+        FROM t_sms_sys_keyword_group
+        WHERE
+        kgroup_name = #{kgroupName} and kgroup_id != #{kgroupId}
+    </select>
+
+    <delete id="deteleByKgroupId">
+        DELETE FROM t_sms_sys_keyword_group WHERE kgroup_id = #{kgroupId}
+    </delete>
+    
+    <select id="getByGroupIds" resultMap="rowMapper">
+        SELECT <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_sys_keyword_group
+        WHERE kgroup_id IN
+        <foreach collection="groupIds" item="item" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </select>
+
+    <select id="getDefault" resultMap="rowMapper">
+        SELECT <include refid="BASE_COLUMN_LIST"/>
+        FROM t_sms_sys_keyword_group
+        where is_default = 1 limit 1
+    </select>
+</mapper>
+

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.audit.mapper.JsmsAuditKeywordGroupMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.audit.entity.JsmsAuditKeywordGroup">
+        <result property="kgroupId" jdbcType="INTEGER" column="kgroup_id"/>
+        <result property="kgroupName" jdbcType="VARCHAR" column="kgroup_name"/>
+        <result property="isDefault" jdbcType="INTEGER" column="is_default"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        tkg.kgroup_id,
+        tkg.kgroup_name,
+        tkg.is_default,
+        tkg.operator,
+        tkg.update_date,
+        tkg.remark
+    </sql>
+    <sql id="keyWordGroupCommon">
+        <where>
+            <if test="categoryName != null and categoryName !=''">
+                tc.category_name LIKE (CONCAT('%',#{categoryName},'%'))
+            </if>
+            <if test="kgroupName != null and kgroupName !=''">
+                AND
+                tg.kgroup_name LIKE TRIM(CONCAT('%',#{kgroupName},'%'))
+            </if>
+        </where>
+    </sql>
+    <insert id="insert" parameterType="com.jsmsframework.audit.entity.JsmsAuditKeywordGroup" useGeneratedKeys="true" keyProperty="kgroupId">
+        INSERT INTO t_sms_audit_keyword_group 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="kgroupId != null" >
+                kgroup_id,
+            </if>
+            <if test="kgroupName != null" >
+                kgroup_name,
+            </if>
+            <if test="isDefault != null" >
+                is_default,
+            </if>
+            <if test="operator != null" >
+                operator,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="kgroupId != null" >
+                #{kgroupId},
+            </if>
+            <if test="kgroupName != null" >
+                #{kgroupName},
+            </if>
+            <if test="isDefault != null" >
+                #{isDefault},
+            </if>
+            <if test="operator != null" >
+                #{operator},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_audit_keyword_group (
+            kgroup_id,
+            kgroup_name,
+            is_default,
+            operator,
+            update_date,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.kgroupId},
+                #{item.kgroupName},
+                #{item.isDefault},
+                #{item.operator},
+                #{item.updateDate},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_audit_keyword_group WHERE kgroup_id = #{kgroupId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.audit.entity.JsmsAuditKeywordGroup" >
+        UPDATE t_sms_audit_keyword_group
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="kgroupName != null and kgroupName != ''" >
+                kgroup_name=#{kgroupName},
+            </if>
+
+            <if test="isDefault != null and isDefault != ''" >
+                is_default=#{isDefault},
+            </if>
+            <if test="operator != null and operator != ''" >
+                operator=#{operator},
+            </if>
+            <if test="updateDate != null" >
+                update_date=#{updateDate},
+            </if>
+            <if test="remark != null and remark != ''" >
+                remark=#{remark}
+            </if>
+        </trim>
+        WHERE
+            kgroup_id = #{kgroupId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.audit.entity.JsmsAuditKeywordGroup" >
+        UPDATE t_sms_audit_keyword_group 
+            <set>
+                <if test="kgroupName != null and kgroupName != ''">
+                    kgroup_name = #{kgroupName},
+                </if>
+                <if test="isDefault != null and isDefault != ''">
+                    is_default = #{isDefault},
+                </if>
+                <if test="operator != null and operator != ''">
+                    operator = #{operator},
+                </if>
+                <if test="updateDate != null and updateDate != ''">
+                    update_date = #{updateDate},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            kgroup_id = #{kgroupId} 
+    </update>
+
+    <select id="getByKgroupId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_keyword_group tkg
+        WHERE
+        tkg.kgroup_id = #{kgroupId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_audit_keyword_group tkg
+        LEFT  JOIN  t_sms_audit_kgroup_ref_category trc
+        on tkg.kgroup_id = trc.kgroup_id
+        LEFT JOIN t_sms_audit_keyword_category tkc  ON trc.category_id =tkc.category_id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.kgroupId != null and params.kgroupId != ''">
+                and tkg.kgroup_id = #{params.kgroupId}
+            </if>
+            <if test="params.kgroupName != null and params.kgroupName != ''">
+                and tkg.kgroup_name = #{params.kgroupName}
+            </if>
+            <if test="params.isDefault != null and params.isDefault != ''">
+                and tkg.is_default = #{params.isDefault}
+            </if>
+            <if test="params.operator != null and params.operator != ''">
+                and tkg.operator = #{params.operator}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and tkg.update_date = #{params.updateDate}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and tkg.remark = #{params.remark}
+            </if>
+            <if test="params.categoryName != null and params.categoryName !=''">
+            and (
+                tkc.category_name like CONCAT('%',#{params.categoryName},'%' )
+            )
+            </if>
+	     </trim>
+        group BY tkg.kgroup_id
+         order by tkg.update_date DESC
+    </select>
+    <!-- 查询关键字分组的记录 -->
+    <!--<select id="getKeyWordGroup" resultType="map">
+        SELECT
+        tg.kgroup_id,
+        tg.kgroup_name,
+        tc.category_desc,
+        tg.remark,
+        tg.operator,
+        date_format(
+        tg.update_date,
+        '%Y-%m-%d %H:%i:%S'
+        ) AS updateDate
+        FROM
+        t_sms_audit_keyword_group tg
+        LEFT JOIN  t_sms_audit_kgroup_ref_category trc on tg.kgroup_id = trc.kgroup_id
+        left JOIN t_sms_audit_keyword_category tc on  tc.category_id = trc.category_id
+        <include refid="keyWordGroupCommon"/>
+        ${limit}
+    </select>
+    <select id="getKeyWordGroupCount" resultType="map">
+        SELECT
+        COUNT(1) AS totalCount
+        FROM
+        LEFT JOIN  t_sms_audit_kgroup_ref_category trc on tg.kgroup_id = trc.kgroup_id
+        left JOIN t_sms_audit_keyword_category tc on  tc.category_id = trc.category_id
+        <include refid="keyWordGroupCommon"/>
+    </select>-->
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_audit_keyword_group 
+        WHERE 
+            1 = 1
+            <if test="kgroupId != null and kgroupId != ''">
+                and kgroup_id = #{kgroupId}
+            </if>
+            <if test="kgroupName != null and kgroupName != ''">
+                and kgroup_name = #{kgroupName}
+            </if>
+            <if test="isDefault != null and isDefault != ''">
+                and is_default = #{isDefault}
+            </if>
+            <if test="operator != null and operator != ''">
+                and operator = #{operator}
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                and update_date = #{updateDate}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+    <select id="getJsmsAuditKeywordGroup" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_keyword_group tkg
+        WHERE
+        tkg.kgroup_name = #{kgroupName}
+    </select>
+
+    <select id="checkKgroupName" resultType="int">
+        SELECT count(0)
+        FROM t_sms_audit_keyword_group
+        WHERE
+        kgroup_name = #{kgroupName} and kgroup_id != #{kgroupId}
+    </select>
+
+
+    <select id="checkKgroupNameOfInsert" resultType="int">
+        SELECT count(0)
+        FROM t_sms_audit_keyword_group
+        WHERE
+        kgroup_name = #{kgroupName}
+    </select>
+
+    <delete id="deteleJsmsAuditKeywordGroup">
+        DELETE FROM t_sms_audit_keyword_group WHERE kgroup_id = #{kgroupId}
+    </delete>
+
+    <select id="getList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_keyword_group tkg
+        order by tkg.update_date DESC
+    </select>
+
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_keyword_group tkg
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="kgroupIds != null ">
+                and tkg.kgroup_id IN
+                <foreach collection="kgroupIds" separator="," item="item" index="item" open="(" close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </trim>
+    </select>
+</mapper>
+

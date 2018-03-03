@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.middleware.mapper.JsmsComponentConfigureMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.middleware.entity.JsmsComponentConfigure">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="componentId" jdbcType="INTEGER" column="component_id"/>
+        <result property="componentType" jdbcType="VARCHAR" column="component_type"/>
+        <result property="componentName" jdbcType="VARCHAR" column="component_name"/>
+        <result property="hostIp" jdbcType="VARCHAR" column="host_ip"/>
+        <result property="nodeId" jdbcType="INTEGER" column="node_id"/>
+        <result property="redisThreadNum" jdbcType="INTEGER" column="redis_thread_num"/>
+        <result property="sgipReportSwitch" jdbcType="INTEGER" column="sgip_report_switch"/>
+        <result property="mqId" jdbcType="INTEGER" column="mq_id"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="componentSwitch" jdbcType="INTEGER" column="component_switch"/>
+        <result property="blackListSwitch" jdbcType="INTEGER" column="black_list_switch"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        component_id,
+        component_type,
+        component_name,
+        host_ip,
+        node_id,
+        redis_thread_num,
+        sgip_report_switch,
+        mq_id,
+        update_date,
+        component_switch,
+        black_list_switch
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.middleware.entity.JsmsComponentConfigure" >
+        INSERT INTO t_sms_component_configure 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="componentId != null" >
+                component_id,
+            </if>
+            <if test="componentType != null" >
+                component_type,
+            </if>
+            <if test="componentName != null" >
+                component_name,
+            </if>
+            <if test="hostIp != null" >
+                host_ip,
+            </if>
+            <if test="nodeId != null" >
+                node_id,
+            </if>
+            <if test="redisThreadNum != null" >
+                redis_thread_num,
+            </if>
+            <if test="sgipReportSwitch != null" >
+                sgip_report_switch,
+            </if>
+            <if test="mqId != null" >
+                mq_id,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="componentSwitch != null" >
+                component_switch,
+            </if>
+            <if test="blackListSwitch != null" >
+                black_list_switch
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="componentId != null" >
+                #{componentId},
+            </if>
+            <if test="componentType != null" >
+                #{componentType},
+            </if>
+            <if test="componentName != null" >
+                #{componentName},
+            </if>
+            <if test="hostIp != null" >
+                #{hostIp},
+            </if>
+            <if test="nodeId != null" >
+                #{nodeId},
+            </if>
+            <if test="redisThreadNum != null" >
+                #{redisThreadNum},
+            </if>
+            <if test="sgipReportSwitch != null" >
+                #{sgipReportSwitch},
+            </if>
+            <if test="mqId != null" >
+                #{mqId},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="componentSwitch != null" >
+                #{componentSwitch},
+            </if>
+            <if test="blackListSwitch != null" >
+                #{blackListSwitch}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_component_configure (
+            id,
+            component_id,
+            component_type,
+            component_name,
+            host_ip,
+            node_id,
+            redis_thread_num,
+            sgip_report_switch,
+            mq_id,
+            update_date,
+            component_switch,
+            black_list_switch
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.componentId},
+                #{item.componentType},
+                #{item.componentName},
+                #{item.hostIp},
+                #{item.nodeId},
+                #{item.redisThreadNum},
+                #{item.sgipReportSwitch},
+                #{item.mqId},
+                #{item.updateDate},
+                #{item.componentSwitch},
+                #{item.blackListSwitch}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_component_configure WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.middleware.entity.JsmsComponentConfigure" >
+        UPDATE t_sms_component_configure SET 
+            component_id=#{componentId},
+            component_type=#{componentType},
+            component_name=#{componentName},
+            host_ip=#{hostIp},
+            node_id=#{nodeId},
+            redis_thread_num=#{redisThreadNum},
+            sgip_report_switch=#{sgipReportSwitch},
+            mq_id=#{mqId},
+            update_date=#{updateDate},
+            component_switch=#{componentSwitch},
+            black_list_switch=#{blackListSwitch}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.middleware.entity.JsmsComponentConfigure" >
+        UPDATE t_sms_component_configure 
+            <set>
+                <if test="componentId != null and componentId != ''">
+                    component_id = #{componentId},
+                </if>
+                <if test="componentType != null and componentType != ''">
+                    component_type = #{componentType},
+                </if>
+                <if test="componentName != null and componentName != ''">
+                    component_name = #{componentName},
+                </if>
+                <if test="hostIp != null and hostIp != ''">
+                    host_ip = #{hostIp},
+                </if>
+                <if test="nodeId != null and nodeId != ''">
+                    node_id = #{nodeId},
+                </if>
+                <if test="redisThreadNum != null and redisThreadNum != ''">
+                    redis_thread_num = #{redisThreadNum},
+                </if>
+                <if test="sgipReportSwitch != null and sgipReportSwitch != ''">
+                    sgip_report_switch = #{sgipReportSwitch},
+                </if>
+                <if test="mqId != null and mqId != ''">
+                    mq_id = #{mqId},
+                </if>
+                <if test="updateDate != null and updateDate != ''">
+                    update_date = #{updateDate},
+                </if>
+                <if test="componentSwitch != null and componentSwitch != ''">
+                    component_switch = #{componentSwitch},
+                </if>
+                <if test="blackListSwitch != null and blackListSwitch != ''">
+                    black_list_switch = #{blackListSwitch}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_component_configure
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_component_configure 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.componentId != null">
+                and component_id = #{params.componentId}
+            </if>
+            <if test="params.componentType != null and params.componentType != ''">
+                and component_type = #{params.componentType}
+            </if>
+            <if test="params.componentName != null and params.componentName != ''">
+                and component_name = #{params.componentName}
+            </if>
+            <if test="params.hostIp != null and params.hostIp != ''">
+                and host_ip = #{params.hostIp}
+            </if>
+            <if test="params.nodeId != null and params.nodeId != ''">
+                and node_id = #{params.nodeId}
+            </if>
+            <if test="params.redisThreadNum != null and params.redisThreadNum != ''">
+                and redis_thread_num = #{params.redisThreadNum}
+            </if>
+            <if test="params.sgipReportSwitch != null and params.sgipReportSwitch != ''">
+                and sgip_report_switch = #{params.sgipReportSwitch}
+            </if>
+            <if test="params.mqId != null and params.mqId != ''">
+                and mq_id = #{params.mqId}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.componentSwitch != null and params.componentSwitch != ''">
+                and component_switch = #{params.componentSwitch}
+            </if>
+            <if test="params.blackListSwitch != null and params.blackListSwitch != ''">
+                and black_list_switch = #{params.blackListSwitch}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_component_configure 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="componentId != null and componentId != ''">
+                and component_id = #{componentId}
+            </if>
+            <if test="componentType != null and componentType != ''">
+                and component_type = #{componentType}
+            </if>
+            <if test="componentName != null and componentName != ''">
+                and component_name = #{componentName}
+            </if>
+            <if test="hostIp != null and hostIp != ''">
+                and host_ip = #{hostIp}
+            </if>
+            <if test="nodeId != null and nodeId != ''">
+                and node_id = #{nodeId}
+            </if>
+            <if test="redisThreadNum != null and redisThreadNum != ''">
+                and redis_thread_num = #{redisThreadNum}
+            </if>
+            <if test="sgipReportSwitch != null and sgipReportSwitch != ''">
+                and sgip_report_switch = #{sgipReportSwitch}
+            </if>
+            <if test="mqId != null and mqId != ''">
+                and mq_id = #{mqId}
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                and update_date = #{updateDate}
+            </if>
+            <if test="componentSwitch != null and componentSwitch != ''">
+                and component_switch = #{componentSwitch}
+            </if>
+            <if test="blackListSwitch != null and blackListSwitch != ''">
+                and black_list_switch = #{blackListSwitch}
+            </if>
+    </select>
+
+
+
+
+    <update id="updateSwitch">
+        UPDATE t_sms_component_configure
+        SET
+        component_switch = #{comswitch}
+        <where>
+            id IN
+            <foreach collection="ids" item="item" index="index"
+                     open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </where>
+    </update>
+
+    <!--根据组件类型加载对应的所有组件-->
+    <select id="loadAllForSelectByType" parameterType="list" resultMap="rowMapper">
+        SELECT component_id,component_name
+        from t_sms_component_configure
+        where component_type in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
+

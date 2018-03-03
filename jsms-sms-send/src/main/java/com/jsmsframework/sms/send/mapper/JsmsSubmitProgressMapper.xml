@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.sms.send.mapper.JsmsSubmitProgressMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.sms.send.entity.JsmsSubmitProgress">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="clientId" jdbcType="VARCHAR" column="client_id"/>
+        <result property="fileType" jdbcType="INTEGER" column="file_type"/>
+        <result property="submitState" jdbcType="INTEGER" column="submit_state"/>
+        <result property="chargeNum" jdbcType="INTEGER" column="charge_num"/>
+        <result property="smstype" jdbcType="INTEGER" column="smstype"/>
+        <result property="sign" jdbcType="VARCHAR" column="sign"/>
+        <result property="content" jdbcType="VARCHAR" column="content"/>
+        <result property="submitTotal" jdbcType="INTEGER" column="submit_total"/>
+        <result property="actualSubmit" jdbcType="INTEGER" column="actual_submit"/>
+        <result property="errNum" jdbcType="INTEGER" column="err_num"/>
+        <result property="repeatNum" jdbcType="INTEGER" column="repeat_num"/>
+        <result property="submitBeginTime" jdbcType="TIMESTAMP" column="submit_begin_time"/>
+        <result property="submitEndTime" jdbcType="TIMESTAMP" column="submit_end_time"/>
+        <result property="importFilePath" jdbcType="VARCHAR" column="import_file_path"/>
+        <result property="submitType" jdbcType="INTEGER" column="submit_type"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="adminId" jdbcType="VARCHAR" column="admin_id"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        agent_id,
+        client_id,
+        file_type,
+        submit_state,
+        charge_num,
+        smstype,
+        sign,
+        content,
+        submit_total,
+        actual_submit,
+        err_num,
+        repeat_num,
+        submit_begin_time,
+        submit_end_time,
+        import_file_path,
+        submit_type,
+        create_time,
+        admin_id,
+        remark
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.jsmsframework.sms.send.entity.JsmsSubmitProgress" >
+        INSERT INTO t_sms_submit_progress 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="clientId != null" >
+                client_id,
+            </if>
+            <if test="fileType != null" >
+                file_type,
+            </if>
+            <if test="submitState != null" >
+                submit_state,
+            </if>
+            <if test="chargeNum != null" >
+                charge_num,
+            </if>
+            <if test="smstype != null" >
+                smstype,
+            </if>
+            <if test="sign != null" >
+                sign,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="submitTotal != null" >
+                submit_total,
+            </if>
+            <if test="actualSubmit != null" >
+                actual_submit,
+            </if>
+            <if test="errNum != null" >
+                err_num,
+            </if>
+            <if test="repeatNum != null" >
+                repeat_num,
+            </if>
+            <if test="submitBeginTime != null" >
+                submit_begin_time,
+            </if>
+            <if test="submitEndTime != null" >
+                submit_end_time,
+            </if>
+            <if test="importFilePath != null" >
+                import_file_path,
+            </if>
+            <if test="submitType != null" >
+                submit_type,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="adminId != null" >
+                admin_id,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="clientId != null" >
+                #{clientId},
+            </if>
+            <if test="fileType != null" >
+                #{fileType},
+            </if>
+            <if test="submitState != null" >
+                #{submitState},
+            </if>
+            <if test="chargeNum != null" >
+                #{chargeNum},
+            </if>
+            <if test="smstype != null" >
+                #{smstype},
+            </if>
+            <if test="sign != null" >
+                #{sign},
+            </if>
+            <if test="content != null" >
+                #{content},
+            </if>
+            <if test="submitTotal != null" >
+                #{submitTotal},
+            </if>
+            <if test="actualSubmit != null" >
+                #{actualSubmit},
+            </if>
+            <if test="errNum != null" >
+                #{errNum},
+            </if>
+            <if test="repeatNum != null" >
+                #{repeatNum},
+            </if>
+            <if test="submitBeginTime != null" >
+                #{submitBeginTime},
+            </if>
+            <if test="submitEndTime != null" >
+                #{submitEndTime},
+            </if>
+            <if test="importFilePath != null" >
+                #{importFilePath},
+            </if>
+            <if test="submitType != null" >
+                #{submitType},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="adminId != null" >
+                #{adminId},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_submit_progress (
+            id,
+            agent_id,
+            client_id,
+            file_type,
+            submit_state,
+            charge_num,
+            smstype,
+            sign,
+            content,
+            submit_total,
+            actual_submit,
+            err_num,
+            repeat_num,
+            submit_begin_time,
+            submit_end_time,
+            import_file_path,
+            submit_type,
+            create_time,
+            admin_id,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.agentId},
+                #{item.clientId},
+                #{item.fileType},
+                #{item.submitState},
+                #{item.chargeNum},
+                #{item.smstype},
+                #{item.sign},
+                #{item.content},
+                #{item.submitTotal},
+                #{item.actualSubmit},
+                #{item.errNum},
+                #{item.repeatNum},
+                #{item.submitBeginTime},
+                #{item.submitEndTime},
+                #{item.importFilePath},
+                #{item.submitType},
+                now(),
+                #{item.adminId}
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_submit_progress WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.sms.send.entity.JsmsSubmitProgress" >
+        UPDATE t_sms_submit_progress SET 
+            agent_id=#{agentId},
+            client_id=#{clientId},
+            file_type=#{fileType},
+            submit_state=#{submitState},
+            charge_num=#{chargeNum},
+            smstype=#{smstype},
+            sign=#{sign},
+            content=#{content},
+            submit_total=#{submitTotal},
+            actual_submit=#{actualSubmit},
+            err_num=#{errNum},
+            repeat_num=#{repeatNum},
+            submit_begin_time=#{submitBeginTime},
+            submit_end_time=#{submitEndTime},
+            import_file_path=#{importFilePath},
+            submit_type=#{submitType},
+            create_time=#{createTime},
+            admin_id = #{adminId},
+            remark=#{remark}
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <update id="updateProgress" >
+        UPDATE t_sms_submit_progress SET
+            actual_submit = actual_submit + #{sendNum}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="finishSubmitState" >
+        UPDATE t_sms_submit_progress SET
+            submit_state = 2,
+            submit_end_time = #{now}
+        WHERE
+            submit_state = 1
+            AND actual_submit = submit_total
+    </update>
+
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.sms.send.entity.JsmsSubmitProgress" >
+        UPDATE t_sms_submit_progress 
+            <set>
+                <if test="agentId != null">
+                    agent_id = #{agentId},
+                </if>
+                <if test="clientId != null">
+                    client_id = #{clientId},
+                </if>
+                <if test="fileType != null">
+                    file_type = #{fileType},
+                </if>
+                <if test="submitState != null">
+                    submit_state = #{submitState},
+                </if>
+                <if test="chargeNum != null">
+                    charge_num = #{chargeNum},
+                </if>
+                <if test="smstype != null">
+                    smstype = #{smstype},
+                </if>
+                <if test="sign != null">
+                    sign = #{sign},
+                </if>
+                <if test="content != null">
+                    content = #{content},
+                </if>
+                <if test="submitTotal != null">
+                    submit_total = #{submitTotal},
+                </if>
+                <if test="actualSubmit != null">
+                    actual_submit = #{actualSubmit},
+                </if>
+                <if test="errNum != null">
+                    err_num = #{errNum},
+                </if>
+                <if test="repeatNum != null">
+                    repeat_num = #{repeatNum},
+                </if>
+                <if test="submitBeginTime != null">
+                    submit_begin_time = #{submitBeginTime},
+                </if>
+                <if test="submitEndTime != null">
+                    submit_end_time = #{submitEndTime},
+                </if>
+                <if test="importFilePath != null">
+                    import_file_path = #{importFilePath},
+                </if>
+                <if test="submitType != null">
+                    submit_type = #{submitType},
+                </if>
+                <if test="createTime != null">
+                    create_time = #{createTime},
+                </if>
+                <if test="adminId != null">
+                    admin_id = #{adminId},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_submit_progress
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_submit_progress 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null">
+                and id = #{params.id}
+            </if>
+            <if test="params.agentId != null">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.clientId != null">
+                and client_id = #{params.clientId}
+            </if>
+            <if test="params.fileType != null">
+                and file_type = #{params.fileType}
+            </if>
+            <if test="params.submitState != null">
+                and submit_state = #{params.submitState}
+            </if>
+            <if test="params.chargeNum != null">
+                and charge_num = #{params.chargeNum}
+            </if>
+            <if test="params.smstype != null">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.sign != null">
+                and sign = #{params.sign}
+            </if>
+            <if test="params.content != null">
+                and content = #{params.content}
+            </if>
+            <if test="params.submitTotal != null">
+                and submit_total = #{params.submitTotal}
+            </if>
+            <if test="params.actualSubmit != null">
+                and actual_submit = #{params.actualSubmit}
+            </if>
+            <if test="params.errNum != null">
+                and err_num = #{params.errNum}
+            </if>
+            <if test="params.repeatNum != null">
+                and repeat_num = #{params.repeatNum}
+            </if>
+            <if test="params.submitBeginTime != null">
+                and submit_begin_time = #{params.submitBeginTime}
+            </if>
+            <if test="params.submitEndTime != null">
+                and submit_end_time = #{params.submitEndTime}
+            </if>
+            <if test="params.importFilePath != null">
+                and import_file_path = #{params.importFilePath}
+            </if>
+            <if test="params.submitType != null">
+                and submit_type = #{params.submitType}
+            </if>
+            <if test="params.createTime != null">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.adminId != null">
+                and admin_id = #{params.adminId}
+            </if>
+            <if test="params.remark != null">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_submit_progress
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="agentId != null">
+                and agent_id = #{agentId}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="fileType != null">
+                and file_type = #{fileType}
+            </if>
+            <if test="submitState != null">
+                and submit_state = #{submitState}
+            </if>
+            <if test="chargeNum != null">
+                and charge_num = #{chargeNum}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="sign != null">
+                and sign = #{sign}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="submitTotal != null">
+                and submit_total = #{submitTotal}
+            </if>
+            <if test="actualSubmit != null">
+                and actual_submit = #{actualSubmit}
+            </if>
+            <if test="errNum != null">
+                and err_num = #{errNum}
+            </if>
+            <if test="repeatNum != null">
+                and repeat_num = #{repeatNum}
+            </if>
+            <if test="submitBeginTime != null">
+                and submit_begin_time = #{submitBeginTime}
+            </if>
+            <if test="submitEndTime != null">
+                and submit_end_time = #{submitEndTime}
+            </if>
+            <if test="importFilePath != null">
+                and import_file_path = #{importFilePath}
+            </if>
+            <if test="submitType != null">
+                and submit_type = #{submitType}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="adminId != null">
+                and admin_id = #{adminId}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_submit_progress 
+        WHERE 
+            1 = 1
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="agentId != null">
+                and agent_id = #{agentId}
+            </if>
+            <if test="clientId != null">
+                and client_id = #{clientId}
+            </if>
+            <if test="fileType != null">
+                and file_type = #{fileType}
+            </if>
+            <if test="submitState != null">
+                and submit_state = #{submitState}
+            </if>
+            <if test="chargeNum != null">
+                and charge_num = #{chargeNum}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="sign != null">
+                and sign = #{sign}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="submitTotal != null">
+                and submit_total = #{submitTotal}
+            </if>
+            <if test="actualSubmit != null">
+                and actual_submit = #{actualSubmit}
+            </if>
+            <if test="errNum != null">
+                and err_num = #{errNum}
+            </if>
+            <if test="repeatNum != null">
+                and repeat_num = #{repeatNum}
+            </if>
+            <if test="submitBeginTime != null">
+                and submit_begin_time = #{submitBeginTime}
+            </if>
+            <if test="submitEndTime != null">
+                and submit_end_time = #{submitEndTime}
+            </if>
+            <if test="importFilePath != null">
+                and import_file_path = #{importFilePath}
+            </if>
+            <if test="submitType != null">
+                and submit_type = #{submitType}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="adminId != null">
+            and admin_id = #{adminId}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+    </select>
+
+    <select id="queryPageList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_submit_progress
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id LIKE CONCAT('%',#{params.id},'%' )
+            </if>
+            <if test="params.clientId != null and params.clientId != ''">
+                and client_id = #{params.clientId}
+            </if>
+            <if test="params.clientIds != null and params.clientIds.size > 0">
+                and  client_id IN
+                <foreach collection="params.clientIds" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.adminIds != null and params.adminIds.size > 0">
+                and  admin_id IN
+                <foreach collection="params.adminIds" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <choose>
+                <when test="params.submitState != null and params.submitState != ''">
+                    and submit_state = #{params.submitState}
+                </when>
+                <otherwise>
+                    <if test="params.noShowInitState">
+                      and submit_state &gt; 0
+                    </if>
+                </otherwise>
+            </choose>
+           <!-- <if test="params.accountIds != null and params.accountIds.size > 0">
+                and  admin_id IN
+                <foreach collection="params.accountIds" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>-->
+            <if test="params.smstype != null and params.smstype != ''">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.sign != null and params.sign !=''">
+                and sign LIKE CONCAT('%',#{params.sign},'%' )
+            </if>
+            <if test="params.content != null and params.content !=''">
+                and content LIKE  CONCAT('%',#{params.content},'%' )
+            </if>
+            <if test="params.createTimeStart != null and params.createTimeStart !='' and params.createTimeEnd != null and params.createTimeEnd !=''">
+                and create_time BETWEEN #{params.createTimeStart} and #{params.createTimeEnd}
+            </if>
+        </trim>
+    </select>
+</mapper>
+

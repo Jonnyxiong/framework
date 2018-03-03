@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.audit.mapper.JsmsAuditCgroupRefClientMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.audit.entity.JsmsAuditCgroupRefClient">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="cgroupId" jdbcType="INTEGER" column="cgroup_id"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        cgroup_id,
+        clientid
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.audit.entity.JsmsAuditCgroupRefClient" >
+        INSERT INTO t_sms_audit_cgroup_ref_client 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="cgroupId != null" >
+                cgroup_id,
+            </if>
+            <if test="clientid != null" >
+                clientid
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="cgroupId != null" >
+                #{cgroupId},
+            </if>
+            <if test="clientid != null" >
+                #{clientid}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_audit_cgroup_ref_client (
+            id,
+            cgroup_id,
+            clientid
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.cgroupId},
+                #{item.clientid}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_audit_cgroup_ref_client WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.audit.entity.JsmsAuditCgroupRefClient" >
+        UPDATE t_sms_audit_cgroup_ref_client SET 
+            cgroup_id=#{cgroupId},
+            clientid=#{clientid}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.audit.entity.JsmsAuditCgroupRefClient" >
+        UPDATE t_sms_audit_cgroup_ref_client 
+            <set>
+                <if test="cgroupId != null and cgroupId != ''">
+                    cgroup_id = #{cgroupId},
+                </if>
+                <if test="clientid != null and clientid != ''">
+                    clientid = #{clientid}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_cgroup_ref_client
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="getByClientId" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_cgroup_ref_client
+        WHERE
+        clientid = #{clientId}
+    </select>
+
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_audit_cgroup_ref_client 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.cgroupId != null">
+                and cgroup_id = #{params.cgroupId}
+            </if>
+            <if test="params.clientid != null and params.clientid != ''">
+                and clientid = #{params.clientid}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_audit_cgroup_ref_client 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="cgroupId != null and cgroupId != ''">
+                and cgroup_id = #{cgroupId}
+            </if>
+            <if test="clientid != null and clientid != ''">
+                and clientid = #{clientid}
+            </if>
+    </select>
+
+    <select id="getCgroupId" parameterType="java.lang.Integer"  resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_cgroup_ref_client
+        WHERE
+        cgroup_id = #{cgroupId}
+    </select>
+
+    <delete id="deteleJsmsAuditCgroupRefClient">
+        DELETE FROM t_sms_audit_cgroup_ref_client WHERE cgroup_id = #{cgroupId}
+    </delete>
+
+</mapper>
+

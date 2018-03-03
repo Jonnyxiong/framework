@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.channel.mapper.JsmsChannelgroupMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.channel.entity.JsmsChannelgroup">
+        <result property="channelgroupid" jdbcType="INTEGER" column="channelgroupid"/>
+        <result property="channelgroupname" jdbcType="VARCHAR" column="channelgroupname"/>
+        <result property="operater" jdbcType="INTEGER" column="operater"/>
+        <result property="flag" jdbcType="VARCHAR" column="flag"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="remarks" jdbcType="VARCHAR" column="remarks"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        channelgroupid,
+        channelgroupname,
+        operater,
+        flag,
+        status,
+        remarks,
+        update_date
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.channel.entity.JsmsChannelgroup" >
+        INSERT INTO t_sms_channelgroup 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="channelgroupid != null" >
+                channelgroupid,
+            </if>
+            <if test="channelgroupname != null" >
+                channelgroupname,
+            </if>
+            <if test="operater != null" >
+                operater,
+            </if>
+            <if test="flag != null" >
+                flag,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="remarks != null" >
+                remarks,
+            </if>
+            <if test="updateDate != null" >
+                update_date
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="channelgroupid != null" >
+                #{channelgroupid},
+            </if>
+            <if test="channelgroupname != null" >
+                #{channelgroupname},
+            </if>
+            <if test="operater != null" >
+                #{operater},
+            </if>
+            <if test="flag != null" >
+                #{flag},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="remarks != null" >
+                #{remarks},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_channelgroup (
+            channelgroupid,
+            channelgroupname,
+            operater,
+            flag,
+            status,
+            remarks,
+            update_date
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.channelgroupid},
+                #{item.channelgroupname},
+                #{item.operater},
+                #{item.flag},
+                #{item.status},
+                #{item.remarks},
+                #{item.updateDate}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_channelgroup WHERE channelgroupid = #{channelgroupid}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.channel.entity.JsmsChannelgroup" >
+        UPDATE t_sms_channelgroup SET 
+            channelgroupname=#{channelgroupname},
+            operater=#{operater},
+            flag=#{flag},
+            status=#{status},
+            remarks=#{remarks},
+            update_date=#{updateDate}
+        WHERE 
+            channelgroupid = #{channelgroupid} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.channel.entity.JsmsChannelgroup" >
+        UPDATE t_sms_channelgroup 
+            <set>
+                <if test="channelgroupname != null and channelgroupname != ''">
+                    channelgroupname = #{channelgroupname},
+                </if>
+                <if test="operater != null and operater != ''">
+                    operater = #{operater},
+                </if>
+                <if test="flag != null and flag != ''">
+                    flag = #{flag},
+                </if>
+                <if test="status != null and status != ''">
+                    status = #{status},
+                </if>
+                <if test="remarks != null and remarks != ''">
+                    remarks = #{remarks},
+                </if>
+                <if test="updateDate != null and updateDate != ''">
+                    update_date = #{updateDate}
+                </if>
+            </set>
+        WHERE 
+            channelgroupid = #{channelgroupid} 
+    </update>
+
+    <select id="getByChannelgroupid" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_channelgroup
+        WHERE 
+            channelgroupid = #{channelgroupid}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_channelgroup 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.channelgroupid != null and params.channelgroupid != ''">
+                and channelgroupid = #{params.channelgroupid}
+            </if>
+            <if test="params.channelgroupname != null and params.channelgroupname != ''">
+                and channelgroupname = #{params.channelgroupname}
+            </if>
+            <if test="params.operater != null and params.operater != ''">
+                and operater = #{params.operater}
+            </if>
+            <if test="params.flag != null and params.flag != ''">
+                and flag = #{params.flag}
+            </if>
+            <if test="params.status != null and params.status != ''">
+                and status = #{params.status}
+            </if>
+            <if test="params.remarks != null and params.remarks != ''">
+                and remarks = #{params.remarks}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and update_date = #{params.updateDate}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_channelgroup 
+        WHERE 
+            1 = 1
+            <if test="channelgroupid != null and channelgroupid != ''">
+                and channelgroupid = #{channelgroupid}
+            </if>
+            <if test="channelgroupname != null and channelgroupname != ''">
+                and channelgroupname = #{channelgroupname}
+            </if>
+            <if test="operater != null and operater != ''">
+                and operater = #{operater}
+            </if>
+            <if test="flag != null and flag != ''">
+                and flag = #{flag}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                and update_date = #{updateDate}
+            </if>
+    </select>
+
+    <select id="queryOperatorstypeByChannelId" resultType="map">
+        SELECT operater FROM t_sms_channelgroup WHERE channelgroupid = #{channelId}
+    </select>
+
+
+</mapper>
+

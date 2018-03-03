@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.audit.mapper.JsmsAuditClientGroupMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.audit.entity.JsmsAuditClientGroup">
+        <result property="cgroupId" jdbcType="INTEGER" column="cgroup_id"/>
+        <result property="cgroupName" jdbcType="VARCHAR" column="cgroup_name"/>
+        <result property="kgroupId" jdbcType="INTEGER" column="kgroup_id"/>
+        <result property="isDefault" jdbcType="INTEGER" column="is_default"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap>
+    <sql id="BASE_COLUMN_LIST">
+        tcg.cgroup_id,
+        tcg.cgroup_name,
+        tcg.kgroup_id,
+        tcg.is_default,
+        tcg.operator,
+        tcg.update_date,
+        tcg.remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.audit.entity.JsmsAuditClientGroup" >
+        INSERT INTO t_sms_audit_client_group 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="cgroupId != null" >
+                cgroup_id,
+            </if>
+            <if test="cgroupName != null" >
+                cgroup_name,
+            </if>
+            <if test="kgroupId != null" >
+                kgroup_id,
+            </if>
+            <if test="isDefault != null" >
+                is_default,
+            </if>
+            <if test="operator != null" >
+                operator,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="cgroupId != null" >
+                #{cgroupId},
+            </if>
+            <if test="cgroupName != null" >
+                #{cgroupName},
+            </if>
+            <if test="kgroupId != null" >
+                #{kgroupId},
+            </if>
+            <if test="isDefault != null" >
+                #{isDefault},
+            </if>
+            <if test="operator != null" >
+                #{operator},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_audit_client_group (
+            cgroup_id,
+            cgroup_name,
+            kgroup_id,
+            is_default,
+            operator,
+            update_date,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.cgroupId},
+                #{item.cgroupName},
+                #{item.kgroupId},
+                #{item.isDefault},
+                #{item.operator},
+                #{item.updateDate},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_audit_client_group WHERE cgroup_id = #{cgroupId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.audit.entity.JsmsAuditClientGroup" >
+        UPDATE t_sms_audit_client_group
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cgroupName != null and cgroupName != ''" >
+             cgroup_name=#{cgroupName},
+            </if>
+            <if test="kgroupId != null and kgroupId != ''" >
+            kgroup_id=#{kgroupId},
+            </if>
+            <if test="isDefault != null and isDefault != ''" >
+            is_default=#{isDefault},
+            </if>
+            <if test="operator != null and operator != ''" >
+            operator=#{operator},
+            </if>
+            <if test="updateDate != null" >
+            update_date=#{updateDate},
+            </if>
+            <if test="remark != null and remark != ''" >
+            remark=#{remark}
+            </if>
+        </trim>
+        WHERE 
+            cgroup_id = #{cgroupId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.audit.entity.JsmsAuditClientGroup" >
+        UPDATE t_sms_audit_client_group 
+            <set>
+                <if test="cgroupName != null and cgroupName != ''">
+                    cgroup_name = #{cgroupName},
+                </if>
+                <if test="kgroupId != null and kgroupId != ''">
+                    kgroup_id = #{kgroupId},
+                </if>
+                <if test="isDefault != null and isDefault != ''">
+                    is_default = #{isDefault},
+                </if>
+                <if test="operator != null and operator != ''">
+                    operator = #{operator},
+                </if>
+                <if test="updateDate != null and updateDate != ''">
+                    update_date = #{updateDate},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            cgroup_id = #{cgroupId} 
+    </update>
+
+    <select id="getByCgroupId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_client_group tcg
+        WHERE
+        tcg.cgroup_id = #{cgroupId}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_audit_client_group tcg
+        left JOIN t_sms_audit_cgroup_ref_client trc on tcg.cgroup_id = trc.cgroup_id
+        Left JOIN  t_sms_account tsa on  trc.clientid = tsa.clientid
+        LEFT  JOIN t_sms_audit_kgroup_ref_category tkrc on tkrc.kgroup_id = tcg.kgroup_id
+        LEFT  JOIN t_sms_audit_keyword_category tkc on tkc.category_id = tkrc.category_id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.cgroupId != null and params.cgroupId != ''">
+                and tcg.cgroup_id = #{params.cgroupId}
+            </if>
+            <if test="params.cgroupName != null and params.cgroupName != ''">
+                and tcg.cgroup_name = #{params.cgroupName}
+            </if>
+            <if test="params.kgroupId != null and params.kgroupId != ''">
+                and tcg.kgroup_id = #{params.kgroupId}
+            </if>
+            <if test="params.isDefault != null and params.isDefault != ''">
+                and tcg.is_default = #{params.isDefault}
+            </if>
+            <if test="params.operator != null and params.operator != ''">
+                and tcg.operator = #{params.operator}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and tcg.update_date = #{params.updateDate}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and tcg.remark = #{params.remark}
+            </if>
+            <if test="params.mistiness != null and params.mistiness !=''">
+                and (
+                tcg.cgroup_id like CONCAT('%',#{params.mistiness},'%' )
+                or tcg.cgroup_name like CONCAT('%',#{params.mistiness},'%' )
+                or tkc.category_name like CONCAT('%',#{params.mistiness},'%' )
+                or tsa.name like CONCAT('%',#{params.mistiness},'%' )
+                )
+            </if>
+	     </trim>
+        GROUP BY tcg.cgroup_id
+        ORDER BY tcg.update_date DESC
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_audit_client_group 
+        WHERE 
+            1 = 1
+            <if test="cgroupId != null and cgroupId != ''">
+                and cgroup_id = #{cgroupId}
+            </if>
+            <if test="cgroupName != null and cgroupName != ''">
+                and cgroup_name = #{cgroupName}
+            </if>
+            <if test="kgroupId != null and kgroupId != ''">
+                and kgroup_id = #{kgroupId}
+            </if>
+            <if test="isDefault != null and isDefault != ''">
+                and is_default = #{isDefault}
+            </if>
+            <if test="operator != null and operator != ''">
+                and operator = #{operator}
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                and update_date = #{updateDate}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+
+    <select id="checkCgroupName" resultType="int">
+        SELECT count(0)
+        FROM t_sms_audit_client_group
+        WHERE
+        cgroup_name = #{cgroupName} and cgroup_id != #{cgroupId}
+    </select>
+    <select id="checkcgroupNameOfInsert" resultType="int">
+        SELECT count(0)
+        FROM t_sms_audit_client_group
+        WHERE
+        cgroup_name = #{cgroupName}
+    </select>
+    <delete id="deteleJsmsAuditClientGroup">
+        DELETE FROM t_sms_audit_client_group WHERE cgroup_id = #{cgroupId}
+    </delete>
+
+
+    <select id="getKgroupIdToClient" resultType="int">
+        SELECT count(0)
+        FROM   t_sms_audit_client_group tcg
+        WHERE
+        tcg.kgroup_id= #{kgroupId}
+    </select>
+
+    <select id="getKgroupIdsByClientId" resultMap="rowMapper">
+        SELECT
+			<include refid="BASE_COLUMN_LIST"/>
+		FROM
+			t_sms_audit_client_group tcg
+		INNER JOIN t_sms_audit_cgroup_ref_client crc ON crc.cgroup_id = tcg.cgroup_id
+		WHERE crc.clientid = #{clientid}
+    </select>
+
+    <select id="getDefaultKgroupIds" resultMap="rowMapper">
+        SELECT
+			<include refid="BASE_COLUMN_LIST"/>
+		FROM
+			t_sms_audit_client_group tcg
+		WHERE tcg.is_default = 1
+    </select>
+
+
+
+
+
+    <select id="getByKgroupId" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST"/>
+        FROM
+        t_sms_audit_client_group tcg
+        WHERE tcg.kgroup_id = #{kgroupId}
+    </select>
+
+</mapper>
+

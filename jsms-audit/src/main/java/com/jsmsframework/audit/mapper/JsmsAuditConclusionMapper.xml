@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.audit.mapper.JsmsAuditConclusionMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.audit.entity.JsmsAuditConclusion">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="conclusionDesc" jdbcType="VARCHAR" column="conclusion_desc"/>
+        <result property="state" jdbcType="INTEGER" column="state"/>
+        <result property="userId" jdbcType="VARCHAR" column="user_id"/>
+        <result property="adminId" jdbcType="BIGINT" column="admin_id"/>
+        <result property="createtime" jdbcType="TIMESTAMP" column="createtime"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        conclusion_desc,
+        state,
+        user_id,
+        admin_id,
+        createtime
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.audit.entity.JsmsAuditConclusion" >
+        INSERT INTO t_sms_audit_conclusion 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="conclusionDesc != null" >
+                conclusion_desc,
+            </if>
+            <if test="state != null" >
+                state,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="adminId != null" >
+                admin_id,
+            </if>
+            <if test="createtime != null" >
+                createtime
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="conclusionDesc != null" >
+                #{conclusionDesc},
+            </if>
+            <if test="state != null" >
+                #{state},
+            </if>
+            <if test="userId != null" >
+                #{userId},
+            </if>
+            <if test="adminId != null" >
+                #{adminId},
+            </if>
+            <if test="createtime != null" >
+                #{createtime}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_audit_conclusion (
+            id,
+            conclusion_desc,
+            state,
+            user_id,
+            admin_id,
+            createtime
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.conclusionDesc},
+                #{item.state},
+                #{item.userId},
+                #{item.adminId},
+                #{item.createtime}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_audit_conclusion WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.audit.entity.JsmsAuditConclusion" >
+        UPDATE t_sms_audit_conclusion SET 
+            conclusion_desc=#{conclusionDesc},
+            state=#{state},
+            user_id=#{userId},
+            admin_id=#{adminId},
+            createtime=#{createtime}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.audit.entity.JsmsAuditConclusion" >
+        UPDATE t_sms_audit_conclusion 
+            <set>
+                <if test="conclusionDesc != null and conclusionDesc != ''">
+                    conclusion_desc = #{conclusionDesc},
+                </if>
+                <if test="state != null and state != ''">
+                    state = #{state},
+                </if>
+                <if test="userId != null and userId != ''">
+                    user_id = #{userId},
+                </if>
+                <if test="adminId != null and adminId != ''">
+                    admin_id = #{adminId},
+                </if>
+                <if test="createtime != null and createtime != ''">
+                    createtime = #{createtime}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_audit_conclusion
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_audit_conclusion 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.conclusionDesc != null and params.conclusionDesc != ''">
+                and conclusion_desc = #{params.conclusionDesc}
+            </if>
+            <if test="params.state != null and params.state != ''">
+                and state = #{params.state}
+            </if>
+            <if test="params.userId != null and params.userId != ''">
+                and user_id = #{params.userId}
+            </if>
+            <if test="params.adminId != null and params.adminId != ''">
+                and admin_id = #{params.adminId}
+            </if>
+            <if test="params.createtime != null and params.createtime != ''">
+                and createtime = #{params.createtime}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_audit_conclusion 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="conclusionDesc != null and conclusionDesc != ''">
+                and conclusion_desc = #{conclusionDesc}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="adminId != null and adminId != ''">
+                and admin_id = #{adminId}
+            </if>
+            <if test="createtime != null and createtime != ''">
+                and createtime = #{createtime}
+            </if>
+    </select>
+
+    <select id="findAllList" resultMap="rowMapper">
+        SELECT
+        id,
+        conclusion_desc
+        FROM t_sms_audit_conclusion
+        WHERE
+        1 = 1
+        <if test="remark != null and remark != ''">
+            and conclusion_desc LIKE CONCAT('%', #{remark}, '%');
+        </if>
+    </select>
+
+
+</mapper>
+

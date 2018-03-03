@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.middleware.mapper.JsmsMonitorDetailOptionMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.middleware.entity.JsmsMonitorDetailOption">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="fieldName" jdbcType="VARCHAR" column="field_name"/>
+        <result property="fieldType" jdbcType="INTEGER" column="field_type"/>
+        <result property="measurement" jdbcType="INTEGER" column="measurement"/>
+        <result property="state" jdbcType="INTEGER" column="state"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        field_name,
+        field_type,
+        measurement,
+        state,
+        remark,
+        update_date
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.middleware.entity.JsmsMonitorDetailOption" >
+        INSERT INTO t_sms_monitor_detail_option 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="fieldName != null" >
+                field_name,
+            </if>
+            <if test="fieldType != null" >
+                field_type,
+            </if>
+            <if test="measurement != null" >
+                measurement,
+            </if>
+            <if test="state != null" >
+                state,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="updateDate != null" >
+                update_date
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="fieldName != null" >
+                #{fieldName},
+            </if>
+            <if test="fieldType != null" >
+                #{fieldType},
+            </if>
+            <if test="measurement != null" >
+                #{measurement},
+            </if>
+            <if test="state != null" >
+                #{state},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_monitor_detail_option (
+            id,
+            field_name,
+            field_type,
+            measurement,
+            state,
+            remark,
+            update_date
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.fieldName},
+                #{item.fieldType},
+                #{item.measurement},
+                #{item.state},
+                #{item.remark},
+                #{item.updateDate}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+
+    <delete id="delete">
+        DELETE FROM t_sms_monitor_detail_option WHERE id = #{id}
+    </delete>
+
+    
+    <update id="update" parameterType="com.jsmsframework.middleware.entity.JsmsMonitorDetailOption" >
+        UPDATE t_sms_monitor_detail_option SET 
+            field_name=#{fieldName},
+            field_type=#{fieldType},
+            measurement=#{measurement},
+            state=#{state},
+            remark=#{remark},
+            update_date=#{updateDate}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.middleware.entity.JsmsMonitorDetailOption" >
+        UPDATE t_sms_monitor_detail_option 
+            <set>
+                <if test="fieldName != null and fieldName != ''">
+                    field_name = #{fieldName},
+                </if>
+                <if test="fieldType != null and fieldType != ''">
+                    field_type = #{fieldType},
+                </if>
+                <if test="measurement != null and measurement != ''">
+                    measurement = #{measurement},
+                </if>
+                <if test="state != null and state != ''">
+                    state = #{state},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark},
+                </if>
+                <if test="updateDate != null and updateDate != ''">
+                    update_date = #{updateDate}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_monitor_detail_option
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_monitor_detail_option 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.fieldName != null and params.fieldName != ''">
+                and field_name LIKE CONCAT('%', #{params.fieldName}, '%')
+            </if>
+            <if test="params.fieldType != null and params.fieldType != ''">
+                and field_type = #{params.fieldType}
+            </if>
+            <if test="params.measurement != null and params.measurement != ''">
+                and measurement = #{params.measurement}
+            </if>
+            <if test="params.state != null and params.state != ''">
+                and state = #{params.state}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and update_date = #{params.updateDate}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_monitor_detail_option 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="fieldName != null and fieldName != ''">
+                and field_name = #{fieldName}
+            </if>
+            <if test="fieldType != null and fieldType != ''">
+                and field_type = #{fieldType}
+            </if>
+            <if test="measurement != null and measurement != ''">
+                and measurement = #{measurement}
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                and update_date = #{updateDate}
+            </if>
+            <if test="exist != null and exist != ''">
+                and id != #{exist}
+            </if>
+    </select>
+	 
+</mapper>
+

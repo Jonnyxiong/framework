@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.order.mapper.JsmsClientConsumerMapper">
+
+
+    <resultMap id="rowMapper" type="com.jsmsframework.order.entity.JsmsClientConsumer">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="subId" jdbcType="BIGINT" column="sub_id"/>
+        <result property="orderId" jdbcType="BIGINT" column="order_id"/>
+        <result property="clientId" jdbcType="VARCHAR" column="clientid"/>
+        <result property="productType" jdbcType="INTEGER" column="product_type"/>
+        <result property="operateType" jdbcType="INTEGER" column="operate_type"/>
+        <result property="operatorCode" jdbcType="INTEGER" column="operator_code"/>
+        <result property="areaCode" jdbcType="INTEGER" column="area_code"/>
+        <result property="unitPrice" jdbcType="DECIMAL" column="unit_price"/>
+        <result property="dueTime" jdbcType="TIMESTAMP" column="due_time"/>
+        <result property="smsNumber" jdbcType="INTEGER" column="sms_number"/>
+        <result property="consumerDate" jdbcType="INTEGER" column="consumer_date"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="operateTime" jdbcType="TIMESTAMP" column="operate_time"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        sub_id,
+        order_id,
+        clientid,
+        product_type,
+        operate_type,
+        operator_code,
+        area_code,
+        unit_price,
+
+        sms_number,
+
+        operator,
+        operate_time,
+        remark
+    </sql>
+
+    <select id="queryClientOrderListTotal" resultType="com.jsmsframework.order.dto.ClientConsumerListTotal">
+        SELECT
+        SUM(
+        CASE
+        WHEN operate_type = 0 THEN
+        IFNULL(sms_number, 0)
+        ELSE
+        0 - IFNULL(sms_number, 0)
+        END
+        ) AS orderNumberTotal,
+        SUM(
+        CASE
+        WHEN product_type = 2
+        THEN
+        CASE
+        WHEN operate_type = 0
+        THEN IFNULL(unit_price, 0)
+        ELSE 0 - IFNULL(unit_price, 0)
+        END
+        ELSE 0
+        END
+        ) AS orderPriceTotal
+        FROM
+        t_sms_client_consumer_list
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.productType != null and params.productType !=''">
+                and product_type = #{params.productType}
+            </if>
+
+            <if test="params.orderType != null and params.orderType !=''">
+                and operate_type = #{params.orderType}
+            </if>
+
+            <if test="params.clientId != null and params.clientId != ''">
+                and clientid = #{params.clientId}
+            </if>
+
+            <if test="params.beginCreateTime != null">
+                and operate_time &gt;= #{params.beginCreateTime}
+            </if>
+            <if test="params.endCreateTime != null">
+                and operate_time &lt;= #{params.endCreateTime}
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_client_consumer_list
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.productType != null and params.productType !=''">
+                and product_type = #{params.productType}
+            </if>
+
+            <if test="params.orderType != null and params.orderType !=''">
+                and operate_type = #{params.orderType}
+            </if>
+
+            <if test="params.clientId != null and params.clientId != ''">
+                and clientid = #{params.clientId}
+            </if>
+
+            <if test="params.beginCreateTime != null">
+                and operate_time &gt;= #{params.beginCreateTime}
+            </if>
+            <if test="params.endCreateTime != null">
+                and operate_time &lt;= #{params.endCreateTime}
+            </if>
+        </trim>
+    </select>
+</mapper>
+

@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsSaleCreditBillMapper">
+
+
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsSaleCreditBill">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="saleId" jdbcType="BIGINT" column="sale_id"/>
+        <result property="businessType" jdbcType="INTEGER" column="business_type"/>
+        <result property="financialType" jdbcType="VARCHAR" column="financial_type"/>
+        <result property="amount" jdbcType="DECIMAL" column="amount"/>
+        <result property="objectId" jdbcType="BIGINT" column="object_id"/>
+        <result property="objectType" jdbcType="INTEGER" column="object_type"/>
+        <result property="financialHistoryCredit" jdbcType="DECIMAL" column="financial_history_credit"/>
+        <result property="currentCredit" jdbcType="DECIMAL" column="current_credit"/>
+        <result property="saleHistoryCredit" jdbcType="DECIMAL" column="sale_history_credit"/>
+        <result property="agentHistoryPayment" jdbcType="DECIMAL" column="agent_history_payment"/>
+        <result property="noBackPayment" jdbcType="DECIMAL" column="no_back_payment"/>
+        <result property="adminId" jdbcType="BIGINT" column="admin_id"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        sale_id,
+        business_type,
+        financial_type,
+        truncate(amount,4) as amount,
+        object_id,
+        object_type,
+        financial_history_credit,
+        current_credit,
+        sale_history_credit,
+        agent_history_payment,
+        no_back_payment,
+        admin_id,
+        DATE_FORMAT(create_time,'%Y-%m-%d %T') as createTime,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsSaleCreditBill" >
+        INSERT INTO t_sms_sale_credit_bill
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="saleId != null" >
+                sale_id,
+            </if>
+            <if test="businessType != null" >
+                business_type,
+            </if>
+            <if test="financialType != null" >
+                financial_type,
+            </if>
+            <if test="amount != null" >
+                amount,
+            </if>
+            <if test="objectId != null" >
+                object_id,
+            </if>
+            <if test="objectType != null" >
+                object_type,
+            </if>
+            <if test="financialHistoryCredit != null" >
+                financial_history_credit,
+            </if>
+            <if test="currentCredit != null" >
+                current_credit,
+            </if>
+            <if test="saleHistoryCredit != null" >
+                sale_history_credit,
+            </if>
+            <if test="agentHistoryPayment != null" >
+                agent_history_payment,
+            </if>
+            <if test="noBackPayment != null" >
+                no_back_payment,
+            </if>
+            <if test="adminId != null" >
+                admin_id,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="saleId != null" >
+                #{saleId},
+            </if>
+            <if test="businessType != null" >
+                #{businessType},
+            </if>
+            <if test="financialType != null" >
+                #{financialType},
+            </if>
+            <if test="amount != null" >
+                #{amount},
+            </if>
+            <if test="objectId != null" >
+                #{objectId},
+            </if>
+            <if test="objectType != null" >
+                #{objectType},
+            </if>
+            <if test="financialHistoryCredit != null" >
+                #{financialHistoryCredit},
+            </if>
+            <if test="currentCredit != null" >
+                #{currentCredit},
+            </if>
+            <if test="saleHistoryCredit != null" >
+                #{saleHistoryCredit},
+            </if>
+            <if test="agentHistoryPayment != null" >
+                #{agentHistoryPayment},
+            </if>
+            <if test="noBackPayment != null" >
+                #{noBackPayment},
+            </if>
+            <if test="adminId != null" >
+                #{adminId},
+            </if>
+            <if test="createTime != null" >
+                now(),
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_sale_credit_bill (
+        id,
+        sale_id,
+        business_type,
+        financial_type,
+        amount,
+        object_id,
+        object_type,
+        financial_history_credit,
+        current_credit,
+        sale_history_credit,
+        agent_history_payment,
+        no_back_payment,
+        admin_id,
+        create_time,
+        remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.id},
+            #{item.saleId},
+            #{item.businessType},
+            #{item.financialType},
+            #{item.amount},
+            #{item.objectId},
+            #{item.objectType},
+            #{item.financialHistoryCredit},
+            #{item.currentCredit},
+            #{item.saleHistoryCredit},
+            #{item.agentHistoryPayment},
+            #{item.noBackPayment},
+            #{item.adminId},
+            now(),
+            #{item.remark}
+            )
+        </foreach>
+    </insert>
+
+
+
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_sale_credit_bill WHERE id = #{id}
+    </delete>
+    -->
+
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsSaleCreditBill" >
+        UPDATE t_sms_sale_credit_bill SET 
+            sale_id=#{saleId},
+            business_type=#{businessType},
+            financial_type=#{financialType},
+            amount=#{amount},
+            object_id=#{objectId},
+            object_type=#{objectType},
+            financial_history_credit=#{financialHistoryCredit},
+            current_credit=#{currentCredit},
+            sale_history_credit=#{saleHistoryCredit},
+            agent_history_payment=#{agentHistoryPayment},
+            no_back_payment=#{noBackPayment},
+            admin_id=#{adminId},
+            create_time=#{createTime},
+            remark=#{remark}
+        WHERE 
+            id = #{id} 
+    </update>
+
+
+
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsSaleCreditBill" >
+        UPDATE t_sms_sale_credit_bill
+        <set>
+            <if test="saleId != null and saleId != ''">
+                sale_id = #{saleId},
+            </if>
+            <if test="businessType != null and businessType != ''">
+                business_type = #{businessType},
+            </if>
+            <if test="financialType != null and financialType != ''">
+                financial_type = #{financialType},
+            </if>
+            <if test="amount != null and amount != ''">
+                amount = #{amount},
+            </if>
+            <if test="objectId != null and objectId != ''">
+                object_id = #{objectId},
+            </if>
+            <if test="objectType != null and objectType != ''">
+                object_type = #{objectType},
+            </if>
+            <if test="financialHistoryCredit != null and financialHistoryCredit != ''">
+                financial_history_credit = #{financialHistoryCredit},
+            </if>
+            <if test="currentCredit != null and currentCredit != ''">
+                current_credit = #{currentCredit},
+            </if>
+            <if test="saleHistoryCredit != null and saleHistoryCredit != ''">
+                sale_history_credit = #{saleHistoryCredit},
+            </if>
+            <if test="agentHistoryPayment != null and agentHistoryPayment != ''">
+                agent_history_payment = #{agentHistoryPayment},
+            </if>
+            <if test="noBackPayment != null and noBackPayment != ''">
+                no_back_payment = #{noBackPayment},
+            </if>
+            <if test="adminId != null and adminId != ''">
+                admin_id = #{adminId},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                create_time = #{createTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark}
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sale_credit_bill
+        WHERE
+        id = #{id}
+    </select>
+
+    <!--获取销售历史授信数据-->
+    <select id="queryHisCreditList" resultMap="rowMapper">
+        SELECT
+        tsscb.id,
+        tsscb.sale_id,
+        IFNULL(TRUNCATE(tsscb.financial_history_credit, 4),0.0000) AS financial_history_credit,
+        IFNULL(TRUNCATE(tsscb.current_credit, 4),0.0000) AS current_credit,
+        IFNULL(TRUNCATE(tsscb.sale_history_credit, 4),0.0000) AS sale_history_credit,
+        IFNULL(TRUNCATE(tsscb.agent_history_payment, 4),0.0000) AS agent_history_payment,
+        IFNULL(TRUNCATE(tsscb.no_back_payment, 4),0.0000) AS no_back_payment,
+        tsscb.create_time,
+        tsscb.admin_id
+        FROM
+        t_sms_sale_credit_bill tsscb
+        <if test="params.create_time != null and params.create_time != ''">
+            RIGHT  JOIN ( select
+            t3.id,t3.saleId
+            from
+            (select
+            (UNIX_TIMESTAMP(tsscb2.create_time) - UNIX_TIMESTAMP(#{params.create_time})) as time,tsscb2.id as id,tsscb2.sale_id as saleId
+            from
+            t_sms_sale_credit_bill tsscb2 where (UNIX_TIMESTAMP(tsscb2.create_time) - UNIX_TIMESTAMP(#{params.create_time}))&lt;= 0
+            ORDER BY (UNIX_TIMESTAMP(tsscb2.create_time) - UNIX_TIMESTAMP(#{params.create_time})) desc,tsscb2.id desc
+            )t3,(select max(UNIX_TIMESTAMP(tsscb1.create_time) - UNIX_TIMESTAMP(#{params.create_time}) ) as time2 from t_sms_sale_credit_bill tsscb1 where (UNIX_TIMESTAMP(tsscb1.create_time) - UNIX_TIMESTAMP(#{params.create_time}))&lt;= 0 group by  tsscb1.sale_id)t4
+            where t3.time =t4.time2 GROUP BY t3.saleId)t2 on tsscb.id= t2.id
+        </if>
+        LEFT JOIN (
+        SELECT
+        tsu.mobile,
+        tsu.email,
+        tsu.id,
+        tsu.realname
+        FROM
+        t_sms_user tsu
+        ) t1 ON tsscb.sale_id = t1.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.condition != null and params.condition!='' ">
+                and (
+                tsscb.sale_id like CONCAT('%',#{params.condition},'%' )
+                or t1.realname like CONCAT('%',#{params.condition},'%' )
+                or t1.mobile like CONCAT('%',#{params.condition},'%' )
+                or t1.email like CONCAT('%',#{params.condition},'%' )
+                )
+            </if>
+            <if test="params.create_time != null and params.create_time != ''">
+                and UNIX_TIMESTAMP(tsscb.create_time) - UNIX_TIMESTAMP(#{params.create_time}) &lt;= 0
+            </if>
+        </trim>
+    </select>
+    <!--获取销售历史授信数据合计-->
+    <select id="total"  resultMap="rowMapper">
+        SELECT
+        sum(IFNULL(TRUNCATE(tsscb.financial_history_credit, 4),0.0000)) AS financial_history_credit,
+        sum(IFNULL(TRUNCATE(tsscb.current_credit, 4),0.0000)) AS current_credit,
+        sum(IFNULL(TRUNCATE(tsscb.sale_history_credit, 4),0.0000)) AS sale_history_credit,
+        sum(IFNULL(TRUNCATE(tsscb.agent_history_payment, 4),0.0000)) AS agent_history_payment,
+        sum(IFNULL(TRUNCATE(tsscb.no_back_payment, 4),0.0000)) AS no_back_payment
+        FROM
+        t_sms_sale_credit_bill tsscb
+        <if test="params.create_time != null and params.create_time != ''">
+            RIGHT  JOIN ( select
+            t3.id,t3.saleId
+            from
+            (select
+            (UNIX_TIMESTAMP(tsscb2.create_time) - UNIX_TIMESTAMP(#{params.create_time})) as time,tsscb2.id as id,tsscb2.sale_id as saleId
+            from
+            t_sms_sale_credit_bill tsscb2 where (UNIX_TIMESTAMP(tsscb2.create_time) - UNIX_TIMESTAMP(#{params.create_time}))&lt;= 0
+            ORDER BY (UNIX_TIMESTAMP(tsscb2.create_time) - UNIX_TIMESTAMP(#{params.create_time})) desc,tsscb2.id desc
+            )t3,(select max(UNIX_TIMESTAMP(tsscb1.create_time) - UNIX_TIMESTAMP(#{params.create_time}) ) as time2 from t_sms_sale_credit_bill tsscb1 where (UNIX_TIMESTAMP(tsscb1.create_time) - UNIX_TIMESTAMP(#{params.create_time}))&lt;= 0 group by  tsscb1.sale_id)t4
+            where t3.time =t4.time2 GROUP BY t3.saleId)t2 on tsscb.id= t2.id
+        </if>
+        LEFT JOIN (
+        SELECT
+        tsu.mobile,
+        tsu.email,
+        tsu.id,
+        tsu.sid,
+        tsu.realname
+        FROM
+        t_sms_user tsu
+        ) t1 ON tsscb.sale_id = t1.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.condition != null and params.condition!='' ">
+                and (
+                tsscb.sale_id like CONCAT('%',#{params.condition},'%' )
+                or t1.realname like CONCAT('%',#{params.condition},'%' )
+                or t1.mobile like CONCAT('%',#{params.condition},'%' )
+                or t1.email like CONCAT('%',#{params.condition},'%' )
+                )
+            </if>
+            <if test="params.create_time != null and params.create_time != ''">
+                and UNIX_TIMESTAMP(tsscb.create_time) - UNIX_TIMESTAMP(#{params.create_time}) &lt;= 0
+            </if>
+        </trim>
+    </select>
+
+    <!--获取销售授信账单数据-->
+    <select id="queryCreditBillList" resultMap="rowMapper">
+        SELECT
+        tsscb.id,
+        tsscb.financial_type,
+        tsscb.business_type,
+        tsscb.sale_id,
+        IFNULL(TRUNCATE(tsscb.amount, 4),0.0000) AS amount,
+        tsscb.create_time,
+        tsscb.admin_id,
+        tsscb.remark,
+        tsscb.object_id
+        FROM
+        t_sms_sale_credit_bill tsscb
+        LEFT JOIN (
+        SELECT
+        tsu.id,
+        tsu.realname
+        FROM
+        t_sms_user tsu
+        ) t1 ON tsscb.sale_id = t1.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            tsscb.object_type = 0
+            <if test="params.condition != null and params.condition!='' ">
+                and (
+                tsscb.sale_id like CONCAT('%',#{params.condition},'%' )
+                or t1.realname like CONCAT('%',#{params.condition},'%' )
+                )
+            </if>
+            <choose>
+                <when test="params.businessType != null and params.businessType != ''">
+                    and tsscb.business_type=#{params.businessType}
+                </when>
+                <otherwise>
+                    AND tsscb.business_type in('0','1')
+                </otherwise>
+            </choose>
+            <if test="params.financialType != null and params.financialType != ''">
+                and tsscb.financial_type =#{params.financialType}
+            </if>
+            <if test="params.startDateTime != null and params.startDateTime != ''">
+                AND tsscb.create_time &gt;= #{params.startDateTime}
+            </if>
+            <if test="params.endDateTime != null and params.endDateTime != ''">
+                AND tsscb.create_time &lt;= #{params.endDateTime}
+            </if>
+        </trim>
+        order by tsscb.create_time DESC,tsscb.id DESC
+    </select>
+    <!--获取销售授信账单数据合计-->
+    <select id="totalCreditBill"  resultMap="rowMapper">
+        SELECT
+        sum(IFNULL(TRUNCATE(tsscb.amount, 4),0.0000)) AS amount
+        FROM
+        t_sms_sale_credit_bill tsscb
+        LEFT JOIN (
+        SELECT
+        tsu.id,
+        tsu.realname
+        FROM
+        t_sms_user tsu
+        ) t1 ON tsscb.sale_id = t1.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            tsscb.object_type = 0
+            <if test="params.condition != null and params.condition!='' ">
+                and (
+                tsscb.sale_id like CONCAT('%',#{params.condition},'%' )
+                or t1.realname like CONCAT('%',#{params.condition},'%' )
+                )
+            </if>
+            <choose>
+                <when test="params.businessType != null and params.businessType != ''">
+                    and tsscb.business_type=#{params.businessType}
+                </when>
+                <otherwise>
+                    AND tsscb.business_type in('0','1')
+                </otherwise>
+            </choose>
+            <if test="params.financialType != null and params.financialType != ''">
+                and tsscb.financial_type =#{params.financialType}
+            </if>
+            <if test="params.startDateTime != null and params.startDateTime != ''">
+                AND tsscb.create_time &gt;= #{params.startDateTime}
+            </if>
+            <if test="params.endDateTime != null and params.endDateTime != ''">
+                AND tsscb.create_time &lt;= #{params.endDateTime}
+            </if>
+        </trim>
+
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sale_credit_bill
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.saleId != null and params.saleId != ''">
+                and sale_id = #{params.saleId}
+            </if>
+            <if test="params.businessType != null and params.businessType != ''">
+                and business_type = #{params.businessType}
+            </if>
+            <if test="params.financialType != null and params.financialType != ''">
+                and financial_type = #{params.financialType}
+            </if>
+            <if test="params.amount != null and params.amount != ''">
+                and amount = #{params.amount}
+            </if>
+            <if test="params.objectId != null and params.objectId != ''">
+                and object_id = #{params.objectId}
+            </if>
+            <if test="params.condition != null and params.condition != ''">
+                and
+                (object_id  LIKE CONCAT('%', #{params.condition}, '%')
+
+                <if test="params.objectids != null and params.objectids.size > 0">
+                    OR object_id in
+                    <foreach item="item" index="index" collection="params.objectids" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                )
+            </if>
+            <if test="params.objectType != null and params.objectType != ''">
+                and object_type = #{params.objectType}
+            </if>
+            <if test="params.financialHistoryCredit != null and params.financialHistoryCredit != ''">
+                and financial_history_credit = #{params.financialHistoryCredit}
+            </if>
+            <if test="params.currentCredit != null and params.currentCredit != ''">
+                and current_credit = #{params.currentCredit}
+            </if>
+            <if test="params.saleHistoryCredit != null and params.saleHistoryCredit != ''">
+                and sale_history_credit = #{params.saleHistoryCredit}
+            </if>
+            <if test="params.agentHistoryPayment != null and params.agentHistoryPayment != ''">
+                and agent_history_payment = #{params.agentHistoryPayment}
+            </if>
+            <if test="params.noBackPayment != null and params.noBackPayment != ''">
+                and no_back_payment = #{params.noBackPayment}
+            </if>
+            <if test="params.adminId != null and params.adminId != ''">
+                and admin_id = #{params.adminId}
+            </if>
+            <if test="params.createTime != null and params.createTime != ''">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.startDateTime != null and params.startDateTime != ''">
+                and  <![CDATA[ create_time >= #{params.startDateTime} ]]>
+            </if>
+            <if test="params.endDateTime != null and params.endDateTime != ''">
+                and <![CDATA[ create_time <= #{params.endDateTime} ]]>
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+        </trim>
+    </select>
+    <select id="count" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_sale_credit_bill
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="saleId != null and saleId != ''">
+            and sale_id = #{saleId}
+        </if>
+        <if test="businessType != null and businessType != ''">
+            and business_type = #{businessType}
+        </if>
+        <if test="financialType != null and financialType != ''">
+            and financial_type = #{financialType}
+        </if>
+        <if test="amount != null and amount != ''">
+            and amount = #{amount}
+        </if>
+        <if test="objectId != null and objectId != ''">
+            and object_id = #{objectId}
+        </if>
+        <if test="objectType != null and objectType != ''">
+            and object_type = #{objectType}
+        </if>
+        <if test="financialHistoryCredit != null and financialHistoryCredit != ''">
+            and financial_history_credit = #{financialHistoryCredit}
+        </if>
+        <if test="currentCredit != null and currentCredit != ''">
+            and current_credit = #{currentCredit}
+        </if>
+        <if test="saleHistoryCredit != null and saleHistoryCredit != ''">
+            and sale_history_credit = #{saleHistoryCredit}
+        </if>
+        <if test="agentHistoryPayment != null and agentHistoryPayment != ''">
+            and agent_history_payment = #{agentHistoryPayment}
+        </if>
+        <if test="noBackPayment != null and noBackPayment != ''">
+            and no_back_payment = #{noBackPayment}
+        </if>
+        <if test="adminId != null and adminId != ''">
+            and admin_id = #{adminId}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and create_time = #{createTime}
+        </if>
+        <if test="condition != null and condition != ''">
+            and
+            (object_id  LIKE CONCAT('%', #{params.condition}, '%')
+
+            <if test="objectids != null and objectids.size > 0">
+                OR object_id in
+                <foreach item="item" index="index" collection="objectids" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            )
+        </if>
+        <if test="startDateTime != null and startDateTime != ''">
+            and  <![CDATA[ create_time >= #{params.startDateTime} ]]>
+        </if>
+        <if test="endDateTime != null and endDateTime != ''">
+            and  <![CDATA[ create_time >= #{params.endDateTime} ]]>
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+    </select>
+
+    <select id="queryAll" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_sale_credit_bill
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="saleId != null and saleId != ''">
+                and sale_id = #{saleId}
+            </if>
+            <if test="businessType != null and businessType != ''">
+                and business_type = #{businessType}
+            </if>
+            <if test="financialType != null and financialType != ''">
+                and financial_type = #{financialType}
+            </if>
+            <if test="amount != null and amount != ''">
+                and amount = #{amount}
+            </if>
+            <if test="objectId != null and objectId != ''">
+                and object_id = #{objectId}
+            </if>
+            <if test="objectType != null and objectType != ''">
+                and object_type = #{objectType}
+            </if>
+            <if test="financialHistoryCredit != null and financialHistoryCredit != ''">
+                and financial_history_credit = #{financialHistoryCredit}
+            </if>
+            <if test="currentCredit != null and currentCredit != ''">
+                and current_credit = #{currentCredit}
+            </if>
+            <if test="saleHistoryCredit != null and saleHistoryCredit != ''">
+                and sale_history_credit = #{saleHistoryCredit}
+            </if>
+            <if test="agentHistoryPayment != null and agentHistoryPayment != ''">
+                and agent_history_payment = #{agentHistoryPayment}
+            </if>
+            <if test="noBackPayment != null and noBackPayment != ''">
+                and no_back_payment = #{noBackPayment}
+            </if>
+            <if test="adminId != null and adminId != ''">
+                and admin_id = #{adminId}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="condition != null and condition != ''">
+                and
+                (object_id  LIKE CONCAT('%', #{condition}, '%')
+
+                <if test="objectids != null and objectids.size > 0">
+                    OR object_id in
+                    <foreach item="item" index="index" collection="objectids" open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                )
+            </if>
+            <if test="startDateTime != null and startDateTime != ''">
+                and  <![CDATA[ create_time >= #{startDateTime} ]]>
+            </if>
+            <if test="endDateTime != null and endDateTime != ''">
+                and  <![CDATA[ create_time >= #{endDateTime} ]]>
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </trim>
+    </select>
+
+
+    <!--获取客户授信账单数据-->
+    <select id="queryCreditBillListOfCustomer" resultMap="rowMapper">
+        SELECT
+        tsscb.id,
+        tsscb.financial_type,
+        tsscb.business_type,
+        tsscb.sale_id,
+        IFNULL(TRUNCATE(tsscb.amount, 4),0.0000) AS amount,
+        tsscb.create_time,
+        tsscb.admin_id,
+        tsscb.remark,
+        tsscb.object_id
+        FROM
+        t_sms_sale_credit_bill tsscb
+        left  JOIN 	t_sms_agent_info tsai
+        ON tsscb.object_id = tsai.agent_id
+        LEFT JOIN t_sms_user tsu ON tsscb.sale_id = tsu.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            tsscb.object_type = 1
+            <if test="params.condition != null and params.condition!='' ">
+                and (
+                tsai.agent_name like CONCAT('%',#{params.condition},'%' )
+                or tsai.agent_id like CONCAT('%',#{params.condition},'%' )
+                or tsu.realname like CONCAT('%',#{params.condition},'%' )
+                )
+            </if>
+            <choose>
+                <when test="params.agentType != null and params.agentType != ''">
+                    and tsai.agent_type = #{params.agentType}
+                </when>
+                <otherwise>
+                    AND tsai.agent_type in('2','5')
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="params.businessType != null and params.businessType != ''">
+                    and tsscb.business_type=#{params.businessType}
+                </when>
+                <otherwise>
+                    AND tsscb.business_type in('2','3','4')
+                </otherwise>
+            </choose>
+            <if test="params.financialType != null and params.financialType != ''">
+                and tsscb.financial_type =#{params.financialType}
+            </if>
+            <if test="params.startDateTime != null and params.startDateTime != ''">
+                AND tsscb.create_time &gt;= #{params.startDateTime}
+            </if>
+            <if test="params.endDateTime != null and params.endDateTime != ''">
+                AND tsscb.create_time &lt;= #{params.endDateTime}
+            </if>
+        </trim>
+        order by tsscb.create_time DESC,tsscb.id DESC
+    </select>
+    <!--获取客户授信账单数据合计-->
+    <select id="totalCreditBillOfCustomer"  resultMap="rowMapper">
+        SELECT
+        sum(IFNULL(TRUNCATE(tsscb.amount, 4),0.0000)) AS amount
+        FROM
+        t_sms_sale_credit_bill tsscb
+        left  JOIN 	t_sms_agent_info tsai
+        ON tsscb.object_id = tsai.agent_id
+        LEFT JOIN t_sms_user tsu ON tsscb.sale_id = tsu.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            tsscb.object_type = 1
+            <if test="params.condition != null and params.condition!='' ">
+                and (
+                tsai.agent_name like CONCAT('%',#{params.condition},'%' )
+                or tsai.agent_id like CONCAT('%',#{params.condition},'%' )
+                or tsu.realname like CONCAT('%',#{params.condition},'%' )
+                )
+            </if>
+            <choose>
+                <when test="params.agentType != null and params.agentType != ''">
+                    and tsai.agent_type = #{params.agentType}
+                </when>
+                <otherwise>
+                    AND tsai.agent_type in('2','5')
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="params.businessType != null and params.businessType != ''">
+                    and tsscb.business_type=#{params.businessType}
+                </when>
+                <otherwise>
+                    AND tsscb.business_type in('2','3','4')
+                </otherwise>
+            </choose>
+            <if test="params.financialType != null and params.financialType != ''">
+                and tsscb.financial_type =#{params.financialType}
+            </if>
+            <if test="params.startDateTime != null and params.startDateTime != ''">
+                AND tsscb.create_time &gt;= #{params.startDateTime}
+            </if>
+            <if test="params.endDateTime != null and params.endDateTime != ''">
+                AND tsscb.create_time &lt;= #{params.endDateTime}
+            </if>
+        </trim>
+
+    </select>
+
+</mapper>
+

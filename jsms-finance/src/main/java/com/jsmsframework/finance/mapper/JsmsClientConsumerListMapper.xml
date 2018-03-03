@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsClientConsumerListMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsClientConsumerList">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="subId" jdbcType="BIGINT" column="sub_id"/>
+        <result property="orderId" jdbcType="BIGINT" column="order_id"/>
+        <result property="operateType" jdbcType="INTEGER" column="operate_type"/>
+        <result property="productType" jdbcType="INTEGER" column="product_type"/>
+        <result property="operatorCode" jdbcType="INTEGER" column="operator_code"/>
+        <result property="areaCode" jdbcType="INTEGER" column="area_code"/>
+        <result property="unitPrice" jdbcType="DECIMAL" column="unit_price"/>
+        <result property="dueTime" jdbcType="TIMESTAMP" column="due_time"/>
+        <result property="smsNumber" jdbcType="INTEGER" column="sms_number"/>
+        <result property="consumerDate" jdbcType="INTEGER" column="consumer_date"/>
+        <result property="operator" jdbcType="BIGINT" column="operator"/>
+        <result property="operateTime" jdbcType="TIMESTAMP" column="operate_time"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        clientid,
+        sub_id,
+        order_id,
+        operate_type,
+        product_type,
+        operator_code,
+        area_code,
+        unit_price,
+        due_time,
+        sms_number,
+        consumer_date,
+        operator,
+        operate_time,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsClientConsumerList" >
+        INSERT INTO t_sms_client_consumer_list 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="clientid != null" >
+                clientid,
+            </if>
+            <if test="subId != null" >
+                sub_id,
+            </if>
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="operateType != null" >
+                operate_type,
+            </if>
+            <if test="productType != null" >
+                product_type,
+            </if>
+            <if test="operatorCode != null" >
+                operator_code,
+            </if>
+            <if test="areaCode != null" >
+                area_code,
+            </if>
+            <if test="unitPrice != null" >
+                unit_price,
+            </if>
+            <if test="dueTime != null" >
+                due_time,
+            </if>
+            <if test="smsNumber != null" >
+                sms_number,
+            </if>
+            <if test="consumerDate != null" >
+                consumer_date,
+            </if>
+            <if test="operator != null" >
+                operator,
+            </if>
+            <if test="operateTime != null" >
+                operate_time,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="clientid != null" >
+                #{clientid},
+            </if>
+            <if test="subId != null" >
+                #{subId},
+            </if>
+            <if test="orderId != null" >
+                #{orderId},
+            </if>
+            <if test="operateType != null" >
+                #{operateType},
+            </if>
+            <if test="productType != null" >
+                #{productType},
+            </if>
+            <if test="operatorCode != null" >
+                #{operatorCode},
+            </if>
+            <if test="areaCode != null" >
+                #{areaCode},
+            </if>
+            <if test="unitPrice != null" >
+                #{unitPrice},
+            </if>
+            <if test="dueTime != null" >
+                #{dueTime},
+            </if>
+            <if test="smsNumber != null" >
+                #{smsNumber},
+            </if>
+            <if test="consumerDate != null" >
+                #{consumerDate},
+            </if>
+            <if test="operator != null" >
+                #{operator},
+            </if>
+            <if test="operateTime != null" >
+                #{operateTime},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_client_consumer_list (
+            id,
+            clientid,
+            sub_id,
+            order_id,
+            operate_type,
+            product_type,
+            operator_code,
+            area_code,
+            unit_price,
+            due_time,
+            sms_number,
+            consumer_date,
+            operator,
+            operate_time,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.clientid},
+                #{item.subId},
+                #{item.orderId},
+                #{item.operateType},
+                #{item.productType},
+                #{item.operatorCode},
+                #{item.areaCode},
+                #{item.unitPrice},
+                #{item.dueTime},
+                #{item.smsNumber},
+                #{item.consumerDate},
+                #{item.operator},
+                #{item.operateTime},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_client_consumer_list WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsClientConsumerList" >
+        UPDATE t_sms_client_consumer_list SET 
+            clientid=#{clientid},
+            sub_id=#{subId},
+            order_id=#{orderId},
+            operate_type=#{operateType},
+            product_type=#{productType},
+            operator_code=#{operatorCode},
+            area_code=#{areaCode},
+            unit_price=#{unitPrice},
+            due_time=#{dueTime},
+            sms_number=#{smsNumber},
+            consumer_date=#{consumerDate},
+            operator=#{operator},
+            operate_time=#{operateTime},
+            remark=#{remark}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsClientConsumerList" >
+        UPDATE t_sms_client_consumer_list 
+            <set>
+                <if test="clientid != null and clientid != ''">
+                    clientid = #{clientid},
+                </if>
+                <if test="subId != null and subId != ''">
+                    sub_id = #{subId},
+                </if>
+                <if test="orderId != null and orderId != ''">
+                    order_id = #{orderId},
+                </if>
+                <if test="operateType != null and operateType != ''">
+                    operate_type = #{operateType},
+                </if>
+                <if test="productType != null and productType != ''">
+                    product_type = #{productType},
+                </if>
+                <if test="operatorCode != null and operatorCode != ''">
+                    operator_code = #{operatorCode},
+                </if>
+                <if test="areaCode != null and areaCode != ''">
+                    area_code = #{areaCode},
+                </if>
+                <if test="unitPrice != null and unitPrice != ''">
+                    unit_price = #{unitPrice},
+                </if>
+                <if test="dueTime != null">
+                    due_time = #{dueTime},
+                </if>
+                <if test="smsNumber != null and smsNumber != ''">
+                    sms_number = #{smsNumber},
+                </if>
+                <if test="consumerDate != null">
+                    consumer_date = #{consumerDate},
+                </if>
+                <if test="operator != null and operator != ''">
+                    operator = #{operator},
+                </if>
+                <if test="operateTime != null">
+                    operate_time = #{operateTime},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_client_consumer_list
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_client_consumer_list 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.clientid != null and params.clientid != ''">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.subId != null and params.subId != ''">
+                and sub_id = #{params.subId}
+            </if>
+            <if test="params.orderId != null and params.orderId != ''">
+                and order_id = #{params.orderId}
+            </if>
+            <if test="params.operateType != null and params.operateType != ''">
+                and operate_type = #{params.operateType}
+            </if>
+            <if test="params.productType != null and params.productType != ''">
+                and product_type = #{params.productType}
+            </if>
+            <if test="params.operatorCode != null and params.operatorCode != ''">
+                and operator_code = #{params.operatorCode}
+            </if>
+            <if test="params.areaCode != null and params.areaCode != ''">
+                and area_code = #{params.areaCode}
+            </if>
+            <if test="params.unitPrice != null and params.unitPrice != ''">
+                and unit_price = #{params.unitPrice}
+            </if>
+            <if test="params.dueTime != null">
+                and due_time = #{params.dueTime}
+            </if>
+            <if test="params.smsNumber != null and params.smsNumber != ''">
+                and sms_number = #{params.smsNumber}
+            </if>
+            <if test="params.consumerDate != null and params.consumerDate != ''">
+                and consumer_date = #{params.consumerDate}
+            </if>
+            <if test="params.operator != null and params.operator != ''">
+                and operator = #{params.operator}
+            </if>
+            <if test="params.operateTime != null">
+                and operate_time = #{params.operateTime}
+            </if>
+            <if test="params.clientIds != null">
+                and clientid IN
+                <foreach collection="params.clientIds" item="item" open="(" close=")" separator="," index="idx">
+                    #{item.clientid}
+                </foreach>
+            </if>
+            <if test="params.startTimeDay != null and params.startTimeDay != ''">
+                and operate_time &gt;= #{params.startTimeDay}
+            </if>
+            <if test="params.endTimeDay != null and params.endTimeDay != ''">
+                and operate_time &lt;= #{params.endTimeDay}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_client_consumer_list 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="clientid != null and clientid != ''">
+                and clientid = #{clientid}
+            </if>
+            <if test="subId != null and subId != ''">
+                and sub_id = #{subId}
+            </if>
+            <if test="orderId != null and orderId != ''">
+                and order_id = #{orderId}
+            </if>
+            <if test="operateType != null and operateType != ''">
+                and operate_type = #{operateType}
+            </if>
+            <if test="productType != null and productType != ''">
+                and product_type = #{productType}
+            </if>
+            <if test="operatorCode != null and operatorCode != ''">
+                and operator_code = #{operatorCode}
+            </if>
+            <if test="areaCode != null and areaCode != ''">
+                and area_code = #{areaCode}
+            </if>
+            <if test="unitPrice != null and unitPrice != ''">
+                and unit_price = #{unitPrice}
+            </if>
+            <if test="dueTime != null">
+                and due_time = #{dueTime}
+            </if>
+            <if test="smsNumber != null and smsNumber != ''">
+                and sms_number = #{smsNumber}
+            </if>
+            <if test="consumerDate != null and consumerDate != ''">
+                and consumer_date = #{consumerDate}
+            </if>
+            <if test="operator != null and operator != ''">
+                and operator = #{operator}
+            </if>
+            <if test="operateTime != null">
+                and operate_time = #{operateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+
+    <select id="queryBrandConsumeTotal" resultType="integer">
+        SELECT
+        SUM(sms_number)
+        FROM t_sms_client_consumer_list
+        WHERE
+         1 = 1
+        <if test="clientid != null and clientid != ''">
+            and clientid = #{clientid}
+        </if>
+        <if test="operateType != null and operateType != ''">
+            and operate_type = #{operateType}
+        </if>
+        <if test="productType != null and productType != ''">
+            and product_type = #{productType}
+        </if>
+        <if test="operatorCode != null and operatorCode != ''">
+            and operator_code = #{operatorCode}
+        </if>
+        <if test="clientIds != null">
+            and clientid IN
+            <foreach collection="clientIds" item="item" open="(" close=")" separator="," index="idx">
+                #{item.clientid}
+            </foreach>
+        </if>
+        <if test="startTimeDay != null and startTimeDay != ''">
+            and operate_time &gt;= #{startTimeDay}
+        </if>
+        <if test="endTimeDay != null and endTimeDay != ''">
+            and operate_time &lt;= #{endTimeDay}
+        </if>
+    </select>
+
+</mapper>
+

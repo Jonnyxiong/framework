@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.channel.mapper.JsmsChannelAttributeWeightConfigMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.channel.entity.JsmsChannelAttributeWeightConfig">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="type" jdbcType="INTEGER" column="type"/>
+        <result property="exValue" jdbcType="INTEGER" column="ex_value"/>
+        <result property="startLine" jdbcType="DECIMAL" column="start_line"/>
+        <result property="endLine" jdbcType="DECIMAL" column="end_line"/>
+        <result property="weight" jdbcType="DECIMAL" column="weight"/>
+        <result property="updator" jdbcType="BIGINT" column="updator"/>
+        <result property="updateDate" jdbcType="TIMESTAMP" column="update_date"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="region" jdbcType="VARCHAR" column="region"/>
+        <result property="allWeight" jdbcType="VARCHAR" column="allWeight"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        type,
+        ex_value,
+        CASE TYPE
+        WHEN 0 THEN ROUND(start_line,2)
+        WHEN 1 THEN ROUND(start_line,4)
+        ELSE start_line
+        END  AS start_line,
+        CASE TYPE
+        WHEN 0 THEN ROUND(end_line,2)
+        WHEN 1 THEN ROUND(end_line,4)
+        ELSE end_line
+        END  AS end_line,
+        ROUND(weight ,2) AS weight,
+        updator,
+        update_date,
+        remark
+    </sql>
+
+    <sql id="EXT_COLUMN_LIST">
+        id,
+        type,
+        ex_value,
+        GROUP_CONCAT(
+        CASE
+        WHEN type=0 AND end_line=100 THEN CONCAT("[",ROUND(start_line,2),",", ROUND(end_line,2),"]")
+        WHEN type=0 AND end_line !=100 THEN   CONCAT("[",ROUND(start_line,2),",", ROUND(end_line,2),")")
+        WHEN type=1 AND end_line=1 THEN   CONCAT("[",ROUND(start_line,4),",", ROUND(end_line,4),"]")
+        WHEN type=1 AND end_line !=1 THEN  CONCAT("[",ROUND(start_line,4),",", ROUND(end_line,4),")")
+        END
+        ORDER BY id asc SEPARATOR '<![CDATA[<br>]]>') as region,
+        GROUP_CONCAT(ROUND(weight ,2) ORDER BY id asc SEPARATOR '<![CDATA[<br>]]>') AS allWeight,
+        updator,
+        update_date,
+        remark
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.channel.entity.JsmsChannelAttributeWeightConfig" >
+        INSERT INTO t_sms_channel_attribute_weight_config 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="exValue != null" >
+                ex_value,
+            </if>
+            <if test="startLine != null" >
+                start_line,
+            </if>
+            <if test="endLine != null" >
+                end_line,
+            </if>
+            <if test="weight != null" >
+                weight,
+            </if>
+            <if test="updator != null" >
+                updator,
+            </if>
+            <if test="updateDate != null" >
+                update_date,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="type != null" >
+                #{type},
+            </if>
+            <if test="exValue != null" >
+                #{exValue},
+            </if>
+            <if test="startLine != null" >
+                #{startLine},
+            </if>
+            <if test="endLine != null" >
+                #{endLine},
+            </if>
+            <if test="weight != null" >
+                #{weight},
+            </if>
+            <if test="updator != null" >
+                #{updator},
+            </if>
+            <if test="updateDate != null" >
+                #{updateDate},
+            </if>
+            <if test="remark != null" >
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_channel_attribute_weight_config (
+            id,
+            type,
+            ex_value,
+            start_line,
+            end_line,
+            weight,
+            updator,
+            update_date,
+            remark
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.type},
+                #{item.exValue},
+                #{item.startLine},
+                #{item.endLine},
+                #{item.weight},
+                #{item.updator},
+                #{item.updateDate},
+                #{item.remark}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_channel_attribute_weight_config WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.channel.entity.JsmsChannelAttributeWeightConfig" >
+        UPDATE t_sms_channel_attribute_weight_config SET 
+            type=#{type},
+            ex_value=#{exValue},
+            start_line=#{startLine},
+            end_line=#{endLine},
+            weight=#{weight},
+            updator=#{updator},
+            update_date=#{updateDate},
+            remark=#{remark}
+        WHERE 
+            id = #{id} 
+    </update>
+    <delete id="delete">
+        delete from t_sms_channel_attribute_weight_config  where id=#{id}
+    </delete>
+
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.channel.entity.JsmsChannelAttributeWeightConfig" >
+        UPDATE t_sms_channel_attribute_weight_config 
+            <set>
+                <if test="type != null and type != ''">
+                    type = #{type},
+                </if>
+                <if test="exValue != null and exValue != ''">
+                    ex_value = #{exValue},
+                </if>
+                <if test="startLine != null and startLine != ''">
+                    start_line = #{startLine},
+                </if>
+                <if test="endLine != null and endLine != ''">
+                    end_line = #{endLine},
+                </if>
+                <if test="weight != null and weight != ''">
+                    weight = #{weight},
+                </if>
+                <if test="updator != null and updator != ''">
+                    updator = #{updator},
+                </if>
+                <if test="updateDate != null">
+                    update_date =now(),
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_channel_attribute_weight_config
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryAllBySmSType" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_channel_attribute_weight_config
+        WHERE
+        type=0 AND  ex_value in(0,1,2,3);
+    </select>
+
+
+
+    <select id="checkAll" resultType="map">
+        SELECT
+          id,
+          start_line,
+          end_line,
+          weight
+        FROM t_sms_channel_attribute_weight_config
+        WHERE
+        type = #{type} and ex_value=#{exValue}
+    </select>
+
+
+
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_channel_attribute_weight_config 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.type != null and params.type != ''">
+                and type = #{params.type}
+            </if>
+            <if test="params.exValue != null and params.exValue != ''">
+                and ex_value = #{params.exValue}
+            </if>
+            <if test="params.startLine != null and params.startLine != ''">
+                and start_line = #{params.startLine}
+            </if>
+            <if test="params.endLine != null and params.endLine != ''">
+                and end_line = #{params.endLine}
+            </if>
+            <if test="params.weight != null and params.weight != ''">
+                and weight = #{params.weight}
+            </if>
+            <if test="params.updator != null and params.updator != ''">
+                and updator = #{params.updator}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+	     </trim>
+        GROUP BY type,ex_value
+    </select>
+
+    <select id="queryList1" resultMap="rowMapper">
+        SELECT
+        <include refid="EXT_COLUMN_LIST" />
+        FROM t_sms_channel_attribute_weight_config
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.type != null and params.type != ''">
+                and type = #{params.type}
+            </if>
+            <if test="params.exValue != null and params.exValue != ''">
+                and ex_value = #{params.exValue}
+            </if>
+            <if test="params.startLine != null and params.startLine != ''">
+                and start_line = #{params.startLine}
+            </if>
+            <if test="params.endLine != null and params.endLine != ''">
+                and end_line = #{params.endLine}
+            </if>
+            <if test="params.weight != null and params.weight != ''">
+                and weight = #{params.weight}
+            </if>
+            <if test="params.updator != null and params.updator != ''">
+                and updator = #{params.updator}
+            </if>
+            <if test="params.updateDate != null and params.updateDate != ''">
+                and update_date = #{params.updateDate}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+        </trim>
+        GROUP BY type,ex_value
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_channel_attribute_weight_config 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="exValue != null and exValue != ''">
+                and ex_value = #{exValue}
+            </if>
+            <if test="startLine != null and startLine != ''">
+                and start_line = #{startLine}
+            </if>
+            <if test="endLine != null and endLine != ''">
+                and end_line = #{endLine}
+            </if>
+            <if test="weight != null and weight != ''">
+                and weight = #{weight}
+            </if>
+            <if test="updator != null and updator != ''">
+                and updator = #{updator}
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                and update_date = #{updateDate}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+    </select>
+
+    <select id="count1" resultType="int">
+        SELECT COUNT(0)
+        FROM t_sms_channel_attribute_weight_config
+        WHERE
+        1 = 1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="type != null and type != ''">
+            and type = #{type}
+        </if>
+        <if test="exValue != null and exValue != ''">
+            and ex_value = #{exValue}
+        </if>
+        <if test="startLine != null and startLine != ''">
+            and start_line = #{startLine}
+        </if>
+        <if test="endLine != null and endLine != ''">
+            and end_line = #{endLine}
+        </if>
+        <if test="weight != null and weight != ''">
+            and weight = #{weight}
+        </if>
+        <if test="updator != null and updator != ''">
+            and updator = #{updator}
+        </if>
+        <if test="updateDate != null and updateDate != ''">
+            and update_date = #{updateDate}
+        </if>
+        <if test="remark != null and remark != ''">
+            and remark = #{remark}
+        </if>
+        GROUP BY type,ex_value
+    </select>
+
+</mapper>
+

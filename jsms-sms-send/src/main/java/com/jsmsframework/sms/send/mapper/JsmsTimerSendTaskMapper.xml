@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.sms.send.mapper.JsmsTimerSendTaskMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.sms.send.entity.JsmsTimerSendTask">
+        <result property="taskId" jdbcType="VARCHAR" column="task_id"/>
+        <result property="clientid" jdbcType="VARCHAR" column="clientid"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="smstype" jdbcType="INTEGER" column="smstype"/>
+        <result property="submittype" jdbcType="INTEGER" column="submittype"/>
+        <result property="totalPhonesNum" jdbcType="INTEGER" column="total_phones_num"/>
+        <result property="smsid" jdbcType="VARCHAR" column="smsid"/>
+        <result property="smsfrom" jdbcType="INTEGER" column="smsfrom"/>
+        <result property="componentId" jdbcType="INTEGER" column="component_id"/>
+        <result property="extend" jdbcType="VARCHAR" column="extend"/>
+        <result property="uid" jdbcType="VARCHAR" column="uid"/>
+        <result property="sign" jdbcType="VARCHAR" column="sign"/>
+        <result property="content" jdbcType="VARCHAR" column="content"/>
+        <result property="submitTime" jdbcType="TIMESTAMP" column="submit_time"/>
+        <result property="setSendTime" jdbcType="TIMESTAMP" column="set_send_time"/>
+        <result property="doSendTime" jdbcType="TIMESTAMP" column="do_send_time"/>
+        <result property="status" jdbcType="INTEGER" column="status"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="chargeNum" jdbcType="INTEGER" column="charge_num"/>
+        <result property="showSignType" jdbcType="INTEGER" column="showsigntype"/>
+        <result property="isChina" jdbcType="TINYINT" column="is_china"/>
+    </resultMap>
+     
+    <sql id="BASE_COLUMN_LIST">
+        task_id,
+        clientid,
+        agent_id,
+        smstype,
+        submittype,
+        total_phones_num,
+        smsid,
+        smsfrom,
+        component_id,
+        extend,
+        uid,
+        sign,
+        content,
+        submit_time,
+        set_send_time,
+        do_send_time,
+        status,
+        remark,
+        charge_num,
+        showsigntype,
+        is_china
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.sms.send.entity.JsmsTimerSendTask" >
+        INSERT INTO t_sms_timer_send_task 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="taskId != null" >
+                task_id,
+            </if>
+            <if test="clientid != null" >
+                clientid,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="smstype != null" >
+                smstype,
+            </if>
+            <if test="submittype != null" >
+                submittype,
+            </if>
+            <if test="totalPhonesNum != null" >
+                total_phones_num,
+            </if>
+            <if test="smsid != null" >
+                smsid,
+            </if>
+            <if test="smsfrom != null" >
+                smsfrom,
+            </if>
+            <if test="componentId != null" >
+                component_id,
+            </if>
+            <if test="extend != null" >
+                extend,
+            </if>
+            <if test="uid != null" >
+                uid,
+            </if>
+            <if test="sign != null" >
+                sign,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="submitTime != null" >
+                submit_time,
+            </if>
+            <if test="setSendTime != null" >
+                set_send_time,
+            </if>
+            <if test="doSendTime != null" >
+                do_send_time,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="remark != null" >
+                remark
+            </if>
+            <if test="chargeNum != null" >
+                charge_num
+            </if>
+            <if test="showSignType != null" >
+                showsigntype,
+            </if>
+            <if test="is_china != null" >
+                is_china
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="taskId != null" >
+                #{taskId},
+            </if>
+            <if test="clientid != null" >
+                #{clientid},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="smstype != null" >
+                #{smstype},
+            </if>
+            <if test="submittype != null" >
+                #{submittype},
+            </if>
+            <if test="totalPhonesNum != null" >
+                #{totalPhonesNum},
+            </if>
+            <if test="smsid != null" >
+                #{smsid},
+            </if>
+            <if test="smsfrom != null" >
+                #{smsfrom},
+            </if>
+            <if test="componentId != null" >
+                #{componentId},
+            </if>
+            <if test="extend != null" >
+                #{extend},
+            </if>
+            <if test="uid != null" >
+                #{uid},
+            </if>
+            <if test="sign != null" >
+                #{sign},
+            </if>
+            <if test="content != null" >
+                #{content},
+            </if>
+            <if test="submitTime != null" >
+                #{submitTime},
+            </if>
+            <if test="setSendTime != null" >
+                #{setSendTime},
+            </if>
+            <if test="doSendTime != null" >
+                #{doSendTime},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="chargeNum != null" >
+                 #{chargeNum},
+            </if>
+            <if test="showSignType != null" >
+                #{showSignType},
+            </if>
+            <if test="is_china != null" >
+                #{is_china}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_timer_send_task (
+            task_id,
+            clientid,
+            agent_id,
+            smstype,
+            submittype,
+            total_phones_num,
+            smsid,
+            smsfrom,
+            component_id,
+            extend,
+            uid,
+            sign,
+            content,
+            submit_time,
+            set_send_time,
+            do_send_time,
+            status,
+            remark,
+           charge_num,
+           showsigntype,
+            is_china
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.taskId},
+                #{item.clientid},
+                #{item.agentId},
+                #{item.smstype},
+                #{item.submittype},
+                #{item.totalPhonesNum},
+                #{item.smsid},
+                #{item.smsfrom},
+                #{item.componentId},
+                #{item.extend},
+                #{item.uid},
+                #{item.sign},
+                #{item.content},
+                #{item.submitTime},
+                #{item.setSendTime},
+                #{item.doSendTime},
+                #{item.status},
+                #{item.remark},
+                #{item.chargeNum},
+                #{item.showSignType},
+                #{item.isChina}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_timer_send_task WHERE task_id = #{taskId}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.sms.send.entity.JsmsTimerSendTask" >
+        UPDATE t_sms_timer_send_task SET 
+            clientid=#{clientid},
+            agent_id=#{agentId},
+            smstype=#{smstype},
+            submittype=#{submittype},
+            total_phones_num=#{totalPhonesNum},
+            smsid=#{smsid},
+            smsfrom=#{smsfrom},
+            component_id=#{componentId},
+            extend=#{extend},
+            uid=#{uid},
+            sign=#{sign},
+            content=#{content},
+            submit_time=#{submitTime},
+            set_send_time=#{setSendTime},
+            do_send_time=#{doSendTime},
+            status=#{status},
+            remark=#{remark},
+            charge_num=#{chargeNum},
+            showsigntype=#{showSignType},
+            is_china = #{isChina}
+        WHERE 
+            task_id = #{taskId} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.sms.send.entity.JsmsTimerSendTask" >
+        UPDATE t_sms_timer_send_task 
+            <set>
+                <if test="clientid != null">
+                    clientid = #{clientid},
+                </if>
+                <if test="agentId != null">
+                    agent_id = #{agentId},
+                </if>
+                <if test="smstype != null">
+                    smstype = #{smstype},
+                </if>
+                <if test="submittype != null">
+                    submittype = #{submittype},
+                </if>
+                <if test="totalPhonesNum != null">
+                    total_phones_num = #{totalPhonesNum},
+                </if>
+                <if test="smsid != null">
+                    smsid = #{smsid},
+                </if>
+                <if test="smsfrom != null">
+                    smsfrom = #{smsfrom},
+                </if>
+                <if test="componentId != null">
+                    component_id = #{componentId},
+                </if>
+                <if test="extend != null">
+                    extend = #{extend},
+                </if>
+                <if test="uid != null">
+                    uid = #{uid},
+                </if>
+                <if test="sign != null">
+                    sign = #{sign},
+                </if>
+                <if test="content != null">
+                    content = #{content},
+                </if>
+                <if test="submitTime != null">
+                    submit_time = #{submitTime},
+                </if>
+                <if test="setSendTime != null">
+                    set_send_time = #{setSendTime},
+                </if>
+                <if test="doSendTime != null">
+                    do_send_time = #{doSendTime},
+                </if>
+                <if test="status != null">
+                    status = #{status},
+                </if>
+                <if test="remark != null">
+                    remark = #{remark},
+                </if>
+                <if test="chargeNum != null">
+                    charge_num = #{chargeNum},
+                </if>
+                <if test="showSignType != null">
+                    showsigntype=#{showSignType},
+                </if>
+                <if test="isChina != null">
+                    is_china=#{isChina}
+                </if>
+            </set>
+        WHERE 
+            task_id = #{taskId} 
+    </update>
+
+
+    <update id="updateIdempotent" parameterType="com.jsmsframework.sms.send.entity.JsmsTimerSendTask" >
+        UPDATE t_sms_timer_send_task
+            <set>
+                <if test="newModel.clientid != null">
+                    clientid = #{newModel.clientid},
+                </if>
+                <if test="newModel.agentId != null">
+                    agent_id = #{newModel.agentId},
+                </if>
+                <if test="newModel.smstype != null">
+                    smstype = #{newModel.smstype},
+                </if>
+                <if test="newModel.submittype != null">
+                    submittype = #{newModel.submittype},
+                </if>
+                <if test="newModel.totalPhonesNum != null">
+                    total_phones_num = #{newModel.totalPhonesNum},
+                </if>
+                <if test="newModel.smsid != null">
+                    smsid = #{newModel.smsid},
+                </if>
+                <if test="newModel.smsfrom != null">
+                    smsfrom = #{newModel.smsfrom},
+                </if>
+                <if test="newModel.componentId != null">
+                    component_id = #{newModel.componentId},
+                </if>
+                <if test="newModel.extend != null">
+                    extend = #{newModel.extend},
+                </if>
+                <if test="newModel.uid != null">
+                    uid = #{newModel.uid},
+                </if>
+                <if test="newModel.sign != null">
+                    sign = #{newModel.sign},
+                </if>
+                <if test="newModel.content != null">
+                    content = #{newModel.content},
+                </if>
+                <if test="newModel.submitTime != null">
+                    submit_time = #{newModel.submitTime},
+                </if>
+                <if test="newModel.setSendTime != null">
+                    set_send_time = #{newModel.setSendTime},
+                </if>
+                <if test="newModel.doSendTime != null">
+                    do_send_time = #{newModel.doSendTime},
+                </if>
+                <if test="newModel.status != null">
+                    status = #{newModel.status},
+                </if>
+                <if test="newModel.remark != null">
+                    remark = #{newModel.remark},
+                </if>
+                <if test="newModel.chargeNum != null">
+                    charge_num = #{newModel.chargeNum},
+                </if>
+                <if test="newModel.showSignType != null">
+                    showsigntype=#{newModel.showSignType},
+                </if>
+                <if test="newModel.isChina != null">
+                    is_china=#{newModel.isChina}
+                </if>
+            </set>
+        <where>
+            task_id = #{oldModel.taskId}
+            <if test="oldModel.clientid != null">
+              and  clientid = #{oldModel.clientid}
+            </if>
+            <if test="oldModel.agentId != null">
+               and  agent_id = #{oldModel.agentId}
+            </if>
+            <if test="oldModel.smstype != null">
+                and smstype = #{oldModel.smstype}
+            </if>
+            <if test="oldModel.submittype != null">
+                and submittype = #{oldModel.submittype}
+            </if>
+            <if test="oldModel.totalPhonesNum != null">
+                and total_phones_num = #{oldModel.totalPhonesNum}
+            </if>
+            <if test="oldModel.smsid != null">
+                and smsid = #{oldModel.smsid}
+            </if>
+            <if test="oldModel.smsfrom != null">
+                and smsfrom = #{oldModel.smsfrom}
+            </if>
+            <if test="oldModel.componentId != null">
+                and  component_id = #{oldModel.componentId}
+            </if>
+            <if test="oldModel.extend != null">
+                and extend = #{oldModel.extend}
+            </if>
+            <if test="oldModel.uid != null">
+                and uid = #{oldModel.uid}
+            </if>
+            <if test="oldModel.sign != null">
+                and sign = #{oldModel.sign}
+            </if>
+            <if test="oldModel.content != null">
+                and content = #{oldModel.content}
+            </if>
+            <if test="oldModel.submitTime != null">
+                and submit_time = #{oldModel.submitTime}
+            </if>
+            <if test="oldModel.setSendTime != null">
+                and set_send_time = #{oldModel.setSendTime}
+            </if>
+            <if test="oldModel.doSendTime != null">
+                and do_send_time = #{oldModel.doSendTime}
+            </if>
+            <if test="oldModel.status != null">
+                and status = #{oldModel.status}
+            </if>
+            <if test="oldModel.remark != null">
+                and  remark = #{oldModel.remark}
+            </if>
+            <if test="oldModel.chargeNum != null">
+                and  charge_num = #{oldModel.chargeNum}
+            </if>
+            <if test="oldModel.showSignType != null">
+                and showsigntype=#{oldModel.showSignType}
+            </if>
+            <if test="oldModel.isChina != null">
+                and is_china=#{oldModel.isChina}
+            </if>
+        </where>
+    </update>
+
+    <select id="getByTaskId" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_timer_send_task
+        WHERE 
+            task_id = #{taskId}
+    </select>
+
+    <!--搜索时间 1:创建时间；2：发送时间-->
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_timer_send_task
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.taskId != null">
+                and task_id like concat('%',#{params.taskId},'%')
+            </if>
+            <if test="params.clientid != null">
+                and clientid = #{params.clientid}
+            </if>
+            <if test="params.agentId != null">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.smstype != null">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.submittype != null">
+                and submittype = #{params.submittype}
+            </if>
+            <if test="params.totalPhonesNum != null">
+                and total_phones_num = #{params.totalPhonesNum}
+            </if>
+            <if test="params.smsid != null">
+                and smsid = #{params.smsid}
+            </if>
+            <if test="params.smsfrom != null">
+                and smsfrom = #{params.smsfrom}
+            </if>
+            <if test="params.componentId != null">
+                and component_id = #{params.componentId}
+            </if>
+            <if test="params.extend != null">
+                and extend = #{params.extend}
+            </if>
+            <if test="params.uid != null">
+                and uid = #{params.uid}
+            </if>
+            <if test="params.sign != null and params.sign != ''">
+                and sign like concat('%',#{params.sign},'%')
+            </if>
+            <if test="params.content != null and params.content != ''">
+                and content like concat('%',#{params.content},'%')
+            </if>
+            <if test="params.submitTime != null">
+                and submit_time = #{params.submitTime}
+            </if>
+            <if test="params.setSendTime != null">
+                and set_send_time = #{params.setSendTime}
+            </if>
+            <if test="params.doSendTime != null">
+                and do_send_time = #{params.doSendTime}
+            </if>
+            <if test="params.status != null">
+                and status = #{params.status}
+            </if>
+            <if test="params.remark != null">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.queryTimeType!=null">
+                <choose>
+                    <when test="params.queryTimeType==1">
+                        <if test="params.startTime!=null and params.startTime!=''">
+                            and submit_time &gt;= DATE_FORMAT(#{params.startTime},'%Y-%m-%d %T')
+                        </if>
+                        <if test="params.endTime!=null and params.endTime!=''">
+                            and submit_time &lt;= DATE_FORMAT(#{params.endTime},'%Y-%m-%d %T')
+                        </if>
+                    </when>
+                    <when test="params.queryTimeType==2">
+                        <if test="params.startTime!=null and params.startTime!=''">
+                            and set_send_time &gt;= DATE_FORMAT(#{params.startTime},'%Y-%m-%d %T')
+                        </if>
+                        <if test="params.endTime!=null and params.endTime!=''">
+                            and set_send_time &lt;= DATE_FORMAT(#{params.endTime},'%Y-%m-%d %T')
+                        </if>
+                    </when>
+                </choose>
+            </if>
+            <if test="params.chargeNum != null">
+                and charge_num = #{params.chargeNum}
+            </if>
+            <if test="params.showSignType != null">
+                and showsigntype=#{params.showSignType}
+            </if>
+            <if test="params.isChina != null">
+                and is_china=#{params.isChina}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="findList" resultMap="rowMapper">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_timer_send_task
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="taskId != null">
+                and task_id = #{taskId}
+            </if>
+            <if test="clientid != null">
+                and clientid = #{clientid}
+            </if>
+            <if test="agentId != null">
+                and agent_id = #{agentId}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="submittype != null">
+                and submittype = #{submittype}
+            </if>
+            <if test="totalPhonesNum != null">
+                and total_phones_num = #{totalPhonesNum}
+            </if>
+            <if test="smsid != null">
+                and smsid = #{smsid}
+            </if>
+            <if test="smsfrom != null">
+                and smsfrom = #{smsfrom}
+            </if>
+            <if test="componentId != null">
+                and component_id = #{componentId}
+            </if>
+            <if test="extend != null">
+                and extend = #{extend}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="sign != null">
+                and sign = #{sign}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="submitTime != null">
+                and submit_time = #{submitTime}
+            </if>
+            <if test="setSendTime != null">
+                and set_send_time = #{setSendTime}
+            </if>
+            <if test="doSendTime != null">
+                and do_send_time = #{doSendTime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+            <if test="chargeNum != null">
+                and charge_num = #{chargeNum}
+            </if>
+            <if test="showSignType != null">
+                and showsigntype=#{showSignType}
+            </if>
+            <if test="isChina != null">
+                and is_china=#{isChina}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_timer_send_task 
+        WHERE 
+            1 = 1
+            <if test="taskId != null">
+                and task_id = #{taskId}
+            </if>
+            <if test="clientid != null">
+                and clientid = #{clientid}
+            </if>
+            <if test="agentId != null">
+                and agent_id = #{agentId}
+            </if>
+            <if test="smstype != null">
+                and smstype = #{smstype}
+            </if>
+            <if test="submittype != null">
+                and submittype = #{submittype}
+            </if>
+            <if test="totalPhonesNum != null">
+                and total_phones_num = #{totalPhonesNum}
+            </if>
+            <if test="smsid != null">
+                and smsid = #{smsid}
+            </if>
+            <if test="smsfrom != null">
+                and smsfrom = #{smsfrom}
+            </if>
+            <if test="componentId != null">
+                and component_id = #{componentId}
+            </if>
+            <if test="extend != null">
+                and extend = #{extend}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="sign != null">
+                and sign = #{sign}
+            </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
+            <if test="submitTime != null">
+                and submit_time = #{submitTime}
+            </if>
+            <if test="setSendTime != null">
+                and set_send_time = #{setSendTime}
+            </if>
+            <if test="doSendTime != null">
+                and do_send_time = #{doSendTime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="remark != null">
+                and remark = #{remark}
+            </if>
+            <if test="chargeNum != null">
+                and charge_num = #{chargeNum}
+            </if>
+            <if test="showSignType != null">
+                and showsigntype=#{showSignType}
+            </if>
+            <if test="isChina != null">
+                and is_china=#{isChina}
+            </if>
+    </select>
+
+    <select id="queryPageList" resultMap="rowMapper">
+        SELECT
+        <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_timer_send_task
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.taskId != null and params.taskId !=''">
+                and task_id LIKE  CONCAT('%',#{params.taskId},'%' )
+            </if>
+            <if test="params.clientId != null and params.clientId != ''">
+                and clientid = #{params.clientId}
+            </if>
+            <if test="params.agentId != null">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.clientIds != null and params.clientIds.size > 0">
+                and  clientid IN
+                <foreach collection="params.clientIds" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="params.smstype != null">
+                and smstype = #{params.smstype}
+            </if>
+            <if test="params.sign != null and params.sign !=''">
+                and sign  LIKE  CONCAT('%',#{params.sign},'%' )
+            </if>
+            <if test="params.content != null and params.content !=''">
+                and content LIKE  CONCAT('%',#{params.content},'%' )
+            </if>
+            <if test="params.submittype != null">
+                and submittype =  #{params.submittype}
+            </if>
+            <choose>
+                <when test="params.selectTimeFlag != null and params.selectTimeFlag == 0">
+                    and submit_time BETWEEN  #{params.timeStart}  AND  #{params.timeEnd}
+                </when>
+                <when test="params.selectTimeFlag != null and params.selectTimeFlag == 1">
+                    and set_send_time BETWEEN  #{params.timeStart}  AND  #{params.timeEnd}
+                </when>
+            </choose>
+            <choose>
+                <when test="params.status != null">
+                    and status = #{params.status}
+                </when>
+               <otherwise>
+                   and status != 5
+               </otherwise>
+            </choose>
+        </trim>
+    </select>
+
+    <update id="updateComponentId" parameterType="com.jsmsframework.sms.send.entity.JsmsTimerSendTask">
+        UPDATE t_sms_timer_send_task
+          SET component_id = ${componentId}
+        WHERE
+          task_id = #{taskId} and status=${status}
+    </update>
+</mapper>
+

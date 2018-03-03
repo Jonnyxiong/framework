@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.product.mapper.JsmsAgentProductMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.product.entity.JsmsAgentProduct">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="agentId" jdbcType="INTEGER" column="agent_id"/>
+        <result property="productId" jdbcType="INTEGER" column="product_id"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="creator" jdbcType="VARCHAR" column="creator"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        agent_id,
+        product_id,
+        remark,
+        creator,
+        create_time
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.product.entity.JsmsAgentProduct" >
+        INSERT INTO t_sms_agent_product 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="agentId != null" >
+                agent_id,
+            </if>
+            <if test="productId != null" >
+                product_id,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="creator != null" >
+                creator,
+            </if>
+            <if test="createTime != null" >
+                create_time
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="agentId != null" >
+                #{agentId},
+            </if>
+            <if test="productId != null" >
+                #{productId},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="creator != null" >
+                #{creator},
+            </if>
+            <if test="createTime != null" >
+                now()
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_agent_product (
+            id,
+            agent_id,
+            product_id,
+            remark,
+            creator,
+            create_time
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.agentId},
+                #{item.productId},
+                #{item.remark},
+                #{item.creator},
+                now()
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_agent_product WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.product.entity.JsmsAgentProduct" >
+        UPDATE t_sms_agent_product SET 
+            agent_id=#{agentId},
+            product_id=#{productId},
+            remark=#{remark},
+            creator=#{creator},
+            create_time=#{createTime}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.product.entity.JsmsAgentProduct" >
+        UPDATE t_sms_agent_product 
+            <set>
+                <if test="agentId != null and agentId != ''">
+                    agent_id = #{agentId},
+                </if>
+                <if test="productId != null and productId != ''">
+                    product_id = #{productId},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark},
+                </if>
+                <if test="creator != null and creator != ''">
+                    creator = #{creator},
+                </if>
+                <if test="createTime != null and createTime != ''">
+                    create_time = #{createTime}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_product
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="getByAgentId" resultMap="rowMapper" >
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_product
+        WHERE
+          agent_id = #{agentId}
+    </select>
+
+    <select id="getByAgentIds" resultMap="rowMapper" parameterType="java.util.Set">
+        SELECT
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_agent_product
+        WHERE
+        agent_id IN
+        <foreach collection="agentIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_agent_product 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.agentId != null and params.agentId != ''">
+                and agent_id = #{params.agentId}
+            </if>
+            <if test="params.productId != null and params.productId != ''">
+                and product_id = #{params.productId}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.creator != null and params.creator != ''">
+                and creator = #{params.creator}
+            </if>
+            <if test="params.createTime != null and params.createTime != ''">
+                and create_time = #{params.createTime}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_agent_product 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="agentId != null and agentId != ''">
+                and agent_id = #{agentId}
+            </if>
+            <if test="productId != null and productId != ''">
+                and product_id = #{productId}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="creator != null and creator != ''">
+                and creator = #{creator}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+    </select>
+	 
+</mapper>
+

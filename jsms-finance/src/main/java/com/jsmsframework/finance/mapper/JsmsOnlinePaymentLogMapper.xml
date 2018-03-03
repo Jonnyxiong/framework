@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsmsframework.finance.mapper.JsmsOnlinePaymentLogMapper">
+     
+        
+    <resultMap id="rowMapper" type="com.jsmsframework.finance.entity.JsmsOnlinePaymentLog">
+        <result property="id" jdbcType="INTEGER" column="id"/>
+        <result property="paymentId" jdbcType="VARCHAR" column="payment_id"/>
+        <result property="paymentState" jdbcType="INTEGER" column="payment_state"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="remark" jdbcType="VARCHAR" column="remark"/>
+        <result property="adminId" jdbcType="BIGINT" column="admin_id"/>
+    </resultMap> 
+     
+    <sql id="BASE_COLUMN_LIST">
+        id,
+        payment_id,
+        payment_state,
+        create_time,
+        remark,
+        admin_id
+    </sql>
+
+    <insert id="insert" parameterType="com.jsmsframework.finance.entity.JsmsOnlinePaymentLog" >
+        INSERT INTO t_sms_online_payment_log 
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="paymentId != null" >
+                payment_id,
+            </if>
+            <if test="paymentState != null" >
+                payment_state,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="adminId != null" >
+                admin_id
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="paymentId != null" >
+                #{paymentId},
+            </if>
+            <if test="paymentState != null" >
+                #{paymentState},
+            </if>
+            <if test="createTime != null" >
+                #{createTime},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="adminId != null" >
+                #{adminId}
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List" >
+        INSERT INTO t_sms_online_payment_log (
+            id,
+            payment_id,
+            payment_state,
+            create_time,
+            remark,
+            admin_id
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator="," >  
+            (
+                #{item.id},
+                #{item.paymentId},
+                #{item.paymentState},
+                #{item.createTime},
+                #{item.remark},
+                #{item.adminId}
+            )
+        </foreach>
+    </insert>
+    
+
+    
+
+    <!--
+    <delete id="delete">
+        DELETE FROM t_sms_online_payment_log WHERE id = #{id}
+    </delete>
+    -->
+    
+    <update id="update" parameterType="com.jsmsframework.finance.entity.JsmsOnlinePaymentLog" >
+        UPDATE t_sms_online_payment_log SET 
+            payment_id=#{paymentId},
+            payment_state=#{paymentState},
+            create_time=#{createTime},
+            remark=#{remark},
+            admin_id=#{adminId}
+        WHERE 
+            id = #{id} 
+    </update>
+    
+ 
+    
+    <update id="updateSelective" parameterType="com.jsmsframework.finance.entity.JsmsOnlinePaymentLog" >
+        UPDATE t_sms_online_payment_log 
+            <set>
+                <if test="paymentId != null and paymentId != ''">
+                    payment_id = #{paymentId},
+                </if>
+                <if test="paymentState != null and paymentState != ''">
+                    payment_state = #{paymentState},
+                </if>
+                <if test="createTime != null and createTime != ''">
+                    create_time = #{createTime},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark},
+                </if>
+                <if test="adminId != null and adminId != ''">
+                    admin_id = #{adminId}
+                </if>
+            </set>
+        WHERE 
+            id = #{id} 
+    </update>
+
+    <select id="getById" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" />
+        FROM t_sms_online_payment_log
+        WHERE 
+            id = #{id}
+    </select>
+
+    <select id="queryList" resultMap="rowMapper">
+        SELECT 
+            <include refid="BASE_COLUMN_LIST" /> 
+        FROM t_sms_online_payment_log 
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="params.id != null and params.id != ''">
+                and id = #{params.id}
+            </if>
+            <if test="params.paymentId != null and params.paymentId != ''">
+                and payment_id = #{params.paymentId}
+            </if>
+            <if test="params.paymentState != null and params.paymentState != ''">
+                and payment_state = #{params.paymentState}
+            </if>
+            <if test="params.createTime != null and params.createTime != ''">
+                and create_time = #{params.createTime}
+            </if>
+            <if test="params.remark != null and params.remark != ''">
+                and remark = #{params.remark}
+            </if>
+            <if test="params.adminId != null and params.adminId != ''">
+                and admin_id = #{params.adminId}
+            </if>
+	     </trim>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(0) 
+        FROM t_sms_online_payment_log 
+        WHERE 
+            1 = 1
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="paymentId != null and paymentId != ''">
+                and payment_id = #{paymentId}
+            </if>
+            <if test="paymentState != null and paymentState != ''">
+                and payment_state = #{paymentState}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and create_time = #{createTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="adminId != null and adminId != ''">
+                and admin_id = #{adminId}
+            </if>
+    </select>
+
+
+</mapper>
+

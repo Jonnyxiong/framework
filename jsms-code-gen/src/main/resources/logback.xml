@@ -1,0 +1,68 @@
+
+<configuration>
+    <property name="app_name" value="jsms-cg" />
+    <property name="file_path" value="logs/${app_name}" />
+    <!-- <property name="file_path" value="logs" /> -->
+    <!-- 控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--格式化输出 -->
+            <pattern>%date [%thread] %-5level %c.%method\(%line\) - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+
+
+
+    <!-- 每天生成eror日志文件 -->
+    <appender name="error_file"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${file_path}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_path}/error.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date [%thread] %-5level %c{1}.%method\(%line\) - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+    <!-- 每天生成debug日志文件 -->
+    <appender name="debug_file"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${file_path}/debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${file_path}/debug.%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>60</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date [%thread] %-5level %c{1}.%method\(%line\) - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+
+
+    <!-- 测试、线上环境的日志输出 -->
+    <root level="debug">
+        <appender-ref ref="stdout" />
+        <appender-ref ref="error_file" />
+        <appender-ref ref="debug_file" />
+    </root>
+
+    <logger name="com.jsmsframework" level="INFO" />
+    <logger name="org.springframework" level="INFO" />
+
+</configuration>
